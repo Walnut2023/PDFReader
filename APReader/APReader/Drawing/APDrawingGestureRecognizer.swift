@@ -33,7 +33,6 @@ class APDrawingGestureRecognizer: UIGestureRecognizer {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         state = .changed
-        
         guard let location = touches.first?.location(in: self.view) else { return }
         drawingDelegate?.gestureRecognizerMoved(location)
     }

@@ -9,6 +9,17 @@
 /* Begin PBXBuildFile section */
 		C42CCCB824CC610C00D6F0E8 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCB724CC610C00D6F0E8 /* FileItem.swift */; };
 		C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */; };
+		C437859924CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */; };
+		C437859B24CDB3BE00AE2C07 /* APPDFTextDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437859A24CDB3BE00AE2C07 /* APPDFTextDrawer.swift */; };
+		C43D8E5A24D16F3700558110 /* APPDFToolbarActionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E5924D16F3700558110 /* APPDFToolbarActionControl.swift */; };
+		C43D8E5C24D1702A00558110 /* test-driven.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C43D8E5B24D1702900558110 /* test-driven.pdf */; };
+		C43D8E5E24D1709400558110 /* APOutlineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E5D24D1709400558110 /* APOutlineTableViewController.swift */; };
+		C43D8E6124D173A400558110 /* APOutlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E5F24D173A400558110 /* APOutlineTableViewCell.swift */; };
+		C43D8E6624D1A65F00558110 /* APBookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E6524D1A65F00558110 /* APBookmarkViewController.swift */; };
+		C43D8E6924D1AAE800558110 /* APBookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E6724D1AAE800558110 /* APBookmarkTableViewCell.swift */; };
+		C43D8E6E24D2A4FB00558110 /* APSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E6D24D2A4FB00558110 /* APSearchViewController.swift */; };
+		C43D8E7024D2B2EF00558110 /* APSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E6F24D2B2EF00558110 /* APSearchTableViewCell.swift */; };
+		C45B13BC24CD635B00D30445 /* APNonSelectablePDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B13BB24CD635B00D30445 /* APNonSelectablePDFView.swift */; };
 		C49BE3FD24CC7178006E5D56 /* React.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C49BE3FC24CC7178006E5D56 /* React.pdf */; };
 		C49BE40324CC7A26006E5D56 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40224CC7A26006E5D56 /* UIKitExtensions.swift */; };
 		C49BE40524CC7ACE006E5D56 /* PDFKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40424CC7ACE006E5D56 /* PDFKitExtensions.swift */; };
@@ -26,6 +37,17 @@
 /* Begin PBXFileReference section */
 		C42CCCB724CC610C00D6F0E8 /* FileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItem.swift; sourceTree = "<group>"; };
 		C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewViewController.swift; sourceTree = "<group>"; };
+		C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APTextDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
+		C437859A24CDB3BE00AE2C07 /* APPDFTextDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPDFTextDrawer.swift; sourceTree = "<group>"; };
+		C43D8E5924D16F3700558110 /* APPDFToolbarActionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPDFToolbarActionControl.swift; sourceTree = "<group>"; };
+		C43D8E5B24D1702900558110 /* test-driven.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "test-driven.pdf"; sourceTree = "<group>"; };
+		C43D8E5D24D1709400558110 /* APOutlineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APOutlineTableViewController.swift; sourceTree = "<group>"; };
+		C43D8E5F24D173A400558110 /* APOutlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APOutlineTableViewCell.swift; sourceTree = "<group>"; };
+		C43D8E6524D1A65F00558110 /* APBookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APBookmarkViewController.swift; sourceTree = "<group>"; };
+		C43D8E6724D1AAE800558110 /* APBookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APBookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		C43D8E6D24D2A4FB00558110 /* APSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APSearchViewController.swift; sourceTree = "<group>"; };
+		C43D8E6F24D2B2EF00558110 /* APSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APSearchTableViewCell.swift; sourceTree = "<group>"; };
+		C45B13BB24CD635B00D30445 /* APNonSelectablePDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNonSelectablePDFView.swift; sourceTree = "<group>"; };
 		C49BE3FC24CC7178006E5D56 /* React.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = React.pdf; sourceTree = "<group>"; };
 		C49BE40224CC7A26006E5D56 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		C49BE40424CC7ACE006E5D56 /* PDFKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitExtensions.swift; sourceTree = "<group>"; };
@@ -53,9 +75,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C437859724CDB29F00AE2C07 /* TextDrawing */ = {
+			isa = PBXGroup;
+			children = (
+				C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */,
+				C437859A24CDB3BE00AE2C07 /* APPDFTextDrawer.swift */,
+			);
+			path = TextDrawing;
+			sourceTree = "<group>";
+		};
 		C49BE3FB24CC7178006E5D56 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C43D8E5B24D1702900558110 /* test-driven.pdf */,
 				C49BE3FC24CC7178006E5D56 /* React.pdf */,
 			);
 			path = Resources;
@@ -75,6 +107,7 @@
 				C49BE40724CC7DB0006E5D56 /* APPDFDrawer.swift */,
 				C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */,
 				C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */,
+				C45B13BB24CD635B00D30445 /* APNonSelectablePDFView.swift */,
 			);
 			path = Drawing;
 			sourceTree = "<group>";
@@ -93,6 +126,13 @@
 			children = (
 				C4EF3B3E24CC09E7002E6A6A /* APFileListViewController.swift */,
 				C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */,
+				C43D8E5924D16F3700558110 /* APPDFToolbarActionControl.swift */,
+				C43D8E5D24D1709400558110 /* APOutlineTableViewController.swift */,
+				C43D8E6524D1A65F00558110 /* APBookmarkViewController.swift */,
+				C43D8E6724D1AAE800558110 /* APBookmarkTableViewCell.swift */,
+				C43D8E5F24D173A400558110 /* APOutlineTableViewCell.swift */,
+				C43D8E6D24D2A4FB00558110 /* APSearchViewController.swift */,
+				C43D8E6F24D2B2EF00558110 /* APSearchTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -130,6 +170,7 @@
 				C49BE40024CC71FB006E5D56 /* Extensions */,
 				C49BE3FE24CC71C0006E5D56 /* Model */,
 				C49BE3FB24CC7178006E5D56 /* Resources */,
+				C437859724CDB29F00AE2C07 /* TextDrawing */,
 				C49BE40124CC7664006E5D56 /* ViewControllers */,
 				C4EF3B4024CC09E7002E6A6A /* Main.storyboard */,
 				C4EF3B4524CC09EE002E6A6A /* LaunchScreen.storyboard */,
@@ -200,6 +241,7 @@
 			files = (
 				C49BE3FD24CC7178006E5D56 /* React.pdf in Resources */,
 				C4EF3B4724CC09EE002E6A6A /* LaunchScreen.storyboard in Resources */,
+				C43D8E5C24D1702A00558110 /* test-driven.pdf in Resources */,
 				C4EF3B4424CC09EE002E6A6A /* Assets.xcassets in Resources */,
 				C4EF3B4224CC09E7002E6A6A /* Main.storyboard in Resources */,
 			);
@@ -214,12 +256,22 @@
 			files = (
 				C42CCCB824CC610C00D6F0E8 /* FileItem.swift in Sources */,
 				C49BE40824CC7DB0006E5D56 /* APPDFDrawer.swift in Sources */,
+				C437859B24CDB3BE00AE2C07 /* APPDFTextDrawer.swift in Sources */,
 				C4EF3B3F24CC09E7002E6A6A /* APFileListViewController.swift in Sources */,
 				C49BE40324CC7A26006E5D56 /* UIKitExtensions.swift in Sources */,
+				C437859924CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift in Sources */,
+				C43D8E6924D1AAE800558110 /* APBookmarkTableViewCell.swift in Sources */,
 				C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */,
 				C49BE40524CC7ACE006E5D56 /* PDFKitExtensions.swift in Sources */,
+				C43D8E5E24D1709400558110 /* APOutlineTableViewController.swift in Sources */,
 				C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */,
 				C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */,
+				C43D8E6E24D2A4FB00558110 /* APSearchViewController.swift in Sources */,
+				C43D8E6124D173A400558110 /* APOutlineTableViewCell.swift in Sources */,
+				C45B13BC24CD635B00D30445 /* APNonSelectablePDFView.swift in Sources */,
+				C43D8E6624D1A65F00558110 /* APBookmarkViewController.swift in Sources */,
+				C43D8E7024D2B2EF00558110 /* APSearchTableViewCell.swift in Sources */,
+				C43D8E5A24D16F3700558110 /* APPDFToolbarActionControl.swift in Sources */,
 				C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */,
 				C4EF3B3D24CC09E7002E6A6A /* SceneDelegate.swift in Sources */,
 			);

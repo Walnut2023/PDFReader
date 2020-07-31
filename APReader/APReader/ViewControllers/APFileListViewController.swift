@@ -21,9 +21,19 @@ class APFileListViewController: UIViewController {
         setupDataSource()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     func setupDataSource() {
         for _ in 0...5 {
-            let item = FileItem(name: "React")
+            let item = FileItem(name: "test-driven")
             self.filesList.append(item)
         }
     }
@@ -57,7 +67,6 @@ extension APFileListViewController: UITableViewDataSource {
         cell.textLabel?.text = fileItem.name
         return cell
     }
-
 }
 
 extension APFileListViewController: UITableViewDelegate {

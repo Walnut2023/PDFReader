@@ -13,15 +13,26 @@ class APPreviewViewController: UIViewController {
     
     public var filePath: String?
     
-    @IBOutlet weak var pdfView: PDFView!
+
+    @IBOutlet weak var pdfTittleLabel: UILabel!
+    @IBOutlet weak var pdfView: APNonSelectablePDFView!
     @IBOutlet weak var thumbnailView: PDFThumbnailView!
     @IBOutlet weak var thumbnailViewContainer: UIView!
-    @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var pageControl: UIView!
+    @IBOutlet weak var topToolBar: UIToolbar!
+    @IBOutlet weak var toolContainer: UIView!
+    @IBOutlet weak var topToolbarHeightConstraint: NSLayoutConstraint!
     
     private lazy var tapFestureRecognizer = UITapGestureRecognizer()
     private lazy var pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
+    private lazy var pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
+
+    private var topbarActionControl: APPDFToolbarActionControl?
+
+    public var pdfDocument: PDFDocument?
     
     private let pdfDrawer = APPDFDrawer()
+    private let pdfTextDrawer = APPDFTextDrawer()
     
     private var count = 0
     
@@ -34,8 +45,15 @@ class APPreviewViewController: UIViewController {
         loadPdfFile()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+        super.viewWillAppear(animated)
+    }
+    
     private func setupUI() {
-        self.editBtn.isHidden = true
+        self.pageControl.isHidden = true
+        self.topbarActionControl = APPDFToolbarActionControl(pdfPreviewController: self)
+        
         self.tapFestureRecognizer = UITapGestureRecognizer()
         tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
         pdfView.addGestureRecognizer(tapFestureRecognizer)
@@ -52,51 +70,127 @@ class APPreviewViewController: UIViewController {
         thumbnailView.thumbnailSize = CGSize(width: 100, height: 100)
         thumbnailView.layoutMode = .vertical
         thumbnailView.backgroundColor = thumbnailViewContainer.backgroundColor!
-        
+                
         pdfDrawer.pdfView = pdfView
-    }
-    
-    @IBAction func updateDrawingAction(_ sender: Any) {
-        if count == 0 {
-            pdfView.removeGestureRecognizer(self.tapFestureRecognizer)
-            self.pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
-            pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
-            pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
-            count = 1
-        } else {
-            pdfView.removeGestureRecognizer(self.pdfDrawingGestureRecognizer)
-            self.tapFestureRecognizer = UITapGestureRecognizer()
-            tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
-            pdfView.addGestureRecognizer(tapFestureRecognizer)
-            count = 0
-        } 
-    }
-    
-    private func updateTapGesture() {
-        pdfView.removeGestureRecognizer(self.pdfDrawingGestureRecognizer)
-        self.tapFestureRecognizer = UITapGestureRecognizer()
-        tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
-        pdfView.addGestureRecognizer(tapFestureRecognizer)
+        pdfTextDrawer.pdfView = pdfView
     }
     
     private func loadPdfFile() {
         let fileURL = Bundle.main.url(forResource: filePath, withExtension: "pdf")!
         let pdfDocument = PDFDocument(url: fileURL)
         pdfView.document = pdfDocument
+        self.pdfDocument = pdfDocument
+        pdfTittleLabel.text = self.filePath
     }
     
     // MARK: -  Action
-    // FIXME: view shake
     
     @objc func tappedAction() {
         print("tapped")
-        if self.navigationController?.navigationBar.isHidden ?? false {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.editBtn.isHidden = true
+        UIView.transition(with: self.topToolBar, duration: 0.25, options: .transitionCrossDissolve, animations: {
+            self.topToolBar.isHidden = !self.topToolBar.isHidden
+            self.toolContainer.isHidden = !self.toolContainer.isHidden
+        }, completion: nil)
+    }
+    
+    @IBAction func annotateAction(_ sender: Any) {
+        if count == 0 {
+            self.pageControl.isHidden = false
+            pdfView.removeGestureRecognizer(self.tapFestureRecognizer)
+            self.pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
+            pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
+            pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
+            count = 1
         } else {
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-            self.editBtn.isHidden = false
+            self.pageControl.isHidden = true
+            pdfView.removeGestureRecognizer(self.pdfDrawingGestureRecognizer)
+            self.tapFestureRecognizer = UITapGestureRecognizer()
+            tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            pdfView.addGestureRecognizer(tapFestureRecognizer)
+            count = 0
         }
     }
     
+    @IBAction func textAnnoateAction(_ sender: Any) {
+        if count == 0 {
+            self.pageControl.isHidden = false
+            pdfView.removeGestureRecognizer(self.tapFestureRecognizer)
+            self.pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
+            pdfView.addGestureRecognizer(pdfTextDrawingGestureRecognizer)
+            pdfTextDrawingGestureRecognizer.drawingDelegate = pdfTextDrawer
+            count = 1
+        } else {
+            self.pageControl.isHidden = true
+            pdfView.removeGestureRecognizer(self.pdfTextDrawingGestureRecognizer)
+            self.tapFestureRecognizer = UITapGestureRecognizer()
+            tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            pdfView.addGestureRecognizer(tapFestureRecognizer)
+            count = 0
+        }
+    }
+    
+    @IBAction func saveAction(_ sender: Any) {
+        let path = Bundle.main.url(forResource: filePath, withExtension: "pdf")
+        pdfView.document?.write(to: path!)
+    }
+    
+    @IBAction func pageUpAction(_ sender: Any) {
+        print("page up action")
+        pdfView.goToPreviousPage(sender)
+    }
+    
+    @IBAction func pageDownAction(_ sender: Any) {
+        print("page down action")
+        pdfView.goToNextPage(sender)
+    }
+    
+    @IBAction func switchPenAction(_ sender: Any) {
+        print("switchPenAction")
+        self.pdfDrawer.drawingTool = .pencil
+    }
+    
+    @IBAction func switchPenColor(_ sender: Any) {
+        print("switchPenColor")
+        self.pdfDrawer.color = .blue
+    }
+    
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func outlineClickAction(_ sender: Any) {
+        print("Click outline")
+        self.topbarActionControl?.showOutlineTableForPFDDocument(for: self.pdfDocument, from: sender)
+    }
+    
+    @IBAction func bookmarkAction(_ sender: Any) {
+        print("Click bookmark")
+        self.topbarActionControl?.showBookmarkTable(from: sender)
+    }
+    
+    @IBAction func searchAction(_ sender: Any) {
+        print("click search")
+        self.topbarActionControl?.showSearchViewController(for: self.pdfDocument, from: sender)
+    }
+    
+    func didSelectPdfOutline(_ pdfOutline: PDFOutline?) {
+        if let pdfOutline = pdfOutline {
+            self.pdfView.go(to: (pdfOutline.destination?.page)!)
+        }
+    }
+    
+    func didSelectPdfPageFromBookmark(_ pdfPage: PDFPage?) {
+        if let page = pdfPage {
+            self.pdfView.go(to: page)
+        }
+    }
+    
+    func didSelectPdfSelection(_ pdfSelection: PDFSelection?) {
+        if let selection = pdfSelection {
+            selection.color = .yellow
+            self.pdfView.currentSelection = selection
+            self.pdfView.go(to: selection)
+        }
+    }
 }
+
