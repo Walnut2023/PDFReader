@@ -12,7 +12,7 @@ import PDFKit
 class APPreviewViewController: UIViewController {
     
     public var filePath: String?
-    
+    public var pdfDocument: PDFDocument?
 
     @IBOutlet weak var pdfTittleLabel: UILabel!
     @IBOutlet weak var pdfView: APNonSelectablePDFView!
@@ -22,15 +22,14 @@ class APPreviewViewController: UIViewController {
     @IBOutlet weak var topToolBar: UIToolbar!
     @IBOutlet weak var toolContainer: UIView!
     @IBOutlet weak var topToolbarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pdfViewLeftMarginConstraint: NSLayoutConstraint!
     
     private lazy var tapFestureRecognizer = UITapGestureRecognizer()
     private lazy var pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
     private lazy var pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
-
+    
     private var topbarActionControl: APPDFToolbarActionControl?
 
-    public var pdfDocument: PDFDocument?
-    
     private let pdfDrawer = APPDFDrawer()
     private let pdfTextDrawer = APPDFTextDrawer()
     
@@ -53,7 +52,7 @@ class APPreviewViewController: UIViewController {
     private func setupUI() {
         self.pageControl.isHidden = true
         self.topbarActionControl = APPDFToolbarActionControl(pdfPreviewController: self)
-        
+        self.pdfViewLeftMarginConstraint.constant = 120
         self.tapFestureRecognizer = UITapGestureRecognizer()
         tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
         pdfView.addGestureRecognizer(tapFestureRecognizer)
@@ -90,6 +89,8 @@ class APPreviewViewController: UIViewController {
         UIView.transition(with: self.topToolBar, duration: 0.25, options: .transitionCrossDissolve, animations: {
             self.topToolBar.isHidden = !self.topToolBar.isHidden
             self.toolContainer.isHidden = !self.toolContainer.isHidden
+            self.thumbnailView.isHidden = !self.thumbnailView.isHidden
+            self.pdfViewLeftMarginConstraint.constant = self.pdfViewLeftMarginConstraint.constant > 0 ? 0 : 120
         }, completion: nil)
     }
     
