@@ -55,7 +55,7 @@
             </objects>
             <point key="canvasLocation" x="1271" y="155"/>
         </scene>
-        <!--Detail-->
+        <!--Preview View Controller-->
         <scene sceneID="7TD-P0-xks">
             <objects>
                 <viewController id="3Nl-Bs-oA5" customClass="APPreviewViewController" customModule="APReader" customModuleProvider="target" sceneMemberID="viewController">
@@ -64,25 +64,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="97a-Yt-Bif" customClass="APNonSelectablePDFView" customModule="APReader" customModuleProvider="target">
-                                <rect key="frame" x="120" y="0.0" width="904" height="768"/>
+                                <rect key="frame" x="120" y="50" width="904" height="718"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLN-Tt-UYE">
                                 <rect key="frame" x="950" y="546" width="44" height="128"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-f1-QqN">
-                                        <rect key="frame" x="2.5" y="17.5" width="39" height="93"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-f1-QqN">
+                                        <rect key="frame" x="12" y="19.5" width="20" height="89"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg0-I5-qfc">
-                                                <rect key="frame" x="0.0" y="0.0" width="39" height="30"/>
-                                                <state key="normal" title="Up"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="20" height="28"/>
+                                                <state key="normal" image="up"/>
                                                 <connections>
                                                     <action selector="pageUpAction:" destination="3Nl-Bs-oA5" eventType="touchUpInside" id="J1w-zw-RtD"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtN-Vn-kNk">
-                                                <rect key="frame" x="0.0" y="63" width="39" height="30"/>
-                                                <state key="normal" title="Down"/>
+                                                <rect key="frame" x="0.0" y="61" width="20" height="28"/>
+                                                <state key="normal" image="down"/>
                                                 <connections>
                                                     <action selector="pageDownAction:" destination="3Nl-Bs-oA5" eventType="touchUpInside" id="D4M-dL-KwT"/>
                                                 </connections>
@@ -93,14 +93,16 @@
                                 <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="XKD-b8-9pP"/>
+                                    <constraint firstItem="YBO-f1-QqN" firstAttribute="centerX" secondItem="zLN-Tt-UYE" secondAttribute="centerX" id="aOH-Vi-MuQ"/>
                                     <constraint firstAttribute="width" constant="44" id="gfS-Wg-tU7"/>
+                                    <constraint firstItem="YBO-f1-QqN" firstAttribute="centerY" secondItem="zLN-Tt-UYE" secondAttribute="centerY" id="n3b-An-ajl"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9LJ-Em-8cW">
-                                <rect key="frame" x="0.0" y="0.0" width="120" height="768"/>
+                                <rect key="frame" x="0.0" y="50" width="120" height="718"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vX0-Cf-9lc" customClass="PDFThumbnailView">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="768"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="718"/>
                                         <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                 </subviews>
@@ -113,55 +115,6 @@
                                     <constraint firstAttribute="trailing" secondItem="vX0-Cf-9lc" secondAttribute="trailing" id="bTw-u0-MXf"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWa-En-OFX">
-                                <rect key="frame" x="120" y="0.0" width="904" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="Wum-9n-qkp"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem image="arrow_back" id="Uha-hi-4aM">
-                                        <connections>
-                                            <action selector="backAction:" destination="3Nl-Bs-oA5" id="tmy-NQ-oQX"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem image="outline" id="aEO-oU-TK7">
-                                        <connections>
-                                            <action selector="outlineClickAction:" destination="3Nl-Bs-oA5" id="8w6-GL-dI4"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="aWC-YR-7qR"/>
-                                    <barButtonItem style="plain" id="FDX-ZY-Mt9">
-                                        <view key="customView" contentMode="scaleToFill" id="u3R-SF-XSs">
-                                            <rect key="frame" x="332" y="10" width="240" height="60"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PDF Tittle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wbq-Sa-47t">
-                                                    <rect key="frame" x="73" y="16.5" width="94" height="27"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstItem="Wbq-Sa-47t" firstAttribute="centerY" secondItem="u3R-SF-XSs" secondAttribute="centerY" id="L1z-sZ-rpv"/>
-                                                <constraint firstItem="Wbq-Sa-47t" firstAttribute="centerX" secondItem="u3R-SF-XSs" secondAttribute="centerX" id="yKn-Ub-OoA"/>
-                                            </constraints>
-                                        </view>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="g3K-3T-Rxb"/>
-                                    <barButtonItem image="bookmark" id="q1N-ya-uqj">
-                                        <connections>
-                                            <action selector="bookmarkAction:" destination="3Nl-Bs-oA5" id="p7q-Sh-1ft"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem image="search" id="IgR-Tp-Vhq">
-                                        <connections>
-                                            <action selector="searchAction:" destination="3Nl-Bs-oA5" id="Kcj-Vw-jlQ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13Z-12-olc">
                                 <rect key="frame" x="120" y="704" width="904" height="64"/>
                                 <subviews>
@@ -218,13 +171,10 @@
                             <constraint firstItem="9LJ-Em-8cW" firstAttribute="leading" secondItem="ZVQ-d1-BIx" secondAttribute="leading" id="6w3-dA-FnJ"/>
                             <constraint firstItem="97a-Yt-Bif" firstAttribute="leading" secondItem="9LJ-Em-8cW" secondAttribute="trailing" id="CDb-C0-skR"/>
                             <constraint firstItem="13Z-12-olc" firstAttribute="bottom" secondItem="ZVQ-d1-BIx" secondAttribute="bottom" id="PW6-hV-rmH"/>
-                            <constraint firstItem="SWa-En-OFX" firstAttribute="leading" secondItem="9LJ-Em-8cW" secondAttribute="trailing" id="V2G-uO-weD"/>
                             <constraint firstItem="13Z-12-olc" firstAttribute="top" secondItem="zLN-Tt-UYE" secondAttribute="bottom" constant="30" id="aAM-Fy-zhb"/>
                             <constraint firstItem="97a-Yt-Bif" firstAttribute="top" secondItem="ZVQ-d1-BIx" secondAttribute="top" id="ctG-3U-edp"/>
                             <constraint firstItem="13Z-12-olc" firstAttribute="leading" secondItem="9LJ-Em-8cW" secondAttribute="trailing" id="dsg-yp-D0Z"/>
-                            <constraint firstItem="SWa-En-OFX" firstAttribute="top" secondItem="ZVQ-d1-BIx" secondAttribute="top" id="eDR-bl-d6U"/>
                             <constraint firstItem="13Z-12-olc" firstAttribute="trailing" secondItem="ZVQ-d1-BIx" secondAttribute="trailing" id="gyv-Hr-tAg"/>
-                            <constraint firstItem="SWa-En-OFX" firstAttribute="trailing" secondItem="ZVQ-d1-BIx" secondAttribute="trailing" id="jtV-Iq-dbK"/>
                             <constraint firstItem="9LJ-Em-8cW" firstAttribute="top" secondItem="ZVQ-d1-BIx" secondAttribute="top" id="lL7-dk-mb4"/>
                             <constraint firstItem="9LJ-Em-8cW" firstAttribute="bottom" secondItem="ZVQ-d1-BIx" secondAttribute="bottom" id="nLW-DY-FIw"/>
                             <constraint firstItem="ZVQ-d1-BIx" firstAttribute="trailing" secondItem="zLN-Tt-UYE" secondAttribute="trailing" constant="30" id="s11-Qp-aFg"/>
@@ -232,23 +182,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZVQ-d1-BIx"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Detail" id="9gG-cd-ZU0">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="z7j-Vw-lA7">
-                            <connections>
-                                <action selector="saveAction:" destination="3Nl-Bs-oA5" id="2r0-O4-rKd"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="9gG-cd-ZU0"/>
                     <connections>
                         <outlet property="pageControl" destination="zLN-Tt-UYE" id="Nmd-yk-ghV"/>
-                        <outlet property="pdfTittleLabel" destination="Wbq-Sa-47t" id="VWC-0v-sA9"/>
                         <outlet property="pdfView" destination="97a-Yt-Bif" id="0L9-1e-hJA"/>
                         <outlet property="pdfViewLeftMarginConstraint" destination="BlN-iM-BJ8" id="uII-lX-VA6"/>
                         <outlet property="thumbnailView" destination="vX0-Cf-9lc" id="wVF-cR-W8u"/>
                         <outlet property="thumbnailViewContainer" destination="9LJ-Em-8cW" id="0c9-dd-86e"/>
                         <outlet property="toolContainer" destination="13Z-12-olc" id="TPv-Yk-Ox4"/>
-                        <outlet property="topToolBar" destination="SWa-En-OFX" id="iqR-w0-83K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yPM-bm-xbw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -561,10 +502,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow_back" width="11.5" height="22"/>
         <image name="arrow_right" width="24" height="24"/>
-        <image name="bookmark" width="24" height="24"/>
-        <image name="outline" width="24" height="24"/>
-        <image name="search" width="24" height="24"/>
+        <image name="down" width="20" height="28"/>
+        <image name="up" width="20" height="28"/>
     </resources>
 </document>

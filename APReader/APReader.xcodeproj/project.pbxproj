@@ -26,6 +26,7 @@
 		C49BE40824CC7DB0006E5D56 /* APPDFDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40724CC7DB0006E5D56 /* APPDFDrawer.swift */; };
 		C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */; };
 		C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */; };
+		C4BFFD5D24DCEF8C00222D28 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */; };
 		C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */; };
 		C4EF3B3D24CC09E7002E6A6A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */; };
 		C4EF3B3F24CC09E7002E6A6A /* APFileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3E24CC09E7002E6A6A /* APFileListViewController.swift */; };
@@ -54,6 +55,8 @@
 		C49BE40724CC7DB0006E5D56 /* APPDFDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPDFDrawer.swift; sourceTree = "<group>"; };
 		C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
 		C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawingAnnotation.swift; sourceTree = "<group>"; };
+		C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APReader.entitlements; sourceTree = "<group>"; };
+		C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C4EF3B3724CC09E7002E6A6A /* APReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4BFFD5D24DCEF8C00222D28 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,11 +150,20 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		C4BFFD5B24DCEF8C00222D28 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C4EF3B2E24CC09E7002E6A6A = {
 			isa = PBXGroup;
 			children = (
 				C4EF3B3924CC09E7002E6A6A /* APReader */,
 				C4EF3B3824CC09E7002E6A6A /* Products */,
+				C4BFFD5B24DCEF8C00222D28 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,6 +178,7 @@
 		C4EF3B3924CC09E7002E6A6A /* APReader */ = {
 			isa = PBXGroup;
 			children = (
+				C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */,
 				C49BE40624CC7CDF006E5D56 /* App */,
 				C49BE3FF24CC71D7006E5D56 /* Drawing */,
 				C49BE40024CC71FB006E5D56 /* Extensions */,
@@ -417,15 +431,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RCP5UR6YWS;
+				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tangorios.APReader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tango.apreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -435,15 +452,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RCP5UR6YWS;
+				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tangorios.APReader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tango.apreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
