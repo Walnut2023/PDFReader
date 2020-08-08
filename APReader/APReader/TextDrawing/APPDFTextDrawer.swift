@@ -10,16 +10,6 @@ import UIKit
 import PDFKit
 
 class APPDFTextDrawer: NSObject {
-    
-    //        guard let document = pdfView.document else { return }
-    //        let lastPage = document.page(at: document.pageCount - 1)
-    //        let annotation = PDFAnnotation(bounds: CGRect(x: 100, y: 100, width: 100, height: 20), forType: .freeText, withProperties: nil)
-    //        annotation.contents = "Hello, world!"
-    //        annotation.font = UIFont.systemFont(ofSize: 15.0)
-    //        annotation.fontColor = .blue
-    //        annotation.color = .clear
-    //        lastPage?.addAnnotation(annotation)
-    
     weak var pdfView: PDFView!
     private var textField: UITextField?
     private var currentAnnotation: PDFAnnotation?
@@ -38,17 +28,14 @@ extension APPDFTextDrawer: APTextDrawingGestureRecognizerDelegate {
         
         self.textField?.removeFromSuperview()
         self.textField = UITextField(frame: CGRect(x:location.x, y:location.y, width:200, height:30))
-        //设置边框样式为圆角矩形
         self.textField?.borderStyle = UITextField.BorderStyle.roundedRect
         self.textField?.font = UIFont(name: "TimesNewRomanPSMT", size: 15.0)
-        //修改圆角半径的话需要将masksToBounds设为true
-        self.textField?.layer.cornerRadius = 12.0  //圆角半径
-        self.textField?.layer.borderColor = UIColor.clear.cgColor //边框颜色
+        self.textField?.layer.cornerRadius = 12.0
+        self.textField?.layer.borderColor = UIColor.clear.cgColor
         self.textField?.backgroundColor = .clear
         self.textField?.becomeFirstResponder()
         self.textField?.delegate = self
         pdfView.addSubview(self.textField!)
-        
     }
     
     private func createTextAnnotation(bounds: CGRect, text: String) {
@@ -60,7 +47,7 @@ extension APPDFTextDrawer: APTextDrawingGestureRecognizerDelegate {
         let annotation = PDFAnnotation(bounds: bounds, forType: .freeText, withProperties: nil)
         annotation.contents = text
         annotation.font = UIFont(name: "TimesNewRomanPSMT", size: 15.0)
-        annotation.fontColor = .black
+        annotation.fontColor = color
         annotation.color = .clear
         page.addAnnotation(annotation)
     }
@@ -69,9 +56,7 @@ extension APPDFTextDrawer: APTextDrawingGestureRecognizerDelegate {
 
 extension APPDFTextDrawer: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //收起键盘
         textField.resignFirstResponder()
-        //打印出文本框中的值
         print("string: \(textField.text ?? "no text")")
         createTextAnnotation(bounds: textField.bounds, text: textField.text ?? "")
         UIView.animate(withDuration: 0.0, animations: {

@@ -31,7 +31,7 @@ enum DrawingTool: Int {
     var alpha: CGFloat {
         switch self {
         case .highlighter:
-            return 0.3 //0,5
+            return 0.5
         default:
             return 1
         }
@@ -44,51 +44,68 @@ class APPDFDrawer {
     private var currentAnnotation : APDrawingAnnotation?
     private var currentPage: PDFPage?
     var color = UIColor.red // default color is red
-    var drawingTool = DrawingTool.pen
+    var drawingTool = DrawingTool.pencil
 }
 
 extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
     func gestureRecognizerBegan(_ location: CGPoint) {
         guard let page = pdfView.page(for: location, nearest: true) else { return }
-        currentPage = page
-        let convertedPoint = pdfView.convert(location, to: currentPage!)
-        path = UIBezierPath()
-        path?.move(to: convertedPoint)
+        beginAnnotating(for: page, in: location)
     }
     
     func gestureRecognizerMoved(_ location: CGPoint) {
-        guard let page = currentPage else { return }
-        let convertedPoint = pdfView.convert(location, to: page)
-        
+        guard let currentPage = currentPage else { return }
+        let nearestPage = pdfView.page(for: location, nearest: true) ?? currentPage
+
+        if currentPage != nearestPage {
+            endAnnotating(for: currentPage)
+            self.currentPage = nearestPage
+            beginAnnotating(for: nearestPage, in: location)
+        }
+        let convertedPoint = pdfView.convert(location, to: nearestPage)
+
+        // Erasing
         if drawingTool == .eraser {
-            removeAnnotationAtPoint(point: convertedPoint, page: page)
+            removeAnnotationAtPoint(point: convertedPoint, page: nearestPage)
             return
         }
         
         path?.addLine(to: convertedPoint)
         path?.move(to: convertedPoint)
-        drawAnnotation(onPage: page)
+        drawAnnotation(onPage: nearestPage)
     }
     
     func gestureRecognizerEnded(_ location: CGPoint) {
-        guard let page = currentPage else { return }
-        let convertedPoint = pdfView.convert(location, to: page)
+        guard let currentPage = currentPage else { return }
+        let nearestPage = pdfView.page(for: location, nearest: true) ?? currentPage
+        let convertedPoint = pdfView.convert(location, to: nearestPage)
         
         // Erasing
         if drawingTool == .eraser {
-            removeAnnotationAtPoint(point: convertedPoint, page: page)
+            removeAnnotationAtPoint(point: convertedPoint, page: nearestPage)
             return
         }
         
         // Drawing
-        guard let _ = currentAnnotation else { return }
+        guard currentAnnotation != nil else { return }
         
         path?.addLine(to: convertedPoint)
         path?.move(to: convertedPoint)
         
         // Final annotation
+        endAnnotating(for: nearestPage)
+    }
+    
+    private func beginAnnotating(for page: PDFPage, in location: CGPoint) {
+        currentPage = page
+        let convertedPoint = pdfView.convert(location, to: page)
+        path = UIBezierPath()
+        path?.move(to: convertedPoint)
+    }
+    
+    private func endAnnotating(for page: PDFPage) {
         page.removeAnnotation(currentAnnotation!)
-        _ = createFinalAnnotation(path: path!, page: page)
+        createFinalAnnotation(path: path!, page: page)
         currentAnnotation = nil
     }
     
@@ -113,7 +130,7 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
         forceRedraw(annotation: currentAnnotation!, onPage: onPage)
     }
     
-    private func createFinalAnnotation(path: UIBezierPath, page: PDFPage) -> PDFAnnotation {
+    private func createFinalAnnotation(path: UIBezierPath, page: PDFPage) {
         let border = PDFBorder()
         border.lineWidth = drawingTool.width
         
@@ -130,8 +147,6 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
         annotation.border = border
         annotation.add(signingPathCentered)
         page.addAnnotation(annotation)
-                
-        return annotation
     }
     
     private func removeAnnotationAtPoint(point: CGPoint, page: PDFPage) {

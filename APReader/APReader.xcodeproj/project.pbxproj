@@ -27,6 +27,14 @@
 		C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */; };
 		C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */; };
 		C4BFFD5D24DCEF8C00222D28 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */; };
+		C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */; };
+		C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */; };
+		C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6A24DED75B00222D28 /* ChromaShadeSlider.swift */; };
+		C4BFFD7124DED75C00222D28 /* UIColor+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6B24DED75B00222D28 /* UIColor+Utilities.swift */; };
+		C4BFFD7224DED75C00222D28 /* ChromaColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6C24DED75B00222D28 /* ChromaColorPicker.swift */; };
+		C4BFFD7324DED75C00222D28 /* ColorModeToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6D24DED75B00222D28 /* ColorModeToggleButton.swift */; };
+		C4BFFD7424DED75C00222D28 /* ChromaHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6E24DED75B00222D28 /* ChromaHandle.swift */; };
+		C4BFFD7524DED75C00222D28 /* ChromaAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6F24DED75B00222D28 /* ChromaAddButton.swift */; };
 		C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */; };
 		C4EF3B3D24CC09E7002E6A6A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */; };
 		C4EF3B3F24CC09E7002E6A6A /* APFileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3E24CC09E7002E6A6A /* APFileListViewController.swift */; };
@@ -57,6 +65,14 @@
 		C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawingAnnotation.swift; sourceTree = "<group>"; };
 		C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APReader.entitlements; sourceTree = "<group>"; };
 		C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPencilControl.swift; sourceTree = "<group>"; };
+		C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APColorPickerViewController.swift; sourceTree = "<group>"; };
+		C4BFFD6A24DED75B00222D28 /* ChromaShadeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaShadeSlider.swift; sourceTree = "<group>"; };
+		C4BFFD6B24DED75B00222D28 /* UIColor+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Utilities.swift"; sourceTree = "<group>"; };
+		C4BFFD6C24DED75B00222D28 /* ChromaColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaColorPicker.swift; sourceTree = "<group>"; };
+		C4BFFD6D24DED75B00222D28 /* ColorModeToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorModeToggleButton.swift; sourceTree = "<group>"; };
+		C4BFFD6E24DED75B00222D28 /* ChromaHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaHandle.swift; sourceTree = "<group>"; };
+		C4BFFD6F24DED75B00222D28 /* ChromaAddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaAddButton.swift; sourceTree = "<group>"; };
 		C4EF3B3724CC09E7002E6A6A /* APReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,7 +152,9 @@
 				C43D8E6724D1AAE800558110 /* APBookmarkTableViewCell.swift */,
 				C43D8E5F24D173A400558110 /* APOutlineTableViewCell.swift */,
 				C43D8E6D24D2A4FB00558110 /* APSearchViewController.swift */,
+				C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */,
 				C43D8E6F24D2B2EF00558110 /* APSearchTableViewCell.swift */,
+				C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -156,6 +174,19 @@
 				C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C4BFFD6924DED75B00222D28 /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				C4BFFD6A24DED75B00222D28 /* ChromaShadeSlider.swift */,
+				C4BFFD6B24DED75B00222D28 /* UIColor+Utilities.swift */,
+				C4BFFD6C24DED75B00222D28 /* ChromaColorPicker.swift */,
+				C4BFFD6D24DED75B00222D28 /* ColorModeToggleButton.swift */,
+				C4BFFD6E24DED75B00222D28 /* ChromaHandle.swift */,
+				C4BFFD6F24DED75B00222D28 /* ChromaAddButton.swift */,
+			);
+			path = ColorPicker;
 			sourceTree = "<group>";
 		};
 		C4EF3B2E24CC09E7002E6A6A = {
@@ -180,6 +211,7 @@
 			children = (
 				C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */,
 				C49BE40624CC7CDF006E5D56 /* App */,
+				C4BFFD6924DED75B00222D28 /* ColorPicker */,
 				C49BE3FF24CC71D7006E5D56 /* Drawing */,
 				C49BE40024CC71FB006E5D56 /* Extensions */,
 				C49BE3FE24CC71C0006E5D56 /* Model */,
@@ -270,6 +302,7 @@
 			files = (
 				C42CCCB824CC610C00D6F0E8 /* FileItem.swift in Sources */,
 				C49BE40824CC7DB0006E5D56 /* APPDFDrawer.swift in Sources */,
+				C4BFFD7224DED75C00222D28 /* ChromaColorPicker.swift in Sources */,
 				C437859B24CDB3BE00AE2C07 /* APPDFTextDrawer.swift in Sources */,
 				C4EF3B3F24CC09E7002E6A6A /* APFileListViewController.swift in Sources */,
 				C49BE40324CC7A26006E5D56 /* UIKitExtensions.swift in Sources */,
@@ -281,11 +314,18 @@
 				C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */,
 				C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */,
 				C43D8E6E24D2A4FB00558110 /* APSearchViewController.swift in Sources */,
+				C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */,
+				C4BFFD7124DED75C00222D28 /* UIColor+Utilities.swift in Sources */,
 				C43D8E6124D173A400558110 /* APOutlineTableViewCell.swift in Sources */,
 				C45B13BC24CD635B00D30445 /* APNonSelectablePDFView.swift in Sources */,
+				C4BFFD7324DED75C00222D28 /* ColorModeToggleButton.swift in Sources */,
+				C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */,
+				C4BFFD7424DED75C00222D28 /* ChromaHandle.swift in Sources */,
 				C43D8E6624D1A65F00558110 /* APBookmarkViewController.swift in Sources */,
 				C43D8E7024D2B2EF00558110 /* APSearchTableViewCell.swift in Sources */,
+				C4BFFD7524DED75C00222D28 /* ChromaAddButton.swift in Sources */,
 				C43D8E5A24D16F3700558110 /* APPDFToolbarActionControl.swift in Sources */,
+				C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */,
 				C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */,
 				C4EF3B3D24CC09E7002E6A6A /* SceneDelegate.swift in Sources */,
 			);
@@ -363,7 +403,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -417,7 +457,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

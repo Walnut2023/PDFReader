@@ -11,10 +11,16 @@ import PDFKit
 
 class APPreviewViewController: UIViewController {
     
+    enum EditingMode {
+        case pen
+        case text
+    }
+    
     public var filePath: String?
     public var pdfDocument: PDFDocument?
+    var editingMode: EditingMode? = .pen
+    var editingColor: UIColor? = .red
 
-    
     @IBOutlet weak var pageNumberContainer: UIView!
     @IBOutlet weak var tittleLabelContainer: UIView!
     @IBOutlet weak var pageNumberLabel: UILabel!
@@ -25,6 +31,13 @@ class APPreviewViewController: UIViewController {
     @IBOutlet weak var pageControl: UIView!
     @IBOutlet weak var toolContainer: UIView!
         
+    @IBOutlet weak var pencilBtn: UIButton!
+    @IBOutlet weak var penBtn: UIButton!
+    @IBOutlet weak var paintBtn: UIButton!
+    @IBOutlet weak var eraserBtn: UIButton!
+    @IBOutlet weak var colorBtn: UIButton!
+    @IBOutlet weak var moreBtn: UIButton!
+    
     private lazy var backBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "arrow_back"), style: .plain, target: self, action: #selector(backAction))
     private lazy var outlineBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "outline"), style: .plain, target: self, action: #selector(outlineAction))
     private lazy var editBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "edit"), style: .plain, target: self, action: #selector(editAction))
@@ -34,11 +47,12 @@ class APPreviewViewController: UIViewController {
     private lazy var undoPreviousBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "undopre"), style: .plain, target: self, action: #selector(undoLastAction))
     private lazy var undoNextBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "undonext"), style: .plain, target: self, action: #selector(undoNextAction))
 
-    private lazy var tapFestureRecognizer = UITapGestureRecognizer()
+    private lazy var tapGestureRecognizer = UITapGestureRecognizer()
     private lazy var pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
     private lazy var pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
     
-    private var topbarActionControl: APPDFToolbarActionControl?
+    private var toolbarActionControl: APPDFToolbarActionControl?
+    private var penControl: APPencilControl?
     private var editButtonClicked: Bool = false
     
     private let pdfDrawer = APPDFDrawer()
@@ -50,6 +64,7 @@ class APPreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupStates()
         setupEvents()
         setupPDFView()
         loadPdfFile()
@@ -80,14 +95,26 @@ class APPreviewViewController: UIViewController {
         
         pdfTittleLabel.text = pdfDocument?.documentAttributes?[PDFDocumentAttribute.titleAttribute] as? String ?? pdfDocument?.documentURL?.lastPathComponent
         
+        setupPenControl()
         updatePageNumberLabel()
 
         self.pageControl.isHidden = true
         self.toolContainer.isHidden = true
-        self.topbarActionControl = APPDFToolbarActionControl(pdfPreviewController: self)
-        self.tapFestureRecognizer = UITapGestureRecognizer()
-        tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
-        pdfView.addGestureRecognizer(tapFestureRecognizer)
+        self.toolbarActionControl = APPDFToolbarActionControl(pdfPreviewController: self)
+        self.tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+        pdfView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func setupStates() {
+        switch editingMode {
+        case .pen:
+            editingColor = pdfDrawer.color
+        case .text:
+            editingColor = pdfTextDrawer.color
+        default:
+            editingColor = pdfDrawer.color
+        }
     }
     
     func setupEvents() {
@@ -95,11 +122,11 @@ class APPreviewViewController: UIViewController {
                                                selector: #selector(pdfViewPageChanged),
                                                name: .PDFViewPageChanged,
                                                object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(pdfViewPageChanged),
-                                               name: .PDFViewSelectionChanged,
-                                               object: nil)
-        
+    }
+    
+    func setupPenControl() {
+        penControl = APPencilControl(buttonsArray: [penBtn, pencilBtn, paintBtn, eraserBtn])
+        penControl?.defaultButton = pencilBtn
     }
     
     private func setupPDFView() {
@@ -144,7 +171,7 @@ class APPreviewViewController: UIViewController {
     
     @objc func outlineAction(_ sender: Any) {
         print("Click outline")
-        self.topbarActionControl?.showOutlineTableForPFDDocument(for: self.pdfDocument, from: sender)
+        self.toolbarActionControl?.showOutlineTableForPFDDocument(for: self.pdfDocument, from: sender)
     }
 
     @objc func editAction() {
@@ -157,33 +184,37 @@ class APPreviewViewController: UIViewController {
             self.thumbnailViewContainer.isHidden = true
             self.pageControl.isHidden = false
             self.toolContainer.isHidden = false
-            pdfView.removeGestureRecognizer(self.tapFestureRecognizer)
+            self.tittleLabelContainer.isHidden = true
+            pdfView.removeGestureRecognizer(self.tapGestureRecognizer)
             self.pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
             pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
             pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
-
         } else {
             navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem], animated: true)
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, editBarButtonItem], animated: true)
             
-            self.thumbnailViewContainer.isHidden = false
+            thumbnailViewContainer.isHidden = false
             self.pageControl.isHidden = true
             self.toolContainer.isHidden = true
-            pdfView.removeGestureRecognizer(self.pdfDrawingGestureRecognizer)
-            self.tapFestureRecognizer = UITapGestureRecognizer()
-            tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
-            pdfView.addGestureRecognizer(tapFestureRecognizer)
+            self.tittleLabelContainer.isHidden = false
+            pdfView.removeGestureRecognizer(pdfDrawingGestureRecognizer)
+            pdfView.removeGestureRecognizer(pdfTextDrawingGestureRecognizer)
+            self.tapGestureRecognizer = UITapGestureRecognizer()
+            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            pdfView.addGestureRecognizer(tapGestureRecognizer)
+            
+            savePDFDocument()
         }
     }
     
     @objc func bookmarkAction(_ sender: Any) {
         print("Click bookmark")
-        self.topbarActionControl?.showBookmarkTable(from: sender)
+        self.toolbarActionControl?.showBookmarkTable(from: sender)
     }
     
     @objc func searchAction(_ sender: Any) {
         print("click search")
-        self.topbarActionControl?.showSearchViewController(for: self.pdfDocument, from: sender)
+        self.toolbarActionControl?.showSearchViewController(for: self.pdfDocument, from: sender)
     }
     
     @objc func undoLastAction() {
@@ -194,38 +225,39 @@ class APPreviewViewController: UIViewController {
         print("redo next action tapped")
     }
     
-    @IBAction func annotateAction(_ sender: Any) {
-        if count == 0 {
-            self.pageControl.isHidden = false
-            pdfView.removeGestureRecognizer(self.tapFestureRecognizer)
-            self.pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
-            pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
-            pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
-            count = 1
-        } else {
-            self.pageControl.isHidden = true
-            pdfView.removeGestureRecognizer(self.pdfDrawingGestureRecognizer)
-            self.tapFestureRecognizer = UITapGestureRecognizer()
-            tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
-            pdfView.addGestureRecognizer(tapFestureRecognizer)
-            count = 0
-        }
+    @IBAction func penControlClicked(_ sender: UIButton) {
+        print("penControlClicked")
+        penControl?.buttonArrayUpdated(buttonSelected: sender)
+        self.pdfDrawer.drawingTool = penControl!.selectedValue
     }
     
-    @IBAction func textAnnoateAction(_ sender: Any) {
+    @IBAction func colorBtnClicked(_ sender: Any) {
+        print("colorBtnClicked")
+        self.toolbarActionControl?.showColorPickerViewController(editingColor!, from: sender)
+    }
+    
+    @IBAction func moreBtnClicked(_ sender: Any) {
+        print("moreBtnClicked")
         if count == 0 {
-            self.pageControl.isHidden = false
-            pdfView.removeGestureRecognizer(self.tapFestureRecognizer)
-            self.pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
+            editingMode = .text
+            pdfView.removeGestureRecognizer(self.tapGestureRecognizer)
+            pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
             pdfView.addGestureRecognizer(pdfTextDrawingGestureRecognizer)
+            pdfTextDrawer.color = editingColor!
             pdfTextDrawingGestureRecognizer.drawingDelegate = pdfTextDrawer
+            moreBtn.setTitle("Done", for: .normal)
+            moreBtn.setTitleColor(.systemBlue, for: .normal)
+            penControl?.disableButtonArray()
             count = 1
         } else {
-            self.pageControl.isHidden = true
+            editingMode = .pen
             pdfView.removeGestureRecognizer(self.pdfTextDrawingGestureRecognizer)
-            self.tapFestureRecognizer = UITapGestureRecognizer()
-            tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
-            pdfView.addGestureRecognizer(tapFestureRecognizer)
+            tapGestureRecognizer = UITapGestureRecognizer()
+            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            pdfView.addGestureRecognizer(tapGestureRecognizer)
+            moreBtn.setTitle("Text", for: .normal)
+            moreBtn.setTitleColor(.systemBlue, for: .normal)
+            penControl?.enableButtonArray()
             count = 0
         }
     }
@@ -238,16 +270,6 @@ class APPreviewViewController: UIViewController {
     @IBAction func pageDownAction(_ sender: Any) {
         print("page down action")
         pdfView.goToNextPage(sender)
-    }
-    
-    @IBAction func switchPenAction(_ sender: Any) {
-        print("switchPenAction")
-        self.pdfDrawer.drawingTool = .pencil
-    }
-    
-    @IBAction func switchPenColor(_ sender: Any) {
-        print("switchPenColor")
-        self.pdfDrawer.color = .blue
     }
     
     func didSelectPdfOutline(_ pdfOutline: PDFOutline?) {
@@ -270,6 +292,18 @@ class APPreviewViewController: UIViewController {
         }
     }
     
+    func didSelectColor(_ color: UIColor?) {
+        if let color = color {
+            if editingMode == .pen {
+                self.pdfDrawer.color = color
+            } else {
+                self.pdfTextDrawer.color = color
+            }
+            editingColor = color
+            self.colorBtn.backgroundColor = color
+        }
+    }
+    
     // MARK: - Notification Events
     @objc func pdfViewPageChanged(_ notification: Notification) {
         updatePageNumberLabel()
@@ -286,5 +320,10 @@ class APPreviewViewController: UIViewController {
         if pdfView.displayMode == .singlePage || pdfView.displayMode == .singlePageContinuous {
             pageNumberLabel.text = String("\(index + 1)/\(pageCount)")
         }
+    }
+    
+    func savePDFDocument() {
+        let path = Bundle.main.url(forResource: filePath, withExtension: "pdf")
+        pdfView.document?.write(to: path!)
     }
 }

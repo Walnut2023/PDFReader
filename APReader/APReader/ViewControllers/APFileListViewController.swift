@@ -18,12 +18,17 @@ class APFileListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         setupDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnTap = false
+    }
+    
+    func setupUI() {
+        self.tableView.tableFooterView = UIView()
     }
     
     func setupDataSource() {
