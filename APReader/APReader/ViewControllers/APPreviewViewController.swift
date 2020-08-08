@@ -14,13 +14,16 @@ class APPreviewViewController: UIViewController {
     public var filePath: String?
     public var pdfDocument: PDFDocument?
 
+    
+    @IBOutlet weak var pageNumberContainer: UIView!
+    @IBOutlet weak var tittleLabelContainer: UIView!
+    @IBOutlet weak var pageNumberLabel: UILabel!
     @IBOutlet weak var pdfTittleLabel: UILabel!
     @IBOutlet weak var pdfView: APNonSelectablePDFView!
     @IBOutlet weak var thumbnailView: PDFThumbnailView!
     @IBOutlet weak var thumbnailViewContainer: UIView!
     @IBOutlet weak var pageControl: UIView!
     @IBOutlet weak var toolContainer: UIView!
-    @IBOutlet weak var pdfViewLeftMarginConstraint: NSLayoutConstraint!
         
     private lazy var backBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "arrow_back"), style: .plain, target: self, action: #selector(backAction))
     private lazy var outlineBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "outline"), style: .plain, target: self, action: #selector(outlineAction))
@@ -47,16 +50,13 @@ class APPreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        setupEvents()
         setupPDFView()
         loadPdfFile()
-
+        setupUI()
     }
     
     override var prefersStatusBarHidden: Bool {
-        
-        navigationController?.hidesBarsOnTap = editButtonClicked ? false : true
-
         if editButtonClicked {
             return false
         } else {
@@ -78,16 +78,32 @@ class APPreviewViewController: UIViewController {
         navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem], animated: true)
         navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, editBarButtonItem], animated: true)
         
+        pdfTittleLabel.text = pdfDocument?.documentAttributes?[PDFDocumentAttribute.titleAttribute] as? String ?? pdfDocument?.documentURL?.lastPathComponent
+        
+        updatePageNumberLabel()
+
         self.pageControl.isHidden = true
+        self.toolContainer.isHidden = true
         self.topbarActionControl = APPDFToolbarActionControl(pdfPreviewController: self)
-        self.pdfViewLeftMarginConstraint.constant = 120
         self.tapFestureRecognizer = UITapGestureRecognizer()
         tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
         pdfView.addGestureRecognizer(tapFestureRecognizer)
     }
     
+    func setupEvents() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(pdfViewPageChanged),
+                                               name: .PDFViewPageChanged,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(pdfViewPageChanged),
+                                               name: .PDFViewSelectionChanged,
+                                               object: nil)
+        
+    }
+    
     private func setupPDFView() {
-        pdfView.displayDirection = .vertical
+        pdfView.displayDirection = .horizontal
         pdfView.usePageViewController(true)
         pdfView.pageBreakMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         pdfView.autoScales = true
@@ -95,7 +111,7 @@ class APPreviewViewController: UIViewController {
         
         thumbnailView.pdfView = pdfView
         thumbnailView.thumbnailSize = CGSize(width: 100, height: 100)
-        thumbnailView.layoutMode = .vertical
+        thumbnailView.layoutMode = .horizontal
         thumbnailView.backgroundColor = thumbnailViewContainer.backgroundColor!
                 
         pdfDrawer.pdfView = pdfView
@@ -113,11 +129,12 @@ class APPreviewViewController: UIViewController {
     
     @objc func tappedAction() {
         print("tapped")
-        UIView.transition(with: self.toolContainer, duration: 0.25, options: .transitionCrossDissolve, animations: {
+        UIView.transition(with: self.thumbnailViewContainer, duration: 0.25, options: .transitionCrossDissolve, animations: {
             self.navigationController?.setNavigationBarHidden(!(self.navigationController?.isNavigationBarHidden ?? false) , animated: true)
-            self.toolContainer.isHidden = !self.toolContainer.isHidden
             self.thumbnailView.isHidden = !self.thumbnailView.isHidden
-            self.pdfViewLeftMarginConstraint.constant = self.pdfViewLeftMarginConstraint.constant > 0 ? 0 : 120
+            self.thumbnailViewContainer.isHidden = !self.thumbnailViewContainer.isHidden
+            self.pageNumberContainer.isHidden = !self.pageNumberContainer.isHidden
+            self.tittleLabelContainer.isHidden = !self.tittleLabelContainer.isHidden
         }, completion: nil)
     }
     
@@ -137,7 +154,9 @@ class APPreviewViewController: UIViewController {
             navigationItem.setLeftBarButtonItems([backBarButtonItem], animated: true)
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, edittingBarButtonItem, undoNextBarButtonItem, undoPreviousBarButtonItem], animated: true)
             
+            self.thumbnailViewContainer.isHidden = true
             self.pageControl.isHidden = false
+            self.toolContainer.isHidden = false
             pdfView.removeGestureRecognizer(self.tapFestureRecognizer)
             self.pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
             pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
@@ -147,7 +166,9 @@ class APPreviewViewController: UIViewController {
             navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem], animated: true)
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, editBarButtonItem], animated: true)
             
+            self.thumbnailViewContainer.isHidden = false
             self.pageControl.isHidden = true
+            self.toolContainer.isHidden = true
             pdfView.removeGestureRecognizer(self.pdfDrawingGestureRecognizer)
             self.tapFestureRecognizer = UITapGestureRecognizer()
             tapFestureRecognizer.addTarget(self, action: #selector(tappedAction))
@@ -248,5 +269,22 @@ class APPreviewViewController: UIViewController {
             self.pdfView.go(to: selection)
         }
     }
-}
+    
+    // MARK: - Notification Events
+    @objc func pdfViewPageChanged(_ notification: Notification) {
+        updatePageNumberLabel()
+    }
+    
+    func updatePageNumberLabel() {
+        guard let currentPage = pdfView.visiblePages.first,
+            let index = pdfDocument?.index(for: currentPage),
+            let pageCount = pdfDocument?.pageCount else {
+                pageNumberLabel.text = nil
+                return
+        }
 
+        if pdfView.displayMode == .singlePage || pdfView.displayMode == .singlePageContinuous {
+            pageNumberLabel.text = String("\(index + 1)/\(pageCount)")
+        }
+    }
+}
