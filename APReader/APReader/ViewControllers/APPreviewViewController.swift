@@ -44,8 +44,8 @@ class APPreviewViewController: UIViewController {
     private lazy var edittingBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "editing"), style: .plain, target: self, action: #selector(editAction))
     private lazy var bookmarkBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "bookmark"), style: .plain, target: self, action: #selector(bookmarkAction))
     private lazy var searchBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "search"), style: .plain, target: self, action: #selector(searchAction))
-    private lazy var undoPreviousBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "undopre"), style: .plain, target: self, action: #selector(undoLastAction))
-    private lazy var undoNextBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "undonext"), style: .plain, target: self, action: #selector(undoNextAction))
+    private lazy var undoBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "undo"), style: .plain, target: self, action: #selector(undoAction))
+    private lazy var redoBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "redo"), style: .plain, target: self, action: #selector(redoAction))
 
     private lazy var tapGestureRecognizer = UITapGestureRecognizer()
     private lazy var pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
@@ -122,6 +122,10 @@ class APPreviewViewController: UIViewController {
                                                selector: #selector(pdfViewPageChanged),
                                                name: .PDFViewPageChanged,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(orientationChanged),
+                                               name: UIDevice.orientationDidChangeNotification,
+                                               object:nil)
     }
     
     func setupPenControl() {
@@ -143,6 +147,11 @@ class APPreviewViewController: UIViewController {
                 
         pdfDrawer.pdfView = pdfView
         pdfTextDrawer.pdfView = pdfView
+        
+        pdfDrawer.delegate = self
+        
+        undoBarButtonItem.isEnabled = pdfDrawer.undoEnable
+        redoBarButtonItem.isEnabled = pdfDrawer.redoEnable
     }
     
     private func loadPdfFile() {
@@ -179,7 +188,7 @@ class APPreviewViewController: UIViewController {
         editButtonClicked = !editButtonClicked
         if editButtonClicked {
             navigationItem.setLeftBarButtonItems([backBarButtonItem], animated: true)
-            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, edittingBarButtonItem, undoNextBarButtonItem, undoPreviousBarButtonItem], animated: true)
+            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, edittingBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
             
             self.thumbnailViewContainer.isHidden = true
             self.pageControl.isHidden = false
@@ -217,12 +226,14 @@ class APPreviewViewController: UIViewController {
         self.toolbarActionControl?.showSearchViewController(for: self.pdfDocument, from: sender)
     }
     
-    @objc func undoLastAction() {
-        print("redo last action tapped")
+    @objc func undoAction() {
+        print("undo action tapped")
+        pdfDrawer.undoAction()
     }
     
-    @objc func undoNextAction() {
-        print("redo next action tapped")
+    @objc func redoAction() {
+        print("redo action tapped")
+        pdfDrawer.redoAction()
     }
     
     @IBAction func penControlClicked(_ sender: UIButton) {
@@ -250,6 +261,7 @@ class APPreviewViewController: UIViewController {
             penControl?.disableButtonArray()
             count = 1
         } else {
+            pdfTextDrawer.endEditing()
             editingMode = .pen
             pdfView.removeGestureRecognizer(self.pdfTextDrawingGestureRecognizer)
             tapGestureRecognizer = UITapGestureRecognizer()
@@ -309,6 +321,22 @@ class APPreviewViewController: UIViewController {
         updatePageNumberLabel()
     }
     
+    @objc func orientationChanged(_ notification: Notification) {
+        let device = UIDevice.current
+        switch device.orientation {
+        case .portrait:
+            print("portrait")
+        case .portraitUpsideDown:
+            print("portraitUpsideDown")
+        case .landscapeLeft:
+            print("landscapeLeft")
+        case.landscapeRight:
+            print("landscapeRight")
+        default:
+            print("unknown")
+        }
+    }
+    
     func updatePageNumberLabel() {
         guard let currentPage = pdfView.visiblePages.first,
             let index = pdfDocument?.index(for: currentPage),
@@ -325,5 +353,12 @@ class APPreviewViewController: UIViewController {
     func savePDFDocument() {
         let path = Bundle.main.url(forResource: filePath, withExtension: "pdf")
         pdfView.document?.write(to: path!)
+    }
+}
+
+extension APPreviewViewController: APPDFDrawerDelegate {
+    func pdfDrawerDidFinishDrawing() {
+        undoBarButtonItem.isEnabled = pdfDrawer.undoEnable
+        redoBarButtonItem.isEnabled = pdfDrawer.redoEnable
     }
 }

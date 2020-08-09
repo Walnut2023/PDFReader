@@ -38,13 +38,73 @@ enum DrawingTool: Int {
     }
 }
 
+class APAnnotationItem {
+    var annotation: PDFAnnotation
+    var path: UIBezierPath
+    init(_ anno: PDFAnnotation, _ newpath: UIBezierPath) {
+        annotation = anno
+        path = newpath
+    }
+}
+
+protocol APPDFDrawerDelegate: NSObject {
+    func pdfDrawerDidFinishDrawing()
+}
+
 class APPDFDrawer {
     weak var pdfView: PDFView!
+    weak var delegate: APPDFDrawerDelegate?
     private var path: UIBezierPath?
     private var currentAnnotation : APDrawingAnnotation?
+    private var undoAnnotations: [APAnnotationItem] {
+        didSet {
+            undoEnable = undoAnnotations.count > 0
+            delegate?.pdfDrawerDidFinishDrawing()
+        }
+    }
+    private var redoAnnotations: [APAnnotationItem] {
+        didSet {
+            redoEnable = redoAnnotations.count > 0
+            delegate?.pdfDrawerDidFinishDrawing()
+        }
+    }
+    
+    init() {
+        undoAnnotations = [APAnnotationItem]()
+        redoAnnotations = [APAnnotationItem]()
+    }
+    
     private var currentPage: PDFPage?
+    
+    var undoEnable: Bool = false
+    
+    var redoEnable: Bool = false
+    
     var color = UIColor.red // default color is red
     var drawingTool = DrawingTool.pencil
+    
+    public func undoAction() {
+        if undoAnnotations.count < 0 {
+            return
+        }
+        let last = undoAnnotations.last
+        currentPage?.removeAnnotation(last!.annotation)
+        redoAnnotations.insert(last!, at: 0)
+        undoAnnotations.removeLast()
+    }
+    
+    public func redoAction() {
+        if redoAnnotations.count < 0 {
+            return
+        }
+        guard let currentPage = currentPage else { return }
+        if redoAnnotations.count > 0 {
+            let first = redoAnnotations.first
+            createFinalAnnotation(path: first!.path, page: currentPage)
+            redoAnnotations.remove(at: 0)
+        }
+        print("redoAnnotations count: \(redoAnnotations.count)")
+    }
 }
 
 extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
@@ -107,6 +167,8 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
         page.removeAnnotation(currentAnnotation!)
         createFinalAnnotation(path: path!, page: page)
         currentAnnotation = nil
+        // notify
+        delegate?.pdfDrawerDidFinishDrawing()
     }
     
     private func createAnnotation(path: UIBezierPath, page: PDFPage) -> APDrawingAnnotation {
@@ -131,6 +193,11 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
     }
     
     private func createFinalAnnotation(path: UIBezierPath, page: PDFPage) {
+        
+        if drawingTool == .eraser {
+            return
+        }
+        
         let border = PDFBorder()
         border.lineWidth = drawingTool.width
         
@@ -147,10 +214,14 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
         annotation.border = border
         annotation.add(signingPathCentered)
         page.addAnnotation(annotation)
+        
+        // store in annotations
+        undoAnnotations.append(APAnnotationItem(annotation, path))
     }
     
     private func removeAnnotationAtPoint(point: CGPoint, page: PDFPage) {
         if let selectedAnnotation = page.annotationWithHitTest(at: point) {
+            redoAnnotations.insert(APAnnotationItem(selectedAnnotation, path!), at: 0)
             selectedAnnotation.page?.removeAnnotation(selectedAnnotation)
         }
     }

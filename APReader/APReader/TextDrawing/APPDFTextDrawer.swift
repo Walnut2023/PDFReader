@@ -16,6 +16,11 @@ class APPDFTextDrawer: NSObject {
     private var currentPage: PDFPage?
     private var currentLocation: CGPoint?
     var color = UIColor.red
+    
+    func endEditing() {
+        textField?.resignFirstResponder()
+        textField?.removeFromSuperview()
+    }
 }
 
 extension APPDFTextDrawer: APTextDrawingGestureRecognizerDelegate {
