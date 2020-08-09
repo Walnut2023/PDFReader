@@ -105,6 +105,15 @@ class APPDFDrawer {
         }
         print("redoAnnotations count: \(redoAnnotations.count)")
     }
+    
+    public func clearAllAnnotations() {
+        if undoAnnotations.count > 0 {
+            for annotation in undoAnnotations {
+                currentPage?.removeAnnotation(annotation.annotation)
+            }
+            undoAnnotations.removeAll()
+        }
+    }
 }
 
 extension APPDFDrawer: APDrawingGestureRecognizerDelegate {

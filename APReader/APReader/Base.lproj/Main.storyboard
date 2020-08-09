@@ -68,7 +68,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLN-Tt-UYE">
-                                <rect key="frame" x="964" y="532" width="40" height="128"/>
+                                <rect key="frame" x="964" y="568" width="40" height="128"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-f1-QqN">
                                         <rect key="frame" x="10" y="19.5" width="20" height="89"/>
@@ -99,10 +99,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9LJ-Em-8cW">
-                                <rect key="frame" x="0.0" y="668" width="1024" height="100"/>
+                                <rect key="frame" x="0.0" y="704" width="1024" height="64"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vX0-Cf-9lc" customClass="PDFThumbnailView">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="64"/>
                                         <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                 </subviews>
@@ -110,7 +110,7 @@
                                 <constraints>
                                     <constraint firstItem="vX0-Cf-9lc" firstAttribute="leading" secondItem="9LJ-Em-8cW" secondAttribute="leading" id="8HC-Eg-3PR"/>
                                     <constraint firstAttribute="trailing" secondItem="vX0-Cf-9lc" secondAttribute="trailing" id="Cf1-zX-zFR"/>
-                                    <constraint firstAttribute="height" constant="100" id="Meu-DX-Uh7"/>
+                                    <constraint firstAttribute="height" constant="64" id="Meu-DX-Uh7"/>
                                     <constraint firstItem="vX0-Cf-9lc" firstAttribute="top" secondItem="9LJ-Em-8cW" secondAttribute="top" id="Zb2-Hk-a6q"/>
                                     <constraint firstAttribute="bottom" secondItem="vX0-Cf-9lc" secondAttribute="bottom" id="ssQ-yA-97c"/>
                                 </constraints>
@@ -196,6 +196,7 @@
                                     <constraint firstItem="ZYn-Gq-SLs" firstAttribute="centerY" secondItem="GVY-PD-AfU" secondAttribute="centerY" id="AtR-La-ZYo"/>
                                     <constraint firstItem="urK-hp-ecn" firstAttribute="centerY" secondItem="ZYn-Gq-SLs" secondAttribute="centerY" id="DMw-Cv-ahv"/>
                                     <constraint firstItem="ZYn-Gq-SLs" firstAttribute="leading" secondItem="GVY-PD-AfU" secondAttribute="trailing" constant="20" id="EgX-3X-OI5"/>
+                                    <constraint firstItem="zv8-ne-3dY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="urK-hp-ecn" secondAttribute="trailing" constant="8" symbolic="YES" id="HqR-JY-YOu"/>
                                     <constraint firstItem="Z1d-J2-vCh" firstAttribute="centerY" secondItem="3Rp-qT-Mut" secondAttribute="centerY" id="Iqf-dG-7mT"/>
                                     <constraint firstItem="3Rp-qT-Mut" firstAttribute="leading" secondItem="Z1d-J2-vCh" secondAttribute="trailing" constant="20" id="KhM-5q-HE0"/>
                                     <constraint firstItem="urK-hp-ecn" firstAttribute="leading" secondItem="ZYn-Gq-SLs" secondAttribute="trailing" constant="20" id="QiX-2S-qRN"/>
@@ -231,7 +232,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bW3-xs-fy4">
-                                <rect key="frame" x="457" y="630" width="110" height="30"/>
+                                <rect key="frame" x="457" y="666" width="110" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Page Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdN-ut-AHy">
                                         <rect key="frame" x="11" y="7" width="88" height="16"/>
@@ -417,14 +418,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="APBookmarkTableViewCell" id="z21-IL-l9d" customClass="APBookmarkTableViewCell" customModule="APReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1024" height="30"/>
+                                        <rect key="frame" x="0.0" y="28" width="1024" height="29.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z21-IL-l9d" id="xNq-QS-kko">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="30"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="29.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2u-A0-fpJ">
-                                                    <rect key="frame" x="16" y="4" width="992" height="20.5"/>
+                                                    <rect key="frame" x="16" y="4" width="992" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>

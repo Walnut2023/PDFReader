@@ -135,13 +135,14 @@ class APPreviewViewController: UIViewController {
     
     private func setupPDFView() {
         pdfView.displayDirection = .horizontal
+        pdfView.displayMode = .singlePage
         pdfView.usePageViewController(true)
         pdfView.pageBreakMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         pdfView.autoScales = true
         pdfView.backgroundColor = view.backgroundColor!
         
         thumbnailView.pdfView = pdfView
-        thumbnailView.thumbnailSize = CGSize(width: 100, height: 100)
+        thumbnailView.thumbnailSize = CGSize(width: 44, height: 54)
         thumbnailView.layoutMode = .horizontal
         thumbnailView.backgroundColor = thumbnailViewContainer.backgroundColor!
                 
@@ -212,8 +213,22 @@ class APPreviewViewController: UIViewController {
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             
-            savePDFDocument()
+            showAlertController()
         }
+    }
+    
+    func showAlertController() {
+        let alertController = UIAlertController(title:"Info", message: "Are you willing to save the changes?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Canecl", style: .cancel) { (action) in
+            self.pdfDrawer.clearAllAnnotations()
+        }
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            self.savePDFDocument()
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+
+        self.present(alertController, animated: true, completion: nil)
     }
     
     @objc func bookmarkAction(_ sender: Any) {
@@ -338,21 +353,19 @@ class APPreviewViewController: UIViewController {
     }
     
     func updatePageNumberLabel() {
-        guard let currentPage = pdfView.visiblePages.first,
-            let index = pdfDocument?.index(for: currentPage),
-            let pageCount = pdfDocument?.pageCount else {
+        guard let currentPage = pdfView.currentPage,
+            let index = pdfView.document?.index(for: currentPage),
+            let pageCount = pdfView.document?.pageCount else {
                 pageNumberLabel.text = nil
                 return
         }
-
-        if pdfView.displayMode == .singlePage || pdfView.displayMode == .singlePageContinuous {
-            pageNumberLabel.text = String("\(index + 1)/\(pageCount)")
-        }
+        print("pageCount: \(pageCount) -- index: \(index)")
+        pageNumberLabel.text = "\(index + 1)/\(pageCount)"
     }
     
     func savePDFDocument() {
-        let path = Bundle.main.url(forResource: filePath, withExtension: "pdf")
-        pdfView.document?.write(to: path!)
+        let path = Bundle.main.url(forResource: self.filePath, withExtension: "pdf")
+        self.pdfView.document?.write(to: path!)
     }
 }
 
