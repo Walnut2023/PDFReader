@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C89ABC927202224FB26B68F /* Pods_APReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25FAAE032315DF02CFA94E11 /* Pods_APReader.framework */; };
 		C42CCCB824CC610C00D6F0E8 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCB724CC610C00D6F0E8 /* FileItem.swift */; };
 		C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */; };
 		C437859924CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */; };
@@ -26,7 +27,6 @@
 		C49BE40824CC7DB0006E5D56 /* APPDFDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40724CC7DB0006E5D56 /* APPDFDrawer.swift */; };
 		C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */; };
 		C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */; };
-		C4BFFD5D24DCEF8C00222D28 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */; };
 		C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */; };
 		C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */; };
 		C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6A24DED75B00222D28 /* ChromaShadeSlider.swift */; };
@@ -41,9 +41,17 @@
 		C4EF3B4224CC09E7002E6A6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EF3B4024CC09E7002E6A6A /* Main.storyboard */; };
 		C4EF3B4424CC09EE002E6A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4EF3B4324CC09EE002E6A6A /* Assets.xcassets */; };
 		C4EF3B4724CC09EE002E6A6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EF3B4524CC09EE002E6A6A /* LaunchScreen.storyboard */; };
+		C4F1DBCB24E28E4000476494 /* AuthSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F1DBCA24E28E4000476494 /* AuthSettings.plist */; };
+		C4F1DBCE24E28F5E00476494 /* APAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBCD24E28F5E00476494 /* APAuthManager.swift */; };
+		C4F1DBD024E296C700476494 /* APLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBCF24E296C700476494 /* APLoginViewController.swift */; };
+		C4F1DBD224E2AE8300476494 /* APProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBD124E2AE8300476494 /* APProfileViewController.swift */; };
+		C4F1DBD724E2D3E500476494 /* APGraphManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBD624E2D3E500476494 /* APGraphManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		25FAAE032315DF02CFA94E11 /* Pods_APReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		567F145151DFBEE3A0C2CBC4 /* Pods-APReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APReader.debug.xcconfig"; path = "Target Support Files/Pods-APReader/Pods-APReader.debug.xcconfig"; sourceTree = "<group>"; };
+		AD7B16EE42D79E779FBF3A46 /* Pods-APReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APReader.release.xcconfig"; path = "Target Support Files/Pods-APReader/Pods-APReader.release.xcconfig"; sourceTree = "<group>"; };
 		C42CCCB724CC610C00D6F0E8 /* FileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItem.swift; sourceTree = "<group>"; };
 		C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewViewController.swift; sourceTree = "<group>"; };
 		C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APTextDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -81,6 +89,11 @@
 		C4EF3B4324CC09EE002E6A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4EF3B4624CC09EE002E6A6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4EF3B4824CC09EE002E6A6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4F1DBCA24E28E4000476494 /* AuthSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuthSettings.plist; sourceTree = "<group>"; };
+		C4F1DBCD24E28F5E00476494 /* APAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APAuthManager.swift; sourceTree = "<group>"; };
+		C4F1DBCF24E296C700476494 /* APLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APLoginViewController.swift; sourceTree = "<group>"; };
+		C4F1DBD124E2AE8300476494 /* APProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APProfileViewController.swift; sourceTree = "<group>"; };
+		C4F1DBD624E2D3E500476494 /* APGraphManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APGraphManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,13 +101,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4BFFD5D24DCEF8C00222D28 /* CloudKit.framework in Frameworks */,
+				9C89ABC927202224FB26B68F /* Pods_APReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F9D8FE7654E807838A7F6A1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				567F145151DFBEE3A0C2CBC4 /* Pods-APReader.debug.xcconfig */,
+				AD7B16EE42D79E779FBF3A46 /* Pods-APReader.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C437859724CDB29F00AE2C07 /* TextDrawing */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +177,8 @@
 				C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */,
 				C43D8E6F24D2B2EF00558110 /* APSearchTableViewCell.swift */,
 				C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */,
+				C4F1DBCF24E296C700476494 /* APLoginViewController.swift */,
+				C4F1DBD124E2AE8300476494 /* APProfileViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -172,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */,
+				25FAAE032315DF02CFA94E11 /* Pods_APReader.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -195,6 +220,7 @@
 				C4EF3B3924CC09E7002E6A6A /* APReader */,
 				C4EF3B3824CC09E7002E6A6A /* Products */,
 				C4BFFD5B24DCEF8C00222D28 /* Frameworks */,
+				9F9D8FE7654E807838A7F6A1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -209,11 +235,14 @@
 		C4EF3B3924CC09E7002E6A6A /* APReader */ = {
 			isa = PBXGroup;
 			children = (
+				C4F1DBCC24E28F2500476494 /* AuthManager */,
 				C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */,
+				C4F1DBCA24E28E4000476494 /* AuthSettings.plist */,
 				C49BE40624CC7CDF006E5D56 /* App */,
 				C4BFFD6924DED75B00222D28 /* ColorPicker */,
 				C49BE3FF24CC71D7006E5D56 /* Drawing */,
 				C49BE40024CC71FB006E5D56 /* Extensions */,
+				C4F1DBD824E2D3E900476494 /* GraphManager */,
 				C49BE3FE24CC71C0006E5D56 /* Model */,
 				C49BE3FB24CC7178006E5D56 /* Resources */,
 				C437859724CDB29F00AE2C07 /* TextDrawing */,
@@ -226,6 +255,22 @@
 			path = APReader;
 			sourceTree = "<group>";
 		};
+		C4F1DBCC24E28F2500476494 /* AuthManager */ = {
+			isa = PBXGroup;
+			children = (
+				C4F1DBCD24E28F5E00476494 /* APAuthManager.swift */,
+			);
+			path = AuthManager;
+			sourceTree = "<group>";
+		};
+		C4F1DBD824E2D3E900476494 /* GraphManager */ = {
+			isa = PBXGroup;
+			children = (
+				C4F1DBD624E2D3E500476494 /* APGraphManager.swift */,
+			);
+			path = GraphManager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -233,9 +278,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C4EF3B4B24CC09EE002E6A6A /* Build configuration list for PBXNativeTarget "APReader" */;
 			buildPhases = (
+				707FAFA570E88D90A78184BA /* [CP] Check Pods Manifest.lock */,
 				C4EF3B3324CC09E7002E6A6A /* Sources */,
 				C4EF3B3424CC09E7002E6A6A /* Frameworks */,
 				C4EF3B3524CC09E7002E6A6A /* Resources */,
+				24C3C2D922130637CA9E0DC2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -290,10 +337,53 @@
 				C43D8E5C24D1702A00558110 /* test-driven.pdf in Resources */,
 				C4EF3B4424CC09EE002E6A6A /* Assets.xcassets in Resources */,
 				C4EF3B4224CC09E7002E6A6A /* Main.storyboard in Resources */,
+				C4F1DBCB24E28E4000476494 /* AuthSettings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		24C3C2D922130637CA9E0DC2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-APReader/Pods-APReader-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-APReader/Pods-APReader-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-APReader/Pods-APReader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		707FAFA570E88D90A78184BA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-APReader-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C4EF3B3324CC09E7002E6A6A /* Sources */ = {
@@ -313,6 +403,7 @@
 				C43D8E5E24D1709400558110 /* APOutlineTableViewController.swift in Sources */,
 				C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */,
 				C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */,
+				C4F1DBD724E2D3E500476494 /* APGraphManager.swift in Sources */,
 				C43D8E6E24D2A4FB00558110 /* APSearchViewController.swift in Sources */,
 				C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */,
 				C4BFFD7124DED75C00222D28 /* UIColor+Utilities.swift in Sources */,
@@ -323,10 +414,13 @@
 				C4BFFD7424DED75C00222D28 /* ChromaHandle.swift in Sources */,
 				C43D8E6624D1A65F00558110 /* APBookmarkViewController.swift in Sources */,
 				C43D8E7024D2B2EF00558110 /* APSearchTableViewCell.swift in Sources */,
+				C4F1DBD024E296C700476494 /* APLoginViewController.swift in Sources */,
 				C4BFFD7524DED75C00222D28 /* ChromaAddButton.swift in Sources */,
 				C43D8E5A24D16F3700558110 /* APPDFToolbarActionControl.swift in Sources */,
 				C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */,
 				C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */,
+				C4F1DBCE24E28F5E00476494 /* APAuthManager.swift in Sources */,
+				C4F1DBD224E2AE8300476494 /* APProfileViewController.swift in Sources */,
 				C4EF3B3D24CC09E7002E6A6A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,6 +563,7 @@
 		};
 		C4EF3B4C24CC09EE002E6A6A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 567F145151DFBEE3A0C2CBC4 /* Pods-APReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
@@ -490,6 +585,7 @@
 		};
 		C4EF3B4D24CC09EE002E6A6A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD7B16EE42D79E779FBF3A46 /* Pods-APReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;

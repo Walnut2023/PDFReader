@@ -68,3 +68,14 @@ extension UIBezierPath {
         return self
     }
 }
+
+extension UIViewController {
+    func sceneDelegateWindow() -> UIWindow? {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let sceneDelegate = windowScene.delegate as? SceneDelegate
+            else {
+                return nil
+        }
+        return sceneDelegate.window
+    }
+}

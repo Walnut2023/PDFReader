@@ -16,6 +16,15 @@ class APFileListViewController: UIViewController {
     
     static let cellID = "fileItemID"
     
+    override var hidesBottomBarWhenPushed: Bool {
+        get {
+            return navigationController?.topViewController != self
+        }
+        set {
+            super.hidesBottomBarWhenPushed = newValue
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
