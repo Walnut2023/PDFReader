@@ -80,7 +80,7 @@ class APPreviewViewController: UIViewController {
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return UIStatusBarAnimation.slide
+        return .slide
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +89,6 @@ class APPreviewViewController: UIViewController {
     
     private func setupUI() {
         navigationController?.hidesBarsOnTap = false
-
         navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem], animated: true)
         navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, editBarButtonItem], animated: true)
         
@@ -176,6 +175,7 @@ class APPreviewViewController: UIViewController {
     }
     
     @objc func backAction(_ sender: Any) {
+//        savePDFDocument()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -213,7 +213,6 @@ class APPreviewViewController: UIViewController {
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             
-            showAlertController()
         }
     }
     
@@ -223,7 +222,6 @@ class APPreviewViewController: UIViewController {
             self.pdfDrawer.clearAllAnnotations()
         }
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            self.savePDFDocument()
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
@@ -271,8 +269,7 @@ class APPreviewViewController: UIViewController {
             pdfView.addGestureRecognizer(pdfTextDrawingGestureRecognizer)
             pdfTextDrawer.color = editingColor!
             pdfTextDrawingGestureRecognizer.drawingDelegate = pdfTextDrawer
-            moreBtn.setTitle("Done", for: .normal)
-            moreBtn.setTitleColor(.systemBlue, for: .normal)
+            moreBtn.setImage(UIImage.init(named: "edit_done"), for: .normal)
             penControl?.disableButtonArray()
             count = 1
         } else {
@@ -282,8 +279,7 @@ class APPreviewViewController: UIViewController {
             tapGestureRecognizer = UITapGestureRecognizer()
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
-            moreBtn.setTitle("Text", for: .normal)
-            moreBtn.setTitleColor(.systemBlue, for: .normal)
+            moreBtn.setImage(UIImage.init(named: "edit_begin"), for: .normal)
             penControl?.enableButtonArray()
             count = 0
         }
@@ -364,8 +360,10 @@ class APPreviewViewController: UIViewController {
     }
     
     func savePDFDocument() {
-        let path = Bundle.main.url(forResource: self.filePath, withExtension: "pdf")
-        self.pdfView.document?.write(to: path!)
+        DispatchQueue.global(qos: .background).async {
+          let path = Bundle.main.url(forResource: self.filePath, withExtension: "pdf")
+          self.pdfView.document?.write(to: path!)
+        }
     }
 }
 
