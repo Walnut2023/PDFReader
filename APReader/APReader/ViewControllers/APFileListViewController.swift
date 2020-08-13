@@ -7,14 +7,25 @@
 //
 
 import UIKit
+import MSGraphClientModels
+import Tiercel
 
 class APFileListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private var filesList: [FileItem] = [FileItem]()
+    private var files: [MSGraphDriveItem]?
     
     static let cellID = "fileItemID"
+    
+    var sessionManager: SessionManager = {
+        var configuration = SessionConfiguration()
+        configuration.allowsCellularAccess = true
+        let path = Cache.defaultDiskCachePathClosure("APReader.OneDrive")
+        let cacahe = Cache("OneDrive", downloadPath: path)
+        let manager = SessionManager("OneDrive", configuration: configuration, cache: cacahe, operationQueue: DispatchQueue(label: "com.tango.SessionManager.operationQueue"))
+        return manager
+    }()
     
     override var hidesBottomBarWhenPushed: Bool {
         get {
@@ -41,9 +52,25 @@ class APFileListViewController: UIViewController {
     }
     
     func setupDataSource() {
-        for _ in 0...5 {
-            let item = FileItem(name: "test-driven")
-            self.filesList.append(item)
+        APGraphManager.instance.getFiles {
+            (fileArray: [MSGraphDriveItem]?, error: Error?) in
+            DispatchQueue.main.async {
+                guard let files = fileArray, error == nil else {
+                    // Show the error
+                    let alert = UIAlertController(title: "Error getting files",
+                                                  message: error.debugDescription,
+                                                  preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                    return
+                }
+                
+                self.files = files.filter({ (fileItem) -> Bool in
+                    fileItem.name?.contains(".pdf") ?? false
+                })
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -54,7 +81,8 @@ class APFileListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPreview" {
             guard let vc = segue.destination as? APPreviewViewController else { return }
-            vc.filePath = self.filesList[tableView.indexPathForSelectedRow!.row].name
+            let filePath = self.files?[tableView.indexPathForSelectedRow!.row].name
+            vc.filePath = filePath
         }
     }
     
@@ -63,23 +91,74 @@ class APFileListViewController: UIViewController {
 extension APFileListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1;
+        return self.files?.count ?? 0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.filesList.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: APFileListViewController.cellID, for:indexPath)
-        let fileItem = self.filesList[indexPath.row]
-        cell.textLabel?.text = fileItem.name
+        let cell = tableView.dequeueReusableCell(withIdentifier: APFileListViewController.cellID) as! APFileItemTableViewCell
+        let fileItem = self.files?[indexPath.row]
+        cell.filename = fileItem?.name
+        cell.updatetime = "\(fileItem?.lastModifiedTimeString() ?? "1970") - \((fileItem?.size ?? 0) / 1024 / 1024)MB"
+        
+        cell.tapClosure = { [weak self] cell in
+            if let task = self?.sessionManager.tasks.safeObject(at: indexPath.row) {
+                switch task.status {
+                case .waiting, .running:
+                    self?.sessionManager.suspend(task)
+                case .suspended, .failed:
+                    self?.sessionManager.start(task)
+                default: break
+                }
+            } else {
+                // shouldn't be like this
+                self?.sessionManager.download(fileItem?.graphDownloadUrl() ?? "", fileName: fileItem?.name) { _ in
+                    self?.tableView.reloadData()
+                }
+                
+            }
+        }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let task = sessionManager.tasks.safeObject(at: indexPath.row),
+            let cell = cell as? APFileItemTableViewCell else { return }
+        
+        
+        cell.updateProgress(task)
+        
+        task.progress { [weak cell] (task) in
+            cell?.updateProgress(task)
+        }
+        .success { [weak cell] (task) in
+            cell?.updateProgress(task)
+        }
+        .failure { [weak cell] (task) in
+            cell?.updateProgress(task)
+            if task.status == .suspended {
+                
+            }
+            
+            if task.status == .failed {
+                
+            }
+            if task.status == .canceled {
+                
+            }
+            if task.status == .removed {
+                
+            }
+        }
+    }
+    
 }
 
 extension APFileListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        return 100
     }
 }

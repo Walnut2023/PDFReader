@@ -20,7 +20,7 @@ class APPreviewViewController: UIViewController {
     public var pdfDocument: PDFDocument?
     var editingMode: EditingMode? = .pen
     var editingColor: UIColor? = .red
-
+    
     @IBOutlet weak var pageNumberContainer: UIView!
     @IBOutlet weak var tittleLabelContainer: UIView!
     @IBOutlet weak var pageNumberLabel: UILabel!
@@ -30,7 +30,7 @@ class APPreviewViewController: UIViewController {
     @IBOutlet weak var thumbnailViewContainer: UIView!
     @IBOutlet weak var pageControl: UIView!
     @IBOutlet weak var toolContainer: UIView!
-        
+    
     @IBOutlet weak var pencilBtn: UIButton!
     @IBOutlet weak var penBtn: UIButton!
     @IBOutlet weak var paintBtn: UIButton!
@@ -46,7 +46,7 @@ class APPreviewViewController: UIViewController {
     private lazy var searchBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "search"), style: .plain, target: self, action: #selector(searchAction))
     private lazy var undoBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "undo"), style: .plain, target: self, action: #selector(undoAction))
     private lazy var redoBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "redo"), style: .plain, target: self, action: #selector(redoAction))
-
+    
     private lazy var tapGestureRecognizer = UITapGestureRecognizer()
     private lazy var pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
     private lazy var pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
@@ -96,7 +96,7 @@ class APPreviewViewController: UIViewController {
         
         setupPenControl()
         updatePageNumberLabel()
-
+        
         self.pageControl.isHidden = true
         self.toolContainer.isHidden = true
         self.toolbarActionControl = APPDFToolbarActionControl(pdfPreviewController: self)
@@ -144,7 +144,7 @@ class APPreviewViewController: UIViewController {
         thumbnailView.thumbnailSize = CGSize(width: 44, height: 54)
         thumbnailView.layoutMode = .horizontal
         thumbnailView.backgroundColor = thumbnailViewContainer.backgroundColor!
-                
+        
         pdfDrawer.pdfView = pdfView
         pdfTextDrawer.pdfView = pdfView
         
@@ -155,8 +155,7 @@ class APPreviewViewController: UIViewController {
     }
     
     private func loadPdfFile() {
-        let fileURL = Bundle.main.url(forResource: filePath, withExtension: "pdf")!
-        let pdfDocument = PDFDocument(url: fileURL)
+        let pdfDocument = PDFDocument(url: self.getFileUrl())
         pdfView.document = pdfDocument
         self.pdfDocument = pdfDocument
     }
@@ -175,7 +174,7 @@ class APPreviewViewController: UIViewController {
     }
     
     @objc func backAction(_ sender: Any) {
-//        savePDFDocument()
+        //        savePDFDocument()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -183,7 +182,7 @@ class APPreviewViewController: UIViewController {
         print("Click outline")
         self.toolbarActionControl?.showOutlineTableForPFDDocument(for: self.pdfDocument, from: sender)
     }
-
+    
     @objc func editAction() {
         print("editAction tapped")
         editButtonClicked = !editButtonClicked
@@ -225,7 +224,7 @@ class APPreviewViewController: UIViewController {
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
-
+        
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -348,6 +347,14 @@ class APPreviewViewController: UIViewController {
         }
     }
     
+    func getFileUrl() -> URL {
+        let fileManager = FileManager.default
+        let docsurl = try! fileManager.url(
+            for: .cachesDirectory, in: .userDomainMask,
+            appropriateFor: nil, create: true)
+        return docsurl.appendingPathComponent("APReader.OneDrive/File/\(self.filePath ?? "")")
+    }
+    
     func updatePageNumberLabel() {
         guard let currentPage = pdfView.currentPage,
             let index = pdfView.document?.index(for: currentPage),
@@ -361,8 +368,8 @@ class APPreviewViewController: UIViewController {
     
     func savePDFDocument() {
         DispatchQueue.global(qos: .background).async {
-          let path = Bundle.main.url(forResource: self.filePath, withExtension: "pdf")
-          self.pdfView.document?.write(to: path!)
+            let path = Bundle.main.url(forResource: self.filePath, withExtension: "pdf")
+            self.pdfView.document?.write(to: path!)
         }
     }
 }

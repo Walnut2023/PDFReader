@@ -9,4 +9,6 @@ target 'APReader' do
   pod 'MSAL', '~> 1.1.1'
   pod 'MSGraphClientSDK', ' ~> 1.0.0'
   pod 'MSGraphClientModels', '~> 1.3.0'
+  
+  pod 'Tiercel'
 end

@@ -82,11 +82,11 @@ class APAuthManager: NSObject, MSAuthenticationProvider {
                     return
                 }
 
-                print("Got token silently: \(tokenResult.accessToken)")
+//                print("Got token silently: \(tokenResult0.accessToken)")
                 completion(tokenResult.accessToken, nil)
             })
         } else {
-            print("No account in cache")
+//            print("No account in cache")
             completion(nil, NSError(domain: "AuthenticationManager",
                                     code: MSALError.interactionRequired.rawValue, userInfo: nil))
         }

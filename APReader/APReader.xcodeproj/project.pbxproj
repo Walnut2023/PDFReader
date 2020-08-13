@@ -46,6 +46,10 @@
 		C4F1DBD024E296C700476494 /* APLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBCF24E296C700476494 /* APLoginViewController.swift */; };
 		C4F1DBD224E2AE8300476494 /* APProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBD124E2AE8300476494 /* APProfileViewController.swift */; };
 		C4F1DBD724E2D3E500476494 /* APGraphManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBD624E2D3E500476494 /* APGraphManager.swift */; };
+		C4F1DBDC24E2F62900476494 /* APTestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBDB24E2F62900476494 /* APTestTableViewController.swift */; };
+		C4F1DBDE24E2F96900476494 /* APFileItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBDD24E2F96900476494 /* APFileItemTableViewCell.swift */; };
+		C4F1DBE724E590C700476494 /* APDriveEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBE624E590C700476494 /* APDriveEntityExtensions.swift */; };
+		C4F1DBEA24E5947500476494 /* APUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBE924E5947400476494 /* APUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +98,10 @@
 		C4F1DBCF24E296C700476494 /* APLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APLoginViewController.swift; sourceTree = "<group>"; };
 		C4F1DBD124E2AE8300476494 /* APProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APProfileViewController.swift; sourceTree = "<group>"; };
 		C4F1DBD624E2D3E500476494 /* APGraphManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APGraphManager.swift; sourceTree = "<group>"; };
+		C4F1DBDB24E2F62900476494 /* APTestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APTestTableViewController.swift; sourceTree = "<group>"; };
+		C4F1DBDD24E2F96900476494 /* APFileItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APFileItemTableViewCell.swift; sourceTree = "<group>"; };
+		C4F1DBE624E590C700476494 /* APDriveEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDriveEntityExtensions.swift; sourceTree = "<group>"; };
+		C4F1DBE924E5947400476494 /* APUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +167,7 @@
 			children = (
 				C49BE40224CC7A26006E5D56 /* UIKitExtensions.swift */,
 				C49BE40424CC7ACE006E5D56 /* PDFKitExtensions.swift */,
+				C4F1DBE624E590C700476494 /* APDriveEntityExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -179,6 +188,8 @@
 				C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */,
 				C4F1DBCF24E296C700476494 /* APLoginViewController.swift */,
 				C4F1DBD124E2AE8300476494 /* APProfileViewController.swift */,
+				C4F1DBDB24E2F62900476494 /* APTestTableViewController.swift */,
+				C4F1DBDD24E2F96900476494 /* APFileItemTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -235,14 +246,15 @@
 		C4EF3B3924CC09E7002E6A6A /* APReader */ = {
 			isa = PBXGroup;
 			children = (
-				C4F1DBCC24E28F2500476494 /* AuthManager */,
 				C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */,
 				C4F1DBCA24E28E4000476494 /* AuthSettings.plist */,
+				C4F1DBCC24E28F2500476494 /* AuthManager */,
 				C49BE40624CC7CDF006E5D56 /* App */,
 				C4BFFD6924DED75B00222D28 /* ColorPicker */,
 				C49BE3FF24CC71D7006E5D56 /* Drawing */,
 				C49BE40024CC71FB006E5D56 /* Extensions */,
 				C4F1DBD824E2D3E900476494 /* GraphManager */,
+				C4F1DBE824E5946400476494 /* Utiles */,
 				C49BE3FE24CC71C0006E5D56 /* Model */,
 				C49BE3FB24CC7178006E5D56 /* Resources */,
 				C437859724CDB29F00AE2C07 /* TextDrawing */,
@@ -269,6 +281,14 @@
 				C4F1DBD624E2D3E500476494 /* APGraphManager.swift */,
 			);
 			path = GraphManager;
+			sourceTree = "<group>";
+		};
+		C4F1DBE824E5946400476494 /* Utiles */ = {
+			isa = PBXGroup;
+			children = (
+				C4F1DBE924E5947400476494 /* APUtils.swift */,
+			);
+			path = Utiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -401,18 +421,22 @@
 				C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */,
 				C49BE40524CC7ACE006E5D56 /* PDFKitExtensions.swift in Sources */,
 				C43D8E5E24D1709400558110 /* APOutlineTableViewController.swift in Sources */,
+				C4F1DBDE24E2F96900476494 /* APFileItemTableViewCell.swift in Sources */,
 				C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */,
 				C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */,
 				C4F1DBD724E2D3E500476494 /* APGraphManager.swift in Sources */,
+				C4F1DBDC24E2F62900476494 /* APTestTableViewController.swift in Sources */,
 				C43D8E6E24D2A4FB00558110 /* APSearchViewController.swift in Sources */,
 				C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */,
 				C4BFFD7124DED75C00222D28 /* UIColor+Utilities.swift in Sources */,
 				C43D8E6124D173A400558110 /* APOutlineTableViewCell.swift in Sources */,
 				C45B13BC24CD635B00D30445 /* APNonSelectablePDFView.swift in Sources */,
 				C4BFFD7324DED75C00222D28 /* ColorModeToggleButton.swift in Sources */,
+				C4F1DBE724E590C700476494 /* APDriveEntityExtensions.swift in Sources */,
 				C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */,
 				C4BFFD7424DED75C00222D28 /* ChromaHandle.swift in Sources */,
 				C43D8E6624D1A65F00558110 /* APBookmarkViewController.swift in Sources */,
+				C4F1DBEA24E5947500476494 /* APUtils.swift in Sources */,
 				C43D8E7024D2B2EF00558110 /* APSearchTableViewCell.swift in Sources */,
 				C4F1DBD024E296C700476494 /* APLoginViewController.swift in Sources */,
 				C4BFFD7524DED75C00222D28 /* ChromaAddButton.swift in Sources */,
