@@ -42,6 +42,10 @@ class APFileListViewController: UIViewController {
         setupDataSource()
     }
     
+    func reloadAction() {
+        setupDataSource()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnTap = false
@@ -134,19 +138,10 @@ extension APFileListViewController: UITableViewDataSource {
             }
             .failure { [weak cell] (task) in
                 cell?.updateProgress(task)
-                if task.status == .suspended {
-                    
-                }
-                
-                if task.status == .failed {
-                    
-                }
-                if task.status == .canceled {
-                    
-                }
-                if task.status == .removed {
-                    
-                }
+                if task.status == .suspended {}
+                if task.status == .failed {}
+                if task.status == .canceled {}
+                if task.status == .removed {}
             }
         }
         
