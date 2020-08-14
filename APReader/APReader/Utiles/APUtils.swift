@@ -17,3 +17,11 @@ func dateConvertString(date:Date, dateFormat:String="yyyy-MM-dd") -> String {
     let date = formatter.string(from: date)
     return date.components(separatedBy: " ").first!
 }
+
+func checkFileExists(atPath fileName: String?) -> Bool {
+    let fileManager = FileManager.default
+    if fileManager.fileExists(atPath: NSHomeDirectory() + "/Library/Caches/APReader.OneDrive/File/\(fileName ?? "")") {
+        return true
+    }
+    return false
+}

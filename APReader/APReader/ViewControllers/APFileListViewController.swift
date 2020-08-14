@@ -75,7 +75,8 @@ class APFileListViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        return true
+        guard let cell = sender as? APFileItemTableViewCell else { return false }
+        return cell.downloadBtn.isHidden
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -102,10 +103,11 @@ extension APFileListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: APFileListViewController.cellID) as! APFileItemTableViewCell
         let fileItem = self.files?[indexPath.row]
         cell.filename = fileItem?.name
-        cell.updatetime = "\(fileItem?.lastModifiedTimeString() ?? "1970") - \((fileItem?.size ?? 0) / 1024 / 1024)MB"
         
+        cell.updatetime = "\(fileItem?.lastModifiedTimeString() ?? "1970") - \(String(format: "%.2fMB", (Float)(fileItem?.size ?? 0) / 1024 / 1024))"
+
         cell.tapClosure = { [weak self] cell in
-            if let task = self?.sessionManager.tasks.safeObject(at: indexPath.row) {
+            if let task = self?.sessionManager.fetchTask(fileItem?.graphDownloadUrl() ?? "") {
                 switch task.status {
                 case .waiting, .running:
                     self?.sessionManager.suspend(task)
@@ -121,38 +123,34 @@ extension APFileListViewController: UITableViewDataSource {
                 
             }
         }
+        
+        if let task = sessionManager.fetchTask(fileItem?.graphDownloadUrl() ?? "") {
+            cell.updateProgress(task)
+            task.progress { [weak cell] (task) in
+                cell?.updateProgress(task)
+            }
+            .success { [weak cell] (task) in
+                cell?.updateProgress(task)
+            }
+            .failure { [weak cell] (task) in
+                cell?.updateProgress(task)
+                if task.status == .suspended {
+                    
+                }
+                
+                if task.status == .failed {
+                    
+                }
+                if task.status == .canceled {
+                    
+                }
+                if task.status == .removed {
+                    
+                }
+            }
+        }
+        
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let task = sessionManager.tasks.safeObject(at: indexPath.row),
-            let cell = cell as? APFileItemTableViewCell else { return }
-        
-        
-        cell.updateProgress(task)
-        
-        task.progress { [weak cell] (task) in
-            cell?.updateProgress(task)
-        }
-        .success { [weak cell] (task) in
-            cell?.updateProgress(task)
-        }
-        .failure { [weak cell] (task) in
-            cell?.updateProgress(task)
-            if task.status == .suspended {
-                
-            }
-            
-            if task.status == .failed {
-                
-            }
-            if task.status == .canceled {
-                
-            }
-            if task.status == .removed {
-                
-            }
-        }
     }
     
 }

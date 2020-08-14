@@ -20,9 +20,22 @@ class APFileItemTableViewCell: UITableViewCell {
     var tapClosure: ((APFileItemTableViewCell) -> Void)?
     var downloadClosure: ((APFileItemTableViewCell) -> Void)?
 
+    var fileURL: URL?
     var filename: String? {
         didSet {
             fileName.text = filename
+            fileURL = {
+                let fileManager = FileManager.default
+                let docsurl = try! fileManager.url(
+                    for: .cachesDirectory, in: .userDomainMask,
+                    appropriateFor: nil, create: true)
+                return docsurl.appendingPathComponent("APReader.OneDrive/File/\(filename ?? "")")
+            }()
+            if checkFileExists(atPath: filename) {
+                self.downloadBtn.isHidden = true
+                fileTypeImage.image = #imageLiteral(resourceName: "pdf_checked")
+                progressview.isHidden = true
+            }
         }
     }
 
@@ -61,6 +74,11 @@ class APFileItemTableViewCell: UITableViewCell {
             break
         }
         downloadBtn.setImage(image, for: .normal)
+        if checkFileExists(atPath: filename) {
+            self.downloadBtn.isHidden = true
+            fileTypeImage.image = #imageLiteral(resourceName: "pdf_checked")
+            progressview.isHidden = true
+        }
     }
     
     override func awakeFromNib() {
