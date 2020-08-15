@@ -12,4 +12,7 @@ target 'APReader' do
   
   pod 'Tiercel'
   pod 'SVProgressHUD'
+  
+  pod 'AppCenter'
+
 end
