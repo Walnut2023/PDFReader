@@ -11,4 +11,5 @@ target 'APReader' do
   pod 'MSGraphClientModels', '~> 1.3.0'
   
   pod 'Tiercel'
+  pod 'SVProgressHUD'
 end

@@ -11,7 +11,7 @@ import MSGraphClientModels
 
 class APTestTableViewController: UITableViewController {
 
-    private let tableCellIdentifier = "FileItemCell"
+    private let tableCellIdentifier = "APTestTableViewCell"
     private var files: [MSGraphDriveItem]?
     
     override func viewDidLoad() {
@@ -56,7 +56,7 @@ class APTestTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath) as! APFileItemTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath) as! APTestTableViewCell
         return cell
     }
 

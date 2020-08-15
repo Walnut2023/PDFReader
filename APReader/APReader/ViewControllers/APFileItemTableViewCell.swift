@@ -16,6 +16,9 @@ class APFileItemTableViewCell: UITableViewCell {
     @IBOutlet weak var updateTime: UILabel!
     @IBOutlet weak var progressview: UIProgressView!
     @IBOutlet weak var downloadBtn: UIButton!
+    @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var downloadedLabel: UILabel!
     
     var tapClosure: ((APFileItemTableViewCell) -> Void)?
     var downloadClosure: ((APFileItemTableViewCell) -> Void)?
@@ -32,9 +35,11 @@ class APFileItemTableViewCell: UITableViewCell {
                 return docsurl.appendingPathComponent("APReader.OneDrive/File/\(filename ?? "")")
             }()
             if checkFileExists(atPath: filename) {
-                self.downloadBtn.isHidden = true
+                downloadBtn.isHidden = true
                 fileTypeImage.image = #imageLiteral(resourceName: "pdf_checked")
                 progressview.isHidden = true
+                editBtn.isHidden = false
+                downloadedLabel.isHidden = false
             }
         }
     }
@@ -59,6 +64,9 @@ class APFileItemTableViewCell: UITableViewCell {
         var image = #imageLiteral(resourceName: "download")
         switch task.status {
         case .suspended:
+            if !loadingIndicator.isHidden {
+                loadingIndicator.isHidden = true
+            }
             image = #imageLiteral(resourceName: "play")
         case .running:
             image = #imageLiteral(resourceName: "pause")
@@ -78,12 +86,16 @@ class APFileItemTableViewCell: UITableViewCell {
             self.downloadBtn.isHidden = true
             fileTypeImage.image = #imageLiteral(resourceName: "pdf_checked")
             progressview.isHidden = true
+            editBtn.isHidden = false
+            downloadedLabel.isHidden = false
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        loadingIndicator.isHidden = true
+        editBtn.isHidden = true
+        downloadedLabel.isHidden = true
     }
 
 }

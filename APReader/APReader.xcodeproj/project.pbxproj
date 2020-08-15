@@ -50,6 +50,7 @@
 		C4F1DBDE24E2F96900476494 /* APFileItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBDD24E2F96900476494 /* APFileItemTableViewCell.swift */; };
 		C4F1DBE724E590C700476494 /* APDriveEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBE624E590C700476494 /* APDriveEntityExtensions.swift */; };
 		C4F1DBEA24E5947500476494 /* APUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DBE924E5947400476494 /* APUtils.swift */; };
+		C4F1DC2924E787AA00476494 /* APTestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1DC2824E787AA00476494 /* APTestTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		C4F1DBDD24E2F96900476494 /* APFileItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APFileItemTableViewCell.swift; sourceTree = "<group>"; };
 		C4F1DBE624E590C700476494 /* APDriveEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDriveEntityExtensions.swift; sourceTree = "<group>"; };
 		C4F1DBE924E5947400476494 /* APUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APUtils.swift; sourceTree = "<group>"; };
+		C4F1DC2824E787AA00476494 /* APTestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APTestTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				C4F1DBD124E2AE8300476494 /* APProfileViewController.swift */,
 				C4F1DBDB24E2F62900476494 /* APTestTableViewController.swift */,
 				C4F1DBDD24E2F96900476494 /* APFileItemTableViewCell.swift */,
+				C4F1DC2824E787AA00476494 /* APTestTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */,
 				C4F1DBD724E2D3E500476494 /* APGraphManager.swift in Sources */,
 				C4F1DBDC24E2F62900476494 /* APTestTableViewController.swift in Sources */,
+				C4F1DC2924E787AA00476494 /* APTestTableViewCell.swift in Sources */,
 				C43D8E6E24D2A4FB00558110 /* APSearchViewController.swift in Sources */,
 				C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */,
 				C4BFFD7124DED75C00222D28 /* UIColor+Utilities.swift in Sources */,

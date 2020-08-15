@@ -9,13 +9,14 @@
 import UIKit
 import MSGraphClientModels
 import Tiercel
+import SVProgressHUD
 
 class APFileListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
+    private let refreshControl = UIRefreshControl()
+
     private var files: [MSGraphDriveItem]?
-    
     static let cellID = "fileItemID"
     
     var sessionManager: SessionManager = {
@@ -52,10 +53,13 @@ class APFileListViewController: UIViewController {
     }
     
     func setupUI() {
-        self.tableView.tableFooterView = UIView()
+        tableView.tableFooterView = UIView()
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
     }
     
     func setupDataSource() {
+        SVProgressHUD.show()
         APGraphManager.instance.getFiles {
             (fileArray: [MSGraphDriveItem]?, error: Error?) in
             DispatchQueue.main.async {
@@ -69,15 +73,21 @@ class APFileListViewController: UIViewController {
                     self.present(alert, animated: true)
                     return
                 }
-                
+                SVProgressHUD.dismiss()
                 self.files = files.filter({ (fileItem) -> Bool in
                     fileItem.name?.contains(".pdf") ?? false
                 })
+                self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
             }
         }
     }
     
+    @objc
+    private func refreshWeatherData(_ sender: Any) {
+        setupDataSource()
+    }
+
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         guard let cell = sender as? APFileItemTableViewCell else { return false }
         return cell.downloadBtn.isHidden
@@ -114,6 +124,7 @@ extension APFileListViewController: UITableViewDataSource {
             if let task = self?.sessionManager.fetchTask(fileItem?.graphDownloadUrl() ?? "") {
                 switch task.status {
                 case .waiting, .running:
+                    cell.loadingIndicator.isHidden = false
                     self?.sessionManager.suspend(task)
                 case .suspended, .failed:
                     self?.sessionManager.start(task)
