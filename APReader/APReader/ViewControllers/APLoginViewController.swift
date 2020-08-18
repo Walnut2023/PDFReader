@@ -35,7 +35,7 @@ class APLoginViewController: UIViewController {
                 
                 // Signed in successfully
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyBoard.instantiateViewController(identifier: "TabbarVC")
+                let vc = storyBoard.instantiateViewController(identifier: "NavigationVC")
                 self.sceneDelegateWindow()?.rootViewController = vc
             }
         }

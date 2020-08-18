@@ -15,6 +15,7 @@ class APFileListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
+    private lazy var tittleView = APNavigationTittleView()
 
     private var files: [MSGraphDriveItem]?
     static let cellID = "fileItemID"
@@ -41,6 +42,7 @@ class APFileListViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupDataSource()
+        updateUserInfo()
     }
     
     func reloadAction() {
@@ -53,9 +55,41 @@ class APFileListViewController: UIViewController {
     }
     
     func setupUI() {
+        setupNavUI()
         tableView.tableFooterView = UIView()
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
+    }
+    
+    func setupNavUI() {
+        tittleView = APNavigationTittleView.initInstanceFromXib()
+        tittleView.frame.size.height = 54
+        
+        self.navigationItem.titleView = tittleView
+    }
+    
+    func updateUserInfo() {
+        DispatchQueue.global().async {
+            APGraphManager.instance.getMe {
+                (user: MSGraphUser?, error: Error?) in
+
+                DispatchQueue.main.async {
+                    guard let currentUser = user, error == nil else {
+                        print("Error getting user: \(String(describing: error))")
+                        return
+                    }
+
+                    // Set display name
+                    self.tittleView.userName.text = currentUser.mail ?? currentUser.userPrincipalName ?? ""
+                    self.tittleView.userName.sizeToFit()
+
+                    // AAD users have email in the mail attribute
+                    // Personal accounts have email in the userPrincipalName attribute
+                    self.tittleView.tittleLabel.text = currentUser.displayName ?? "Mysterious Stranger"
+                    self.tittleView.tittleLabel.sizeToFit()
+                }
+            }
+        }
     }
     
     func setupDataSource() {
@@ -87,7 +121,15 @@ class APFileListViewController: UIViewController {
     private func refreshWeatherData(_ sender: Any) {
         setupDataSource()
     }
-
+    
+    @IBAction func signoutAction(_ sender: Any) {
+        APAuthManager.instance.signOut()
+        // Signed Out successfully
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(identifier: "SignInVC")
+        self.sceneDelegateWindow()?.rootViewController = vc
+    }
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         guard let cell = sender as? APFileItemTableViewCell else { return false }
         return cell.downloadBtn.isHidden

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NtT-q0-8wZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wWK-Cl-AvS">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -125,8 +125,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="OneDrive" id="UmG-20-15A"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="UmG-20-15A">
+                        <barButtonItem key="leftBarButtonItem" image="logout" id="prl-dN-MN4">
+                            <connections>
+                                <action selector="signoutAction:" destination="BYZ-38-t0r" id="HJL-Ib-W5u"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="Ihx-ZT-FE0" id="aw9-2h-pjK"/>
                     </connections>
@@ -144,11 +151,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="97a-Yt-Bif" customClass="APNonSelectablePDFView" customModule="APReader" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="414" height="812"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="763"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLN-Tt-UYE">
-                                <rect key="frame" x="354" y="662" width="40" height="128"/>
+                                <rect key="frame" x="354" y="613" width="40" height="128"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-f1-QqN">
                                         <rect key="frame" x="10" y="19.5" width="20" height="89"/>
@@ -179,7 +186,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9LJ-Em-8cW">
-                                <rect key="frame" x="0.0" y="798" width="414" height="64"/>
+                                <rect key="frame" x="0.0" y="749" width="414" height="64"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vX0-Cf-9lc" customClass="PDFThumbnailView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
@@ -196,7 +203,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13Z-12-olc">
-                                <rect key="frame" x="0.0" y="798" width="414" height="64"/>
+                                <rect key="frame" x="0.0" y="749" width="414" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zv8-ne-3dY">
                                         <rect key="frame" x="327" y="15" width="54" height="34"/>
@@ -311,7 +318,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bW3-xs-fy4">
-                                <rect key="frame" x="152" y="760" width="110" height="30"/>
+                                <rect key="frame" x="152" y="711" width="110" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Page Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdN-ut-AHy">
                                         <rect key="frame" x="11" y="7" width="88" height="16"/>
@@ -378,7 +385,7 @@
         <!--OneDrive-->
         <scene sceneID="ALJ-Hr-dlV">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wWK-Cl-AvS" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationVC" automaticallyAdjustsScrollViewInsets="NO" id="wWK-Cl-AvS" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="OneDrive" image="onedrive_nor" selectedImage="onedrive_sel" id="t1N-d0-7l5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="px5-pS-9HN">
@@ -642,14 +649,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="APBookmarkTableViewCell" id="z21-IL-l9d" customClass="APBookmarkTableViewCell" customModule="APReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="29.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z21-IL-l9d" id="xNq-QS-kko">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="29.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2u-A0-fpJ">
-                                                    <rect key="frame" x="16" y="4" width="382" height="20"/>
+                                                    <rect key="frame" x="16" y="4" width="382" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -858,32 +865,6 @@
             </objects>
             <point key="canvasLocation" x="4945" y="858"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="sCC-40-lBY">
-            <objects>
-                <tabBarController storyboardIdentifier="TabbarVC" automaticallyAdjustsScrollViewInsets="NO" id="ZbI-7X-Rkn" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="6i1-fZ-Ac2"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Hxv-ep-X1A">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="view.backgroundColor">
-                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <segue destination="wWK-Cl-AvS" kind="relationship" relationship="viewControllers" id="Afe-hq-S2i"/>
-                        <segue destination="I6t-Kw-wB4" kind="relationship" relationship="viewControllers" id="elf-Bu-owM"/>
-                        <segue destination="33Q-Je-j2M" kind="relationship" relationship="viewControllers" id="gMy-Vi-3a7"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ki5-WV-eV6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="461" y="1606"/>
-        </scene>
         <!--Login-->
         <scene sceneID="6d6-xA-Rtm">
             <objects>
@@ -893,24 +874,79 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8o-9h-M6T">
-                                <rect key="frame" x="188" y="438" width="38" height="30"/>
-                                <state key="normal" title="Login"/>
+                                <rect key="frame" x="122.5" y="712" width="169" height="30"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="a8o-9h-M6T" secondAttribute="height" multiplier="169:30" id="fwG-U1-6tr"/>
+                                </constraints>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signIn" destination="NtT-q0-8wZ" eventType="touchUpInside" id="gMv-fY-Qj2"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fw-GW-Agf">
+                                <rect key="frame" x="58" y="186" width="70" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="j73-jc-PQ4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A PDF Reader" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpX-Eu-J7G">
+                                <rect key="frame" x="151" y="682" width="112" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="tcw-JL-Rrq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login" translatesAutoresizingMaskIntoConstraints="NO" id="FzM-Zv-fST">
+                                <rect key="frame" x="58" y="235" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="GZT-CX-bCg"/>
+                                    <constraint firstAttribute="width" constant="24" id="MMI-fG-NeA"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with work account or school account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tx1-6a-SXx">
+                                <rect key="frame" x="90" y="239" width="267.5" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="Ihu-d4-BUz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="a8o-9h-M6T" firstAttribute="centerX" secondItem="j9x-BE-4Tm" secondAttribute="centerX" id="4zo-eg-hCQ"/>
-                            <constraint firstItem="a8o-9h-M6T" firstAttribute="centerY" secondItem="j9x-BE-4Tm" secondAttribute="centerY" id="MCU-e3-bGt"/>
+                            <constraint firstItem="FzM-Zv-fST" firstAttribute="leading" secondItem="j9x-BE-4Tm" secondAttribute="leading" constant="58" id="7SI-P5-HOK"/>
+                            <constraint firstItem="0fw-GW-Agf" firstAttribute="top" secondItem="j9x-BE-4Tm" secondAttribute="top" constant="142" id="8I8-bA-k6t"/>
+                            <constraint firstItem="a8o-9h-M6T" firstAttribute="centerX" secondItem="j9x-BE-4Tm" secondAttribute="centerX" id="8pU-1Y-0pS"/>
+                            <constraint firstItem="j9x-BE-4Tm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Tx1-6a-SXx" secondAttribute="trailing" priority="750" constant="10" id="FaP-wN-yAI"/>
+                            <constraint firstItem="0fw-GW-Agf" firstAttribute="leading" secondItem="j9x-BE-4Tm" secondAttribute="leading" constant="58" id="GSI-gx-28i"/>
+                            <constraint firstItem="j9x-BE-4Tm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0fw-GW-Agf" secondAttribute="trailing" symbolic="YES" id="PT7-Y3-RjB"/>
+                            <constraint firstItem="Tx1-6a-SXx" firstAttribute="centerY" secondItem="FzM-Zv-fST" secondAttribute="centerY" id="Sdc-2u-sJu"/>
+                            <constraint firstItem="rpX-Eu-J7G" firstAttribute="centerX" secondItem="a8o-9h-M6T" secondAttribute="centerX" id="cLO-Uh-kd7"/>
+                            <constraint firstItem="Tx1-6a-SXx" firstAttribute="leading" secondItem="FzM-Zv-fST" secondAttribute="trailing" constant="8" id="evy-UC-sDN"/>
+                            <constraint firstItem="FzM-Zv-fST" firstAttribute="top" secondItem="0fw-GW-Agf" secondAttribute="bottom" constant="20" id="ilA-75-Gxb"/>
+                            <constraint firstItem="j9x-BE-4Tm" firstAttribute="bottom" secondItem="a8o-9h-M6T" secondAttribute="bottom" constant="120" id="pKa-My-F1A"/>
+                            <constraint firstItem="a8o-9h-M6T" firstAttribute="top" secondItem="rpX-Eu-J7G" secondAttribute="bottom" constant="8" id="quw-Ax-92g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="j9x-BE-4Tm"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wc4-mP-ffK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-884" y="1606"/>
+            <point key="canvasLocation" x="-884.05797101449286" y="1605.8035714285713"/>
         </scene>
     </scenes>
     <resources>
@@ -925,6 +961,8 @@
         <image name="highlighter" width="30" height="30"/>
         <image name="highlighter_dis" width="30" height="30"/>
         <image name="highlighter_sel" width="30" height="30"/>
+        <image name="login" width="28" height="26"/>
+        <image name="logout" width="28" height="26"/>
         <image name="onedrive_nor" width="30" height="20"/>
         <image name="onedrive_sel" width="30" height="20"/>
         <image name="paperplane" catalog="system" width="128" height="121"/>

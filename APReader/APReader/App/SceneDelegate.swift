@@ -37,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         self.window?.makeKeyAndVisible()
                         return
                     }
-                    let vc = storyBoard.instantiateViewController(identifier: "TabbarVC")
+                    let vc = storyBoard.instantiateViewController(identifier: "NavigationVC")
                     self.window?.rootViewController = vc
                     self.window?.makeKeyAndVisible()
                 }

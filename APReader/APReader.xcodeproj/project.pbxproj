@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9C89ABC927202224FB26B68F /* Pods_APReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25FAAE032315DF02CFA94E11 /* Pods_APReader.framework */; };
+		C4256D0724EB740B00F6621B /* APNavigationTittleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4256D0624EB740B00F6621B /* APNavigationTittleView.swift */; };
+		C4256D0924EB742400F6621B /* APNavigationTittleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4256D0824EB742400F6621B /* APNavigationTittleView.xib */; };
 		C42CCCB824CC610C00D6F0E8 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCB724CC610C00D6F0E8 /* FileItem.swift */; };
 		C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */; };
 		C437859924CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */; };
@@ -57,6 +59,8 @@
 		25FAAE032315DF02CFA94E11 /* Pods_APReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		567F145151DFBEE3A0C2CBC4 /* Pods-APReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APReader.debug.xcconfig"; path = "Target Support Files/Pods-APReader/Pods-APReader.debug.xcconfig"; sourceTree = "<group>"; };
 		AD7B16EE42D79E779FBF3A46 /* Pods-APReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APReader.release.xcconfig"; path = "Target Support Files/Pods-APReader/Pods-APReader.release.xcconfig"; sourceTree = "<group>"; };
+		C4256D0624EB740B00F6621B /* APNavigationTittleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNavigationTittleView.swift; sourceTree = "<group>"; };
+		C4256D0824EB742400F6621B /* APNavigationTittleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APNavigationTittleView.xib; sourceTree = "<group>"; };
 		C42CCCB724CC610C00D6F0E8 /* FileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItem.swift; sourceTree = "<group>"; };
 		C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewViewController.swift; sourceTree = "<group>"; };
 		C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APTextDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 				C4F1DBDB24E2F62900476494 /* APTestTableViewController.swift */,
 				C4F1DBDD24E2F96900476494 /* APFileItemTableViewCell.swift */,
 				C4F1DC2824E787AA00476494 /* APTestTableViewCell.swift */,
+				C4256D0624EB740B00F6621B /* APNavigationTittleView.swift */,
+				C4256D0824EB742400F6621B /* APNavigationTittleView.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 				C43D8E5C24D1702A00558110 /* test-driven.pdf in Resources */,
 				C4EF3B4424CC09EE002E6A6A /* Assets.xcassets in Resources */,
 				C4EF3B4224CC09E7002E6A6A /* Main.storyboard in Resources */,
+				C4256D0924EB742400F6621B /* APNavigationTittleView.xib in Resources */,
 				C4F1DBCB24E28E4000476494 /* AuthSettings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +439,7 @@
 				C4F1DC2924E787AA00476494 /* APTestTableViewCell.swift in Sources */,
 				C43D8E6E24D2A4FB00558110 /* APSearchViewController.swift in Sources */,
 				C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */,
+				C4256D0724EB740B00F6621B /* APNavigationTittleView.swift in Sources */,
 				C4BFFD7124DED75C00222D28 /* UIColor+Utilities.swift in Sources */,
 				C43D8E6124D173A400558110 /* APOutlineTableViewCell.swift in Sources */,
 				C45B13BC24CD635B00D30445 /* APNonSelectablePDFView.swift in Sources */,
