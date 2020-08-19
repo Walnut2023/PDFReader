@@ -60,6 +60,8 @@ class APPreviewViewController: UIViewController {
     
     private var count = 0
     
+    private var timer: DispatchSourceTimer?
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -69,7 +71,6 @@ class APPreviewViewController: UIViewController {
         setupPDFView()
         loadPdfFile()
         setupUI()
-        addTimer()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -86,6 +87,16 @@ class APPreviewViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        addTimer()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopTimer()
     }
     
     private func setupUI() {
@@ -177,6 +188,7 @@ class APPreviewViewController: UIViewController {
     }
     
     @objc func backAction(_ sender: Any) {
+        cancleTimer()
         self.navigationController?.popViewController(animated: true)
     }
     
