@@ -10,6 +10,7 @@
 		9C89ABC927202224FB26B68F /* Pods_APReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25FAAE032315DF02CFA94E11 /* Pods_APReader.framework */; };
 		C4256D0724EB740B00F6621B /* APNavigationTittleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4256D0624EB740B00F6621B /* APNavigationTittleView.swift */; };
 		C4256D0924EB742400F6621B /* APNavigationTittleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4256D0824EB742400F6621B /* APNavigationTittleView.xib */; };
+		C4256D1424EBD56700F6621B /* APOneDriveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4256D1324EBD56700F6621B /* APOneDriveManager.swift */; };
 		C42CCCB824CC610C00D6F0E8 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCB724CC610C00D6F0E8 /* FileItem.swift */; };
 		C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */; };
 		C437859924CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */; };
@@ -61,6 +62,7 @@
 		AD7B16EE42D79E779FBF3A46 /* Pods-APReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APReader.release.xcconfig"; path = "Target Support Files/Pods-APReader/Pods-APReader.release.xcconfig"; sourceTree = "<group>"; };
 		C4256D0624EB740B00F6621B /* APNavigationTittleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNavigationTittleView.swift; sourceTree = "<group>"; };
 		C4256D0824EB742400F6621B /* APNavigationTittleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APNavigationTittleView.xib; sourceTree = "<group>"; };
+		C4256D1324EBD56700F6621B /* APOneDriveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APOneDriveManager.swift; sourceTree = "<group>"; };
 		C42CCCB724CC610C00D6F0E8 /* FileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItem.swift; sourceTree = "<group>"; };
 		C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewViewController.swift; sourceTree = "<group>"; };
 		C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APTextDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				C4F1DBD624E2D3E500476494 /* APGraphManager.swift */,
+				C4256D1324EBD56700F6621B /* APOneDriveManager.swift */,
 			);
 			path = GraphManager;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				C43D8E6624D1A65F00558110 /* APBookmarkViewController.swift in Sources */,
 				C4F1DBEA24E5947500476494 /* APUtils.swift in Sources */,
 				C43D8E7024D2B2EF00558110 /* APSearchTableViewCell.swift in Sources */,
+				C4256D1424EBD56700F6621B /* APOneDriveManager.swift in Sources */,
 				C4F1DBD024E296C700476494 /* APLoginViewController.swift in Sources */,
 				C4BFFD7524DED75C00222D28 /* ChromaAddButton.swift in Sources */,
 				C43D8E5A24D16F3700558110 /* APPDFToolbarActionControl.swift in Sources */,

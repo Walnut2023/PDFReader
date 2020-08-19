@@ -69,6 +69,7 @@ class APPreviewViewController: UIViewController {
         setupPDFView()
         loadPdfFile()
         setupUI()
+        addTimer()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -91,7 +92,9 @@ class APPreviewViewController: UIViewController {
         navigationController?.hidesBarsOnTap = false
         navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem], animated: true)
         navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, editBarButtonItem], animated: true)
-        
+        if pdfDocument?.outlineRoot == nil {
+            outlineBarButtonItem.isEnabled = false
+        }
         pdfTittleLabel.text = pdfDocument?.documentAttributes?[PDFDocumentAttribute.titleAttribute] as? String ?? pdfDocument?.documentURL?.lastPathComponent
         
         setupPenControl()
@@ -174,7 +177,6 @@ class APPreviewViewController: UIViewController {
     }
     
     @objc func backAction(_ sender: Any) {
-        //        savePDFDocument()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -365,18 +367,48 @@ class APPreviewViewController: UIViewController {
         print("pageCount: \(pageCount) -- index: \(index)")
         pageNumberLabel.text = "\(index + 1)/\(pageCount)"
     }
-    
-    func savePDFDocument() {
-        DispatchQueue.global(qos: .background).async {
-            let path = Bundle.main.url(forResource: self.filePath, withExtension: "pdf")
-            self.pdfView.document?.write(to: path!)
-        }
-    }
 }
 
 extension APPreviewViewController: APPDFDrawerDelegate {
     func pdfDrawerDidFinishDrawing() {
         undoBarButtonItem.isEnabled = pdfDrawer.undoEnable
         redoBarButtonItem.isEnabled = pdfDrawer.redoEnable
+    }
+}
+
+// Auto saving
+extension APPreviewViewController {
+    
+    func savePDFDocument() {
+        print("\(Date()) savePDFDocument")
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            let copyPdfDoc: PDFDocument = (self?.pdfDocument)!.copy() as! PDFDocument
+                
+            if let data = copyPdfDoc.dataRepresentation() {
+                try? data.write(to: (self?.getFileUrl())!, options: .atomicWrite)
+            }
+        }
+    }
+    
+    func addTimer() {
+        timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
+        timer?.schedule(deadline: .now() + .seconds(5), repeating: DispatchTimeInterval.seconds(2), leeway: DispatchTimeInterval.seconds(0))
+        timer?.setEventHandler { [weak self] in
+            print("\(Date()) timer running")
+            self?.savePDFDocument()
+        }
+        timer?.resume()
+    }
+    
+    func stopTimer() {
+        timer?.suspend()
+    }
+    
+    func cancleTimer() {
+        guard let t = timer else {
+            return
+        }
+        t.cancel()
+        timer = nil
     }
 }

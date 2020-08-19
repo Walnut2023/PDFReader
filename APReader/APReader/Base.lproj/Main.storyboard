@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wWK-Cl-AvS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NtT-q0-8wZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -127,7 +127,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="UmG-20-15A">
-                        <barButtonItem key="leftBarButtonItem" image="logout" id="prl-dN-MN4">
+                        <barButtonItem key="leftBarButtonItem" image="logout" style="plain" id="prl-dN-MN4">
                             <connections>
                                 <action selector="signoutAction:" destination="BYZ-38-t0r" id="HJL-Ib-W5u"/>
                             </connections>
@@ -649,14 +649,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="APBookmarkTableViewCell" id="z21-IL-l9d" customClass="APBookmarkTableViewCell" customModule="APReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="30"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="29.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z21-IL-l9d" id="xNq-QS-kko">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="29.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2u-A0-fpJ">
-                                                    <rect key="frame" x="16" y="4" width="382" height="20.5"/>
+                                                    <rect key="frame" x="16" y="4" width="382" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
