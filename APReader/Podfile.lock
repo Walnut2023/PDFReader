@@ -7,6 +7,7 @@ PODS:
   - AppCenter/Core (3.3.2)
   - AppCenter/Crashes (3.3.2):
     - AppCenter/Core
+  - DZNEmptyDataSet (1.8.1)
   - MSAL (1.1.7):
     - MSAL/app-lib (= 1.1.7)
   - MSAL/app-lib (1.1.7)
@@ -22,6 +23,7 @@ PODS:
 
 DEPENDENCIES:
   - AppCenter
+  - DZNEmptyDataSet
   - MSAL (~> 1.1.1)
   - MSGraphClientModels (~> 1.3.0)
   - MSGraphClientSDK (~> 1.0.0)
@@ -31,6 +33,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AppCenter
+    - DZNEmptyDataSet
     - MSAL
     - MSGraphClientModels
     - MSGraphClientSDK
@@ -39,12 +42,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AppCenter: aba7de06e4c2184f90dc84f7866bd07f82427d69
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   MSAL: 778e3fadb1d581d6afa05fbf4c657d1b1cf8810d
   MSGraphClientModels: ffef6d0a1cdaa774e1689e38da35301cb74fc72a
   MSGraphClientSDK: ffc07a58a838e0702c7bf2a856367035d4a335d7
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   Tiercel: 37c00d3d309657951d00ae68dcb6ce8c7dccf584
 
-PODFILE CHECKSUM: ac6aff8355a678519a77dfb536bb40d1132a7ee3
+PODFILE CHECKSUM: dce6ca9c4e7857a03fae384d57fb888f9c00fb30
 
 COCOAPODS: 1.9.3

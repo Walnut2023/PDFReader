@@ -45,7 +45,7 @@ class APGraphManager {
     
     public func getFiles(completion: @escaping([MSGraphDriveItem]?, Error?) -> Void) {
         // GET /me/drive/root/children
-        let filesRequest = NSMutableURLRequest(url: URL(string: "\(MSGraphBaseURL)/me/drive/root/children")!)
+        let filesRequest = NSMutableURLRequest(url: URL(string: "\(MSGraphBaseURL)/me/drive/root:/Apps/APDFReader:/children")!)
         let filesDataTask = MSURLSessionDataTask(request: filesRequest, client: self.client, completion: {
             (data: Data?, response: URLResponse?, graphError: Error?) in
             guard let filesData = data, graphError == nil else {

@@ -13,7 +13,9 @@ import MSGraphClientSDK
 class APAuthManager: NSObject, MSAuthenticationProvider {
     // Implement singleton pattern
     static let instance = APAuthManager()
-
+    
+    var accessToken = String()
+    
     private let publicClient: MSALPublicClientApplication?
     private let appId: String
     private let graphScopes: Array<String>
@@ -57,6 +59,7 @@ class APAuthManager: NSObject, MSAuthenticationProvider {
             }
 
             print("Got token interactively: \(tokenResult.accessToken)")
+            self.accessToken = tokenResult.accessToken
             completion(tokenResult.accessToken, nil)
         })
     }
@@ -83,6 +86,7 @@ class APAuthManager: NSObject, MSAuthenticationProvider {
                 }
 
 //                print("Got token silently: \(tokenResult0.accessToken)")
+                self.accessToken = tokenResult.accessToken
                 completion(tokenResult.accessToken, nil)
             })
         } else {
@@ -97,8 +101,7 @@ class APAuthManager: NSObject, MSAuthenticationProvider {
             // Remove all accounts from the cache
             let accounts = try publicClient?.allAccounts()
 
-            try accounts!.forEach({
-                (account: MSALAccount) in
+            try accounts!.forEach({ (account: MSALAccount) in
                 try publicClient?.remove(account)
             })
         } catch {

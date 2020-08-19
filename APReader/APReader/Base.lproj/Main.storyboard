@@ -132,6 +132,11 @@
                                 <action selector="signoutAction:" destination="BYZ-38-t0r" id="HJL-Ib-W5u"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="G3t-vJ-ssD">
+                            <connections>
+                                <action selector="moreAction:" destination="BYZ-38-t0r" id="acJ-0N-Gve"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>

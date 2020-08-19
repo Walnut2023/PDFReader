@@ -91,7 +91,6 @@ class APPreviewViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addTimer()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -188,7 +187,7 @@ class APPreviewViewController: UIViewController {
     }
     
     @objc func backAction(_ sender: Any) {
-        cancleTimer()
+        cancelTimer()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -212,6 +211,7 @@ class APPreviewViewController: UIViewController {
             self.pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
             pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
             pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
+            stopTimer()
         } else {
             navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem], animated: true)
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, editBarButtonItem], animated: true)
@@ -225,7 +225,7 @@ class APPreviewViewController: UIViewController {
             self.tapGestureRecognizer = UITapGestureRecognizer()
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
-            
+            addTimer()
         }
     }
     
@@ -234,8 +234,7 @@ class APPreviewViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "Canecl", style: .cancel) { (action) in
             self.pdfDrawer.clearAllAnnotations()
         }
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-        }
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         
@@ -376,7 +375,6 @@ class APPreviewViewController: UIViewController {
                 pageNumberLabel.text = nil
                 return
         }
-        print("pageCount: \(pageCount) -- index: \(index)")
         pageNumberLabel.text = "\(index + 1)/\(pageCount)"
     }
 }
@@ -394,7 +392,7 @@ extension APPreviewViewController {
     func savePDFDocument() {
         print("\(Date()) savePDFDocument")
         DispatchQueue.global(qos: .background).async { [weak self] in
-            let copyPdfDoc: PDFDocument = (self?.pdfDocument)!.copy() as! PDFDocument
+            let copyPdfDoc = (self?.pdfDocument)!.copy() as! PDFDocument
                 
             if let data = copyPdfDoc.dataRepresentation() {
                 try? data.write(to: (self?.getFileUrl())!, options: .atomicWrite)
@@ -416,7 +414,7 @@ extension APPreviewViewController {
         timer?.suspend()
     }
     
-    func cancleTimer() {
+    func cancelTimer() {
         guard let t = timer else {
             return
         }

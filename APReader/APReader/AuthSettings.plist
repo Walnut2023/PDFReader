@@ -6,8 +6,10 @@
 	<string>720d4191-edc9-4efb-a310-e76f07865ab2</string>
 	<key>GraphScopes</key>
 	<array>
+		<string>Sites.ReadWrite.All</string>
 		<string>User.Read</string>
 		<string>Files.ReadWrite.All</string>
+		<string>Files.ReadWrite</string>
 	</array>
 </dict>
 </plist>

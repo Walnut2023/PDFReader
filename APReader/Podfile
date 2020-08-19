@@ -12,7 +12,8 @@ target 'APReader' do
   
   pod 'Tiercel'
   pod 'SVProgressHUD'
-  
+  pod 'DZNEmptyDataSet'
+
   pod 'AppCenter'
 
 end

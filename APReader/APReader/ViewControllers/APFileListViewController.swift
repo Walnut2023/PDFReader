@@ -10,6 +10,7 @@ import UIKit
 import MSGraphClientModels
 import Tiercel
 import SVProgressHUD
+import DZNEmptyDataSet
 
 class APFileListViewController: UIViewController {
     
@@ -18,6 +19,7 @@ class APFileListViewController: UIViewController {
     private lazy var tittleView = APNavigationTittleView()
 
     private var files: [MSGraphDriveItem]?
+    private var selectedFile: String?
     static let cellID = "fileItemID"
     
     var sessionManager: SessionManager = {
@@ -58,6 +60,8 @@ class APFileListViewController: UIViewController {
         setupNavUI()
         tableView.tableFooterView = UIView()
         tableView.refreshControl = refreshControl
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
     }
     
@@ -79,12 +83,9 @@ class APFileListViewController: UIViewController {
                         return
                     }
 
-                    // Set display name
                     self.tittleView.userName.text = currentUser.mail ?? currentUser.userPrincipalName ?? ""
                     self.tittleView.userName.sizeToFit()
 
-                    // AAD users have email in the mail attribute
-                    // Personal accounts have email in the userPrincipalName attribute
                     self.tittleView.tittleLabel.text = currentUser.displayName ?? "Mysterious Stranger"
                     self.tittleView.tittleLabel.sizeToFit()
                 }
@@ -130,6 +131,12 @@ class APFileListViewController: UIViewController {
         self.sceneDelegateWindow()?.rootViewController = vc
     }
     
+    // more action to upload pdf files to OneDrive
+    // Create folder in Apps/APDFReader
+    @IBAction func moreAction(_ sender: Any) {
+        
+    }
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         guard let cell = sender as? APFileItemTableViewCell else { return false }
         return cell.downloadBtn.isHidden
@@ -139,6 +146,7 @@ class APFileListViewController: UIViewController {
         if segue.identifier == "showPreview" {
             guard let vc = segue.destination as? APPreviewViewController else { return }
             let filePath = self.files?[tableView.indexPathForSelectedRow!.row].name
+            selectedFile = filePath
             vc.filePath = filePath
         }
     }
@@ -206,5 +214,65 @@ extension APFileListViewController: UITableViewDataSource {
 extension APFileListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+}
+
+// Update files to OneDrive
+extension APFileListViewController {
+    func updatePDFFiles() {
+        guard let selectedFileName = selectedFile else {
+            return
+        }
+        APOneDriveManager.instance.createUploadSession(fileName: selectedFileName, completion: { (result: OneDriveManagerResult, uploadUrl, expirationDateTime, nextExpectedRanges) -> Void in
+                    switch(result) {
+                    case .Success:
+                            print("success on creating session (\(String(describing: uploadUrl)) (\(String(describing: expirationDateTime))")
+
+                            APOneDriveManager.instance.uploadPDFBytes(fileName: selectedFileName, uploadUrl: uploadUrl!,  completion: { (result: OneDriveManagerResult, webUrl, fileId) -> Void in
+                                switch(result) {
+                                case .Success:
+                                    print ("Web Url of file \(String(describing: webUrl))")
+                                    print ("FileId of file \(String(describing: fileId))")
+                                    
+        //                            APOneDriveManager.instance.createSharingLink(fileId: fileId!, completion: { (result: OneDriveManagerResult, sharingUrl) -> Void in
+        //                                switch(result) {
+        //                                case .Success:
+        //                                    print ("Sharing Url of file \(sharingUrl)")
+        //
+        //                                case .Failure(let error):
+        //                                    print("\(error)")
+        //                                }
+        //                            })
+                                    
+                                case .Failure(let error):
+                                    print("\(error)")
+                                }
+                            })
+                    case .Failure(let error):
+                        print("\(error)")
+                    }
+                })
+    }
+}
+
+extension APFileListViewController: DZNEmptyDataSetSource {
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "no_pdf")
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let nofilesStr = "No PDF Files"
+        let noAttr = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18.0), NSAttributedString.Key.foregroundColor: UIColor.black]
+        return NSAttributedString(string: nofilesStr, attributes: noAttr)
+    }
+}
+
+extension APFileListViewController: DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
+        return true
     }
 }
