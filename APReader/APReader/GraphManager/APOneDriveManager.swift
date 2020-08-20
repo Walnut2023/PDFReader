@@ -53,8 +53,8 @@ class APOneDriveManager {
     }
     
     func createUploadSession(fileName: String, completion: @escaping (OneDriveManagerResult, _ uploadUrl: String?, _ expirationDateTime: String?, _ nextExpectedRanges: [String]?) -> Void) {
-        
-        let request = NSMutableURLRequest(url: URL(string: "\(MSGraphBaseURL)/me/drive/special/approot:/\(fileName):/createUploadSession")!)
+        let urlString = "\(MSGraphBaseURL)/me/drive/special/approot:/\(fileName):/createUploadSession".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let request = NSMutableURLRequest(url: URL(string: urlString)!)
         request.httpMethod = "POST"
         let params = ["item": ["name": fileName]] as [String : Any]
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

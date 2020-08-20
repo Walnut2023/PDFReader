@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 protocol APMoreMenuViewControllerDelegate: AnyObject {
     func moreMenuDidSelectRow(index: Int, dict: [String: String])
@@ -30,7 +31,7 @@ class APMoreMenuViewController: UITableViewController {
     }
     
     func setupDataSource() {
-        items = [["storage": "Upload Files"], ["addfolders": "Add Folder"]]
+        items = [["storage": "Upload PDF Files"], ["addfolders": "Add Folder"]]
     }
     
     // MARK: - Table view data source
@@ -52,26 +53,98 @@ class APMoreMenuViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("did select row")
-//        guard let items = items else { return }
-        //        let dict = items[indexPath.row]
-        
         switch indexPath.row {
         case 0:
-            print("file upload")
+            selectUploadFileFromiCouldDrive()
         case 1:
-            print("create folder")
             showCreateFolderOption()
         default:
             print("do nothing")
         }
-        
-        //        self.delegate?.moreMenuDidSelectRow(index: indexPath.row, dict: dict)
-        //        self.dismiss(animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
+    }
+}
+
+extension APMoreMenuViewController {
+    private func selectUploadFileFromiCouldDrive()  {
+        let documentTypes = ["com.adobe.pdf"]
+        let document = UIDocumentPickerViewController.init(documentTypes: documentTypes, in: .open)
+        document.delegate = self
+        document.modalPresentationStyle = .automatic
+        self.present(document, animated:true, completion:nil)
+    }
+}
+
+extension APMoreMenuViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        guard controller.documentPickerMode == .open, url.startAccessingSecurityScopedResource() else { return }
+        let fileName = url.lastPathComponent.removingPercentEncoding
+        print("fileName: \(fileName!)")
+        if APCloudManager.iCouldEnable() {
+            APCloudManager.downloadFile(forDocumentUrl: url) { (fileData) in
+                
+                let data = fileData as NSData
+                let fileManager = FileManager.default
+                let docsurl = try! fileManager.url(
+                    for: .cachesDirectory, in: .userDomainMask,
+                    appropriateFor: nil, create: true)
+                let fileUrl = docsurl.appendingPathComponent("APReader.OneDrive/File/\(fileName ?? "")")
+                data.write(to: fileUrl, atomically: true)
+                self.uploadFile(name: fileName ?? "")
+            }
+        } else {
+            // Show the error
+            let alert = UIAlertController(title: "Error",
+                                          message: "iCloud Documents unavailable",
+                                          preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true)
+        }
+    }
+    
+    func uploadFile(name: String, sharing: Bool = true) {
+        
+        SVProgressHUD.showInfo(withStatus: "Uploading to OneDrive")
+        APOneDriveManager.instance.createUploadSession(fileName: name, completion: { (result: OneDriveManagerResult, uploadUrl, expirationDateTime, nextExpectedRanges) -> Void in
+            switch(result) {
+            case .Success:
+                
+                APOneDriveManager.instance.uploadPDFBytes(fileName: name, uploadUrl: uploadUrl!, completion: { (result: OneDriveManagerResult, webUrl, fileId) -> Void in
+                    switch(result) {
+                    case .Success:
+                        print ("Web Url of file \(String(describing: webUrl))")
+                        print ("FileId of file \(String(describing: fileId))")
+                        SVProgressHUD.showSuccess(withStatus: "Upload succeed")
+                        
+                        if sharing {
+                            APOneDriveManager.instance.createSharingLink(fileId: fileId!, completion: { (result: OneDriveManagerResult, sharingUrl) -> Void in
+                                switch(result) {
+                                case .Success:
+                                    print ("Sharing Url of file \(String(describing: sharingUrl))")
+                                    SVProgressHUD.showSuccess(withStatus: "Sharing Url created")
+                                case .Failure(let error):
+                                    print("\(error)")
+                                    SVProgressHUD.showError(withStatus: "Unknown Error")
+                                }
+                            })
+                        }
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    case .Failure(let error):
+                        print("\(error)")
+                        SVProgressHUD.showError(withStatus: "Unknown Error")
+                    }
+                })
+            case .Failure(let error):
+                print("\(error)")
+            }
+        })
     }
 }
 
@@ -94,6 +167,8 @@ extension APMoreMenuViewController {
                 self.dismiss(animated: true, completion: nil)
             } else {
                 print("No folder name entered")
+                SVProgressHUD.showError(withStatus: "No folder name entered")
+                self.dismiss(animated: true, completion: nil)
             }
         }
         

@@ -23,6 +23,7 @@ class APFileListViewController: UIViewController {
     private lazy var tittleView = APNavigationTittleView()
     private var files: [MSGraphDriveItem]?
     private var selectedFile: String?
+    private var selectedDriveItem: MSGraphDriveItem?
     static let fileCellID = "fileItemID"
     static let folderCellID = "folderItemID"
     var folderName = String()
@@ -48,12 +49,12 @@ class APFileListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupDataSource(for: folderName)
+        setupDataSource(for: folderName, itemId: selectedDriveItem?.entityId)
         updateUserInfo()
     }
     
     func reloadAction() {
-        setupDataSource(for: folderName)
+        setupDataSource(for: folderName, itemId: selectedDriveItem?.entityId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +68,7 @@ class APFileListViewController: UIViewController {
         tableView.refreshControl = refreshControl
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
-        refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refreshDriveItemData), for: .valueChanged)
     }
     
     func setupNavUI() {
@@ -103,9 +104,9 @@ class APFileListViewController: UIViewController {
         }
     }
     
-    func setupDataSource(for folder: String) {
+    func setupDataSource(for folder: String, itemId: String?) {
         SVProgressHUD.show()
-        APGraphManager.instance.getFiles(folderName: folder) {
+        APGraphManager.instance.getFiles(folderName: folder, itemId: itemId) {
             (fileArray: [MSGraphDriveItem]?, error: Error?) in
             DispatchQueue.main.async {
                 guard let files = fileArray, error == nil else {
@@ -129,8 +130,8 @@ class APFileListViewController: UIViewController {
     }
     
     @objc
-    private func refreshWeatherData(_ sender: Any) {
-        setupDataSource(for: folderName)
+    private func refreshDriveItemData(_ sender: Any) {
+        setupDataSource(for: folderName, itemId: selectedDriveItem?.entityId)
     }
     
     @objc
@@ -177,15 +178,16 @@ class APFileListViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let selectedItem = self.files?[tableView.indexPathForSelectedRow!.row]
         if segue.identifier == "showPreview" {
             guard let vc = segue.destination as? APPreviewViewController else { return }
-            let filePath = self.files?[tableView.indexPathForSelectedRow!.row].name
+            let filePath = selectedItem?.name ?? ""
             selectedFile = filePath
             vc.filePath = filePath
         } else if segue.identifier == "showChildFolder" {
             guard let vc = segue.destination as? APFileListViewController else { return }
-            let folderName = self.files?[tableView.indexPathForSelectedRow!.row].name
-            vc.folderName = folderName ?? ""
+            vc.folderName = selectedItem?.name ?? ""
+            vc.selectedDriveItem = selectedItem
         }
     }
     
@@ -262,46 +264,6 @@ extension APFileListViewController: UITableViewDelegate {
     }
 }
 
-// Update files to OneDrive
-extension APFileListViewController {
-    func uploadPDFFiles(_ sharing: Bool) {
-        guard let selectedFileName = selectedFile else {
-            return
-        }
-        APOneDriveManager.instance.createUploadSession(fileName: selectedFileName, completion: { (result: OneDriveManagerResult, uploadUrl, expirationDateTime, nextExpectedRanges) -> Void in
-            switch(result) {
-            case .Success:
-                print("success on creating session (\(String(describing: uploadUrl)) (\(String(describing: expirationDateTime))")
-                
-                APOneDriveManager.instance.uploadPDFBytes(fileName: selectedFileName, uploadUrl: uploadUrl!,  completion: { (result: OneDriveManagerResult, webUrl, fileId) -> Void in
-                    switch(result) {
-                    case .Success:
-                        print ("Web Url of file \(String(describing: webUrl))")
-                        print ("FileId of file \(String(describing: fileId))")
-                        
-                        if sharing {
-                            APOneDriveManager.instance.createSharingLink(fileId: fileId!, completion: { (result: OneDriveManagerResult, sharingUrl) -> Void in
-                                switch(result) {
-                                case .Success:
-                                    print ("Sharing Url of file \(String(describing: sharingUrl))")
-                                    
-                                case .Failure(let error):
-                                    print("\(error)")
-                                }
-                            })
-                        }
-                        
-                    case .Failure(let error):
-                        print("\(error)")
-                    }
-                })
-            case .Failure(let error):
-                print("\(error)")
-            }
-        })
-    }
-}
-
 extension APFileListViewController: APMoreMenuViewControllerDelegate {
     func moreMenuDidSelectRow(index: Int, dict: [String : String]) {
         switch index {
@@ -321,6 +283,7 @@ extension APFileListViewController: APMoreMenuViewControllerDelegate {
             switch(result) {
             case .Success:
                 print ("success")
+                self.tableView.reloadData()
             case .Failure(let error):
                 print("\(error)")
             }

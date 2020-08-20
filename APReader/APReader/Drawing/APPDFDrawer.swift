@@ -56,7 +56,7 @@ class APPDFDrawer {
     weak var delegate: APPDFDrawerDelegate?
     private var path: UIBezierPath?
     private var currentAnnotation : APDrawingAnnotation?
-    private var undoAnnotations: [APAnnotationItem] {
+    public var undoAnnotations: [APAnnotationItem] {
         didSet {
             undoEnable = undoAnnotations.count > 0
             delegate?.pdfDrawerDidFinishDrawing()

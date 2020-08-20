@@ -43,14 +43,17 @@ class APGraphManager {
         meDataTask?.execute()
     }
     
-    public func getFiles(folderName: String?, completion: @escaping([MSGraphDriveItem]?, Error?) -> Void) {
+    public func getFiles(folderName: String?, itemId: String? = nil, completion: @escaping([MSGraphDriveItem]?, Error?) -> Void) {
         // GET /me/drive/root/children
-        var subFolder: String?
-        if folderName?.count ?? 0 > 0 {
-            subFolder = "/\(folderName ?? "")"
+        // GET /me/drive/items/{item-id}/children
+        let urlString: String?
+        if itemId?.count ?? 0 > 0 {
+            urlString = "\(MSGraphBaseURL)/me/drive/items/\(itemId!)/children".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        } else {
+            urlString = "\(MSGraphBaseURL)/me/drive/root/children".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         }
-        let urlString = "\(MSGraphBaseURL)/me/drive/root:/Apps/APDFReader\(subFolder ?? ""):/children".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let filesRequest = NSMutableURLRequest(url: URL(string: urlString)!)
+        
+        let filesRequest = NSMutableURLRequest(url: URL(string: urlString ?? "")!)
         let filesDataTask = MSURLSessionDataTask(request: filesRequest, client: self.client, completion: {
             (data: Data?, response: URLResponse?, graphError: Error?) in
             guard let filesData = data, graphError == nil else {
@@ -86,29 +89,29 @@ class APGraphManager {
         filesDataTask?.execute()
     }
     
-    public func getFileContentDownloadUrl(itemid: String, completion: @escaping(String?, Error?) -> Void) {
-        // GET /me/drive/root/children
-        let filesRequest = NSMutableURLRequest(url: URL(string: "\(MSGraphBaseURL)/me/drive/items/\(itemid)/content")!)
-        print("filesRequest: \(filesRequest)")
-        let filesDataTask = MSURLSessionDataTask(request: filesRequest, client: self.client, completion: {
-            (data: Data?, response: URLResponse?, graphError: Error?) in
-            guard let response = response, graphError == nil else {
-                completion(nil, graphError)
-                return
-            }
-           
-            do {
-                print("dic:\(String(describing: response.url?.absoluteString))")
-                completion(response.url?.absoluteString, nil)
-            } catch _ {
-                completion(nil, graphError)
-            }
-
-        })
-        
-        // Execute the request
-        filesDataTask?.execute()
-    }
+//    public func getFileContentDownloadUrl(itemid: String, completion: @escaping(String?, Error?) -> Void) {
+//        // GET /me/drive/root/children
+//        let filesRequest = NSMutableURLRequest(url: URL(string: "\(MSGraphBaseURL)/me/drive/items/\(itemid)/content")!)
+//        print("filesRequest: \(filesRequest)")
+//        let filesDataTask = MSURLSessionDataTask(request: filesRequest, client: self.client, completion: {
+//            (data: Data?, response: URLResponse?, graphError: Error?) in
+//            guard let response = response, graphError == nil else {
+//                completion(nil, graphError)
+//                return
+//            }
+//
+//            do {
+//                print("dic:\(String(describing: response.url?.absoluteString))")
+//                completion(response.url?.absoluteString, nil)
+//            } catch _ {
+//                completion(nil, graphError)
+//            }
+//
+//        })
+//
+//        // Execute the request
+//        filesDataTask?.execute()
+//    }
     
     
     

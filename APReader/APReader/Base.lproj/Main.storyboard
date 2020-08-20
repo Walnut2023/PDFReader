@@ -27,7 +27,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pdf_cloud_storage" translatesAutoresizingMaskIntoConstraints="NO" id="lbv-yK-lNd">
-                                                    <rect key="frame" x="20" y="21" width="55" height="58"/>
+                                                    <rect key="frame" x="20" y="21" width="50" height="58"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="React.js 小书" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2zn-ex-I0v">
                                                     <rect key="frame" x="83" y="11" width="248" height="28"/>
@@ -84,7 +84,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="9IA-Zj-gkM" secondAttribute="trailing" constant="24" id="A0n-We-wEx"/>
                                                 <constraint firstItem="I4b-gT-EkT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="R35-JP-GG8" secondAttribute="trailing" constant="8" symbolic="YES" id="Er6-rA-qZJ"/>
                                                 <constraint firstItem="lMS-Z6-5QL" firstAttribute="centerY" secondItem="I4b-gT-EkT" secondAttribute="centerY" id="H0R-ei-t8h"/>
-                                                <constraint firstItem="2zn-ex-I0v" firstAttribute="leading" secondItem="lbv-yK-lNd" secondAttribute="trailing" constant="8" id="KPN-Ez-koV"/>
+                                                <constraint firstItem="2zn-ex-I0v" firstAttribute="leading" secondItem="lbv-yK-lNd" secondAttribute="trailing" constant="13" id="KPN-Ez-koV"/>
                                                 <constraint firstAttribute="trailing" secondItem="I4b-gT-EkT" secondAttribute="trailing" constant="24" id="LFg-g5-oBi"/>
                                                 <constraint firstItem="lbv-yK-lNd" firstAttribute="top" secondItem="bqX-Pp-zBG" secondAttribute="topMargin" constant="10" id="LHV-JB-m1c"/>
                                                 <constraint firstItem="I4b-gT-EkT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2zn-ex-I0v" secondAttribute="trailing" constant="8" symbolic="YES" id="Mj2-lF-pLb"/>
@@ -109,18 +109,18 @@
                                             <segue destination="3Nl-Bs-oA5" kind="show" identifier="showPreview" id="Zhw-5K-8zO"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="folderItemID" rowHeight="100" id="2x3-h5-i98" customClass="APFolderTableViewCell" customModule="APReader" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="folderItemID" rowHeight="100" id="2x3-h5-i98" customClass="APFolderTableViewCell" customModule="APReader" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="128" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2x3-h5-i98" id="slO-mk-F4l">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder" translatesAutoresizingMaskIntoConstraints="NO" id="0fM-yX-HmO">
-                                                    <rect key="frame" x="20" y="21" width="55" height="58"/>
+                                                    <rect key="frame" x="20" y="25" width="45" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="58" id="R5I-u1-dYX"/>
-                                                        <constraint firstAttribute="width" constant="55" id="khD-p4-x9w"/>
+                                                        <constraint firstAttribute="height" constant="50" id="R5I-u1-dYX"/>
+                                                        <constraint firstAttribute="width" constant="45" id="khD-p4-x9w"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="修改时间 32MB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aqc-70-qNo">
@@ -142,11 +142,11 @@
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Aqc-70-qNo" secondAttribute="trailing" constant="10" id="57k-NZ-Tto"/>
                                                 <constraint firstItem="jYh-ve-8pF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0fM-yX-HmO" secondAttribute="trailing" constant="8" symbolic="YES" id="7CI-7h-ZZQ"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jYh-ve-8pF" secondAttribute="trailing" constant="10" id="7KW-qJ-gcc"/>
-                                                <constraint firstItem="Aqc-70-qNo" firstAttribute="bottom" secondItem="0fM-yX-HmO" secondAttribute="bottom" id="E8S-Qn-FGp"/>
+                                                <constraint firstItem="Aqc-70-qNo" firstAttribute="bottom" secondItem="0fM-yX-HmO" secondAttribute="bottom" constant="4" id="E8S-Qn-FGp"/>
                                                 <constraint firstItem="0fM-yX-HmO" firstAttribute="leading" secondItem="slO-mk-F4l" secondAttribute="leading" constant="20" id="kKb-h5-R9v"/>
                                                 <constraint firstItem="Aqc-70-qNo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0fM-yX-HmO" secondAttribute="trailing" constant="8" symbolic="YES" id="vKf-z1-nEs"/>
                                                 <constraint firstItem="0fM-yX-HmO" firstAttribute="centerY" secondItem="slO-mk-F4l" secondAttribute="centerY" id="vfh-PX-AKp"/>
-                                                <constraint firstItem="jYh-ve-8pF" firstAttribute="top" secondItem="0fM-yX-HmO" secondAttribute="top" id="x9X-Id-KXj"/>
+                                                <constraint firstItem="jYh-ve-8pF" firstAttribute="top" secondItem="0fM-yX-HmO" secondAttribute="top" constant="-4" id="x9X-Id-KXj"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -994,10 +994,10 @@
             </objects>
             <point key="canvasLocation" x="-884.05797101449286" y="1605.8035714285713"/>
         </scene>
-        <!--More Menu View Controller-->
+        <!--More-->
         <scene sceneID="z1b-Nw-j4A">
             <objects>
-                <tableViewController storyboardIdentifier="MoreVC" id="2hS-2Z-3r5" customClass="APMoreMenuViewController" customModule="APReader" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MoreVC" title="More" id="2hS-2Z-3r5" customClass="APMoreMenuViewController" customModule="APReader" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gKg-Ym-5wM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

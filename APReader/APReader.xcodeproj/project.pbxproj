@@ -41,6 +41,7 @@
 		C4E42A5624EE265C0049AB38 /* APMoreMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */; };
 		C4E42A5A24EE2DB50049AB38 /* APMoreMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */; };
 		C4E42A5C24EE6D760049AB38 /* APFolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5B24EE6D760049AB38 /* APFolderTableViewCell.swift */; };
+		C4E42A6024EE815D0049AB38 /* APCloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5F24EE815D0049AB38 /* APCloudManager.swift */; };
 		C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */; };
 		C4EF3B3D24CC09E7002E6A6A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */; };
 		C4EF3B3F24CC09E7002E6A6A /* APFileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3E24CC09E7002E6A6A /* APFileListViewController.swift */; };
@@ -98,6 +99,7 @@
 		C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APMoreMenuCell.swift; sourceTree = "<group>"; };
 		C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APMoreMenuViewController.swift; sourceTree = "<group>"; };
 		C4E42A5B24EE6D760049AB38 /* APFolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APFolderTableViewCell.swift; sourceTree = "<group>"; };
+		C4E42A5F24EE815D0049AB38 /* APCloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCloudManager.swift; sourceTree = "<group>"; };
 		C4EF3B3724CC09E7002E6A6A /* APReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -245,6 +247,14 @@
 			path = ColorPicker;
 			sourceTree = "<group>";
 		};
+		C4E42A5E24EE81350049AB38 /* CloudDocument */ = {
+			isa = PBXGroup;
+			children = (
+				C4E42A5F24EE815D0049AB38 /* APCloudManager.swift */,
+			);
+			path = CloudDocument;
+			sourceTree = "<group>";
+		};
 		C4EF3B2E24CC09E7002E6A6A = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +283,7 @@
 				C4BFFD6924DED75B00222D28 /* ColorPicker */,
 				C49BE3FF24CC71D7006E5D56 /* Drawing */,
 				C49BE40024CC71FB006E5D56 /* Extensions */,
+				C4E42A5E24EE81350049AB38 /* CloudDocument */,
 				C4F1DBD824E2D3E900476494 /* GraphManager */,
 				C4F1DBE824E5946400476494 /* Utiles */,
 				C49BE3FE24CC71C0006E5D56 /* Model */,
@@ -454,6 +465,7 @@
 				C43D8E6E24D2A4FB00558110 /* APSearchViewController.swift in Sources */,
 				C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */,
 				C4256D0724EB740B00F6621B /* APNavigationTittleView.swift in Sources */,
+				C4E42A6024EE815D0049AB38 /* APCloudManager.swift in Sources */,
 				C4BFFD7124DED75C00222D28 /* UIColor+Utilities.swift in Sources */,
 				C43D8E6124D173A400558110 /* APOutlineTableViewCell.swift in Sources */,
 				C45B13BC24CD635B00D30445 /* APNonSelectablePDFView.swift in Sources */,

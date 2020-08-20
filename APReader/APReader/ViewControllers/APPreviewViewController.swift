@@ -8,6 +8,7 @@
 
 import UIKit
 import PDFKit
+import SVProgressHUD
 
 class APPreviewViewController: UIViewController {
     
@@ -54,6 +55,7 @@ class APPreviewViewController: UIViewController {
     private var toolbarActionControl: APPDFToolbarActionControl?
     private var penControl: APPencilControl?
     private var editButtonClicked: Bool = false
+    private var needUpload: Bool = false
     
     private let pdfDrawer = APPDFDrawer()
     private let pdfTextDrawer = APPDFTextDrawer()
@@ -85,12 +87,9 @@ class APPreviewViewController: UIViewController {
         return .slide
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        needUpload = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -187,7 +186,8 @@ class APPreviewViewController: UIViewController {
     }
     
     @objc func backAction(_ sender: Any) {
-        cancelTimer()
+        stopTimer()
+        uploadPDFFileToOneDrive()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -200,6 +200,7 @@ class APPreviewViewController: UIViewController {
         print("editAction tapped")
         editButtonClicked = !editButtonClicked
         if editButtonClicked {
+            needUpload = true
             navigationItem.setLeftBarButtonItems([backBarButtonItem], animated: true)
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, edittingBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
             
@@ -211,7 +212,7 @@ class APPreviewViewController: UIViewController {
             self.pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
             pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
             pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
-            stopTimer()
+            addTimer()
         } else {
             navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem], animated: true)
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, editBarButtonItem], animated: true)
@@ -225,7 +226,7 @@ class APPreviewViewController: UIViewController {
             self.tapGestureRecognizer = UITapGestureRecognizer()
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
-            addTimer()
+            stopTimer()
         }
     }
     
@@ -388,10 +389,36 @@ extension APPreviewViewController: APPDFDrawerDelegate {
 
 // Auto saving
 extension APPreviewViewController {
+    func uploadPDFFileToOneDrive() {
+        guard let selectedFileName = filePath, needUpload == true  else {
+            return
+        }
+        SVProgressHUD.showInfo(withStatus: "Uploading to OneDrive")
+        APOneDriveManager.instance.createUploadSession(fileName: selectedFileName, completion: { (result: OneDriveManagerResult, uploadUrl, expirationDateTime, nextExpectedRanges) -> Void in
+            switch(result) {
+            case .Success:
+                print("success on creating session (\(String(describing: uploadUrl)) (\(String(describing: expirationDateTime))")
+                
+                APOneDriveManager.instance.uploadPDFBytes(fileName: selectedFileName, uploadUrl: uploadUrl!, completion: { (result: OneDriveManagerResult, webUrl, fileId) -> Void in
+                    switch(result) {
+                    case .Success:
+                        print ("Web Url of file \(String(describing: webUrl))")
+                        print ("FileId of file \(String(describing: fileId))")
+                        SVProgressHUD.showInfo(withStatus: "Upload Succeed")
+                    case .Failure(let error):
+                        print("\(error)")
+                        SVProgressHUD.showInfo(withStatus: "Upload Failed")
+                    }
+                })
+            case .Failure(let error):
+                print("\(error)")
+            }
+        })
+    }
     
     func savePDFDocument() {
         print("\(Date()) savePDFDocument")
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        DispatchQueue.global(qos: .background).sync { [weak self] in
             let copyPdfDoc = (self?.pdfDocument)!.copy() as! PDFDocument
                 
             if let data = copyPdfDoc.dataRepresentation() {
