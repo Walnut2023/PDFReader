@@ -43,9 +43,14 @@ class APGraphManager {
         meDataTask?.execute()
     }
     
-    public func getFiles(completion: @escaping([MSGraphDriveItem]?, Error?) -> Void) {
+    public func getFiles(folderName: String?, completion: @escaping([MSGraphDriveItem]?, Error?) -> Void) {
         // GET /me/drive/root/children
-        let filesRequest = NSMutableURLRequest(url: URL(string: "\(MSGraphBaseURL)/me/drive/root:/Apps/APDFReader:/children")!)
+        var subFolder: String?
+        if folderName?.count ?? 0 > 0 {
+            subFolder = "/\(folderName ?? "")"
+        }
+        let urlString = "\(MSGraphBaseURL)/me/drive/root:/Apps/APDFReader\(subFolder ?? ""):/children".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let filesRequest = NSMutableURLRequest(url: URL(string: urlString)!)
         let filesDataTask = MSURLSessionDataTask(request: filesRequest, client: self.client, completion: {
             (data: Data?, response: URLResponse?, graphError: Error?) in
             guard let filesData = data, graphError == nil else {
@@ -93,10 +98,9 @@ class APGraphManager {
             }
            
             do {
-                print("dic:\(response.url?.absoluteString)")
+                print("dic:\(String(describing: response.url?.absoluteString))")
                 completion(response.url?.absoluteString, nil)
             } catch _ {
-                print("失败")
                 completion(nil, graphError)
             }
 

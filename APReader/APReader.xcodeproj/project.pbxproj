@@ -38,6 +38,9 @@
 		C4BFFD7324DED75C00222D28 /* ColorModeToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6D24DED75B00222D28 /* ColorModeToggleButton.swift */; };
 		C4BFFD7424DED75C00222D28 /* ChromaHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6E24DED75B00222D28 /* ChromaHandle.swift */; };
 		C4BFFD7524DED75C00222D28 /* ChromaAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6F24DED75B00222D28 /* ChromaAddButton.swift */; };
+		C4E42A5624EE265C0049AB38 /* APMoreMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */; };
+		C4E42A5A24EE2DB50049AB38 /* APMoreMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */; };
+		C4E42A5C24EE6D760049AB38 /* APFolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5B24EE6D760049AB38 /* APFolderTableViewCell.swift */; };
 		C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */; };
 		C4EF3B3D24CC09E7002E6A6A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */; };
 		C4EF3B3F24CC09E7002E6A6A /* APFileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3E24CC09E7002E6A6A /* APFileListViewController.swift */; };
@@ -92,6 +95,9 @@
 		C4BFFD6D24DED75B00222D28 /* ColorModeToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorModeToggleButton.swift; sourceTree = "<group>"; };
 		C4BFFD6E24DED75B00222D28 /* ChromaHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaHandle.swift; sourceTree = "<group>"; };
 		C4BFFD6F24DED75B00222D28 /* ChromaAddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaAddButton.swift; sourceTree = "<group>"; };
+		C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APMoreMenuCell.swift; sourceTree = "<group>"; };
+		C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APMoreMenuViewController.swift; sourceTree = "<group>"; };
+		C4E42A5B24EE6D760049AB38 /* APFolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APFolderTableViewCell.swift; sourceTree = "<group>"; };
 		C4EF3B3724CC09E7002E6A6A /* APReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -198,9 +204,12 @@
 				C4F1DBD124E2AE8300476494 /* APProfileViewController.swift */,
 				C4F1DBDB24E2F62900476494 /* APTestTableViewController.swift */,
 				C4F1DBDD24E2F96900476494 /* APFileItemTableViewCell.swift */,
+				C4E42A5B24EE6D760049AB38 /* APFolderTableViewCell.swift */,
 				C4F1DC2824E787AA00476494 /* APTestTableViewCell.swift */,
 				C4256D0624EB740B00F6621B /* APNavigationTittleView.swift */,
 				C4256D0824EB742400F6621B /* APNavigationTittleView.xib */,
+				C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */,
+				C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -425,12 +434,14 @@
 			files = (
 				C42CCCB824CC610C00D6F0E8 /* FileItem.swift in Sources */,
 				C49BE40824CC7DB0006E5D56 /* APPDFDrawer.swift in Sources */,
+				C4E42A5C24EE6D760049AB38 /* APFolderTableViewCell.swift in Sources */,
 				C4BFFD7224DED75C00222D28 /* ChromaColorPicker.swift in Sources */,
 				C437859B24CDB3BE00AE2C07 /* APPDFTextDrawer.swift in Sources */,
 				C4EF3B3F24CC09E7002E6A6A /* APFileListViewController.swift in Sources */,
 				C49BE40324CC7A26006E5D56 /* UIKitExtensions.swift in Sources */,
 				C437859924CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift in Sources */,
 				C43D8E6924D1AAE800558110 /* APBookmarkTableViewCell.swift in Sources */,
+				C4E42A5624EE265C0049AB38 /* APMoreMenuCell.swift in Sources */,
 				C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */,
 				C49BE40524CC7ACE006E5D56 /* PDFKitExtensions.swift in Sources */,
 				C43D8E5E24D1709400558110 /* APOutlineTableViewController.swift in Sources */,
@@ -446,6 +457,7 @@
 				C4BFFD7124DED75C00222D28 /* UIColor+Utilities.swift in Sources */,
 				C43D8E6124D173A400558110 /* APOutlineTableViewCell.swift in Sources */,
 				C45B13BC24CD635B00D30445 /* APNonSelectablePDFView.swift in Sources */,
+				C4E42A5A24EE2DB50049AB38 /* APMoreMenuViewController.swift in Sources */,
 				C4BFFD7324DED75C00222D28 /* ColorModeToggleButton.swift in Sources */,
 				C4F1DBE724E590C700476494 /* APDriveEntityExtensions.swift in Sources */,
 				C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */,

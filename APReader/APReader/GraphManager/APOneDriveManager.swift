@@ -28,6 +28,16 @@ struct UploadTaskObj : Decodable {
     let nextExpectedRanges: [String]?
 }
 
+struct SharingLinkRespObj : Decodable {
+    let id: String
+    let roles: [String]?
+    let link: LinkRespObj
+}
+
+struct LinkRespObj : Decodable {
+    let webUrl:String?
+}
+
 class APOneDriveManager {
     
     static let instance = APOneDriveManager()
@@ -206,4 +216,78 @@ class APOneDriveManager {
         uploadTask.resume()
     }
     
+    func createFolder(folderName: String, completion: @escaping (OneDriveManagerResult) -> Void) {
+        
+        let request = NSMutableURLRequest(url: NSURL(string: "\(MSGraphBaseURL)/me/drive/root:/Apps/APDFReader:/children")! as URL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        
+        let emptyParams = Dictionary<String, String>()
+        let params = ["name":folderName,
+                      "folder":emptyParams,
+                      "@name.conflictBehavior":"rename"] as [String : Any]
+        
+        request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions())
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+            (data, response, error) -> Void in
+            
+            if let someError = error {
+                completion(OneDriveManagerResult.Failure(OneDriveAPIError.GeneralError(someError)))
+                return
+            }
+            
+            let statusCode = (response as! HTTPURLResponse).statusCode
+            
+            switch(statusCode) {
+            case 200, 201:
+                completion(OneDriveManagerResult.Success)
+            default:
+                completion(OneDriveManagerResult.Failure(OneDriveAPIError.UnspecifiedError(response)))
+            }
+        })
+        task.resume()
+    }
+    
+    func createSharingLink(fileId:String,
+                        completion: @escaping (OneDriveManagerResult, _ webUrl: String?) -> Void) {
+        
+        let request = NSMutableURLRequest(url: URL(string: "\(MSGraphBaseURL)/me/drive/items/\(fileId)/createLink")!)
+        
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        request.httpBody =  ("{\"type\": \"view\",\"scope\": \"anonymous\"}" as NSString).data(using: String.Encoding.utf8.rawValue)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+            (data, response, error) -> Void in
+            
+            guard error == nil else {
+                print("error calling upload")
+                print(error!)
+                return
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+    
+            do{
+                let json = try JSONSerialization.jsonObject(with: responseData, options: JSONSerialization.ReadingOptions()) as! [String:Any]
+                print((json.description)) // outputs whole JSON
+                
+                let decoder = JSONDecoder()
+                let sharingLinkRespObj = try decoder.decode(SharingLinkRespObj.self, from: responseData)
+                
+                let webUrl = sharingLinkRespObj.link.webUrl
+                completion(OneDriveManagerResult.Success, webUrl)
+            }
+            catch{
+                completion(OneDriveManagerResult.Failure(OneDriveAPIError.JSONParseError), nil)
+            }
+        })
+        
+        task.resume()
+    }
 }

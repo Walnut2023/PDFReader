@@ -23,7 +23,7 @@ class APTestTableViewController: UITableViewController {
     }
     
     func loadFileData() {
-        APGraphManager.instance.getFiles {
+        APGraphManager.instance.getFiles(folderName: nil) {
             (fileArray: [MSGraphDriveItem]?, error: Error?) in
             DispatchQueue.main.async {
                 guard let files = fileArray, error == nil else {

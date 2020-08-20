@@ -8,6 +8,7 @@
 
 import UIKit
 import Tiercel
+import MSGraphClientModels
 
 class APFileItemTableViewCell: UITableViewCell {
 
@@ -19,6 +20,14 @@ class APFileItemTableViewCell: UITableViewCell {
     @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var downloadedLabel: UILabel!
+    
+    var driveItem: MSGraphDriveItem? {
+        didSet {
+            if driveItem?.folder != nil {
+                fileTypeImage.image = #imageLiteral(resourceName: "folder")
+            }
+        }
+    }
     
     var tapClosure: ((APFileItemTableViewCell) -> Void)?
     var downloadClosure: ((APFileItemTableViewCell) -> Void)?
