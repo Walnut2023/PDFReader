@@ -16,7 +16,7 @@ class APFileListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private lazy var backBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "arrow_back"), style: .plain, target: self, action: #selector(backAction))
+    private lazy var backBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "back"), style: .plain, target: self, action: #selector(backAction))
     private lazy var signOoutBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "logout"), style: .plain, target: self, action: #selector(signoutAction))
     
     private let refreshControl = UIRefreshControl()
