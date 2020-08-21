@@ -1,16 +1,15 @@
 {
   "images" : [
     {
+      "filename" : "book.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "rwdevcon-bg.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "rwdevcon-bg-1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
