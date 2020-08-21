@@ -118,6 +118,7 @@
 		C4F1DBE624E590C700476494 /* APDriveEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDriveEntityExtensions.swift; sourceTree = "<group>"; };
 		C4F1DBE924E5947400476494 /* APUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APUtils.swift; sourceTree = "<group>"; };
 		C4F1DC2824E787AA00476494 /* APTestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APTestTableViewCell.swift; sourceTree = "<group>"; };
+		DE369DFE28B8D030AB36B39E /* Pods-APReader.ad hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APReader.ad hoc.xcconfig"; path = "Target Support Files/Pods-APReader/Pods-APReader.ad hoc.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +138,7 @@
 			children = (
 				567F145151DFBEE3A0C2CBC4 /* Pods-APReader.debug.xcconfig */,
 				AD7B16EE42D79E779FBF3A46 /* Pods-APReader.release.xcconfig */,
+				DE369DFE28B8D030AB36B39E /* Pods-APReader.ad hoc.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -567,12 +569,13 @@
 		};
 		C46A150A24EF8FF700A5AFE8 /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD7B16EE42D79E779FBF3A46 /* Pods-APReader.release.xcconfig */;
+			baseConfigurationReference = DE369DFE28B8D030AB36B39E /* Pods-APReader.ad hoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -584,6 +587,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Ad Hoc";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Ad Hoc";
 		};
@@ -709,6 +713,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -720,6 +725,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -731,6 +737,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -742,6 +749,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "App Store";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
