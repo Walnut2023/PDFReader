@@ -251,7 +251,11 @@ extension APFileListViewController: UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: APFileListViewController.folderCellID) as! APFolderTableViewCell
             cell.foldername = fileItem?.name
-            cell.updatetime = "\(fileItem?.lastModifiedTimeString() ?? "1970") - \(String(format: "%.2fMB", (Float)(fileItem?.size ?? 0) / 1024 / 1024))"
+            if fileItem?.size == 0 {
+                cell.updatetime = "\(fileItem?.lastModifiedTimeString() ?? "1970") - Empty"
+            } else {
+                cell.updatetime = "\(fileItem?.lastModifiedTimeString() ?? "1970") - \(String(format: "%.2fMB", (Float)(fileItem?.size ?? 0) / 1024 / 1024))"
+            }
             return cell
         }
     }
