@@ -79,3 +79,20 @@ extension UIViewController {
         return sceneDelegate.window
     }
 }
+
+extension String {
+    subscript(_ i: Int) -> Character {
+        return self[index(startIndex, offsetBy: i)]
+    }
+    
+    func subString(_ begin: Int, _ count: Int) -> String {
+        let start = self.index(self.startIndex, offsetBy: max(0, begin))
+        let end = self.index(self.startIndex, offsetBy: min(self.count, begin + count))
+        return String(self[start..<end])
+    }
+    
+    func subString(_ index: Int) -> String {
+        let theIndex = self.index(self.endIndex, offsetBy: index - self.count)
+        return String(self[theIndex..<endIndex])
+    }
+}

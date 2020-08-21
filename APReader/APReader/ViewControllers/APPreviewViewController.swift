@@ -9,6 +9,7 @@
 import UIKit
 import PDFKit
 import SVProgressHUD
+import MSGraphClientModels
 
 class APPreviewViewController: UIViewController {
     
@@ -19,6 +20,8 @@ class APPreviewViewController: UIViewController {
     
     public var filePath: String?
     public var pdfDocument: PDFDocument?
+    public var driveItem: MSGraphDriveItem?
+    
     var editingMode: EditingMode? = .pen
     var editingColor: UIColor? = .red
     
@@ -167,7 +170,7 @@ class APPreviewViewController: UIViewController {
     }
     
     private func loadPdfFile() {
-        let pdfDocument = PDFDocument(url: self.getFileUrl())
+        let pdfDocument = PDFDocument(url: self.getFileUrl()!)
         pdfView.document = pdfDocument
         self.pdfDocument = pdfDocument
     }
@@ -361,12 +364,9 @@ class APPreviewViewController: UIViewController {
         }
     }
     
-    func getFileUrl() -> URL {
-        let fileManager = FileManager.default
-        let docsurl = try! fileManager.url(
-            for: .cachesDirectory, in: .userDomainMask,
-            appropriateFor: nil, create: true)
-        return docsurl.appendingPathComponent("APReader.OneDrive/File/\(self.filePath ?? "")")
+    func getFileUrl() -> URL? {
+        guard let driveItem = driveItem else { return nil }
+        return driveItem.localFilePath()
     }
     
     func updatePageNumberLabel() {
@@ -394,12 +394,11 @@ extension APPreviewViewController {
             return
         }
         SVProgressHUD.showInfo(withStatus: "Uploading to OneDrive")
-        APOneDriveManager.instance.createUploadSession(fileName: selectedFileName, completion: { (result: OneDriveManagerResult, uploadUrl, expirationDateTime, nextExpectedRanges) -> Void in
+        APOneDriveManager.instance.createUploadSession(filePath: driveItem?.fileItemShortRelativePath(), fileName: selectedFileName, completion: { (result: OneDriveManagerResult, uploadUrl, expirationDateTime, nextExpectedRanges) -> Void in
             switch(result) {
             case .Success:
                 print("success on creating session (\(String(describing: uploadUrl)) (\(String(describing: expirationDateTime))")
-                
-                APOneDriveManager.instance.uploadPDFBytes(fileName: selectedFileName, uploadUrl: uploadUrl!, completion: { (result: OneDriveManagerResult, webUrl, fileId) -> Void in
+                APOneDriveManager.instance.uploadPDFBytes(driveItem: self.driveItem!, uploadUrl: uploadUrl!, completion: { (result: OneDriveManagerResult, webUrl, fileId) -> Void in
                     switch(result) {
                     case .Success:
                         print ("Web Url of file \(String(describing: webUrl))")

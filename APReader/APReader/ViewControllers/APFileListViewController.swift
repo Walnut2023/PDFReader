@@ -28,15 +28,6 @@ class APFileListViewController: UIViewController {
     static let folderCellID = "folderItemID"
     var folderName = String()
     
-    var sessionManager: SessionManager = {
-        var configuration = SessionConfiguration()
-        configuration.allowsCellularAccess = true
-        let path = Cache.defaultDiskCachePathClosure("APReader.OneDrive")
-        let cacahe = Cache("OneDrive", downloadPath: path)
-        let manager = SessionManager("OneDrive", configuration: configuration, cache: cacahe, operationQueue: DispatchQueue(label: "com.tango.SessionManager.operationQueue"))
-        return manager
-    }()
-    
     override var hidesBottomBarWhenPushed: Bool {
         get {
             return navigationController?.topViewController != self
@@ -154,6 +145,7 @@ class APFileListViewController: UIViewController {
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         let moreVC: APMoreMenuViewController = storyBoard.instantiateViewController(identifier: "MoreVC")
         moreVC.delegate = self
+        moreVC.driveItem = selectedDriveItem
         let navigationController: UINavigationController = UINavigationController.init(rootViewController: moreVC)
         let horizontalClass = self.traitCollection.horizontalSizeClass
         if horizontalClass == UIUserInterfaceSizeClass.regular {
@@ -184,6 +176,7 @@ class APFileListViewController: UIViewController {
             let filePath = selectedItem?.name ?? ""
             selectedFile = filePath
             vc.filePath = filePath
+            vc.driveItem = selectedItem
         } else if segue.identifier == "showChildFolder" {
             guard let vc = segue.destination as? APFileListViewController else { return }
             vc.folderName = selectedItem?.name ?? ""
@@ -210,30 +203,52 @@ extension APFileListViewController: UITableViewDataSource {
             cell.driveItem = fileItem
 
             cell.tapClosure = { [weak self] cell in
-                if let task = self?.sessionManager.fetchTask(fileItem?.graphDownloadUrl() ?? "") {
+                if let task = appDelegate.sessionManager.fetchTask(fileItem?.graphDownloadUrl() ?? "") {
                     switch task.status {
                     case .waiting, .running:
                         cell.loadingIndicator.isHidden = false
-                        self?.sessionManager.suspend(task)
+                        appDelegate.sessionManager.suspend(task)
                     case .suspended, .failed:
-                        self?.sessionManager.start(task)
+                        appDelegate.sessionManager.start(task)
                     default: break
                     }
                 } else {
                     // shouldn't be like this
-                    self?.sessionManager.download(fileItem?.graphDownloadUrl() ?? "", fileName: fileItem?.name) { _ in
+                    appDelegate.sessionManager.download(fileItem?.graphDownloadUrl() ?? "", fileName: fileItem?.name) { _ in
                         self?.tableView.reloadData()
                     }
                 }
             }
             
-            if let task = sessionManager.fetchTask(fileItem?.graphDownloadUrl() ?? "") {
+            if let task = appDelegate.sessionManager.fetchTask(fileItem?.graphDownloadUrl() ?? "") {
                 cell.updateProgress(task)
                 task.progress { [weak cell] (task) in
                     cell?.updateProgress(task)
                 }
                 .success { [weak cell] (task) in
                     cell?.updateProgress(task)
+                    print("file--- not in path: \(fileItem?.fileItemShortRelativePath() ?? "")")
+                    if FileManager.default.fileExists(atPath: fileItem?.tmpLocalFilePath().path ?? "") &&
+                        !FileManager.default.fileExists(atPath: fileItem?.localFilePath().path ?? "") {
+                        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+                        let docURL = URL(string: documentsDirectory)!
+                        let dataPath = docURL.appendingPathComponent("APReader.OneDrive/File/\(fileItem?.fileItemShortRelativePath() ?? "")")
+                        do {
+                            try FileManager.default.createDirectory(atPath: dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
+                        } catch {
+                            print("\(error)")
+                        }
+                        do {
+                            try FileManager.default.moveItem(atPath: fileItem!.tmpLocalFilePath().path, toPath: dataPath.absoluteString.appending("\(fileItem?.name ?? "")"))
+                            
+                            if FileManager.default.fileExists(atPath: fileItem?.localFilePath().path ?? "") {
+                                print("Moved succeed")
+                                tableView.reloadData()
+                            }
+                        } catch {
+                            print("\(error)")
+                        }
+                    }
                 }
                 .failure { [weak cell] (task) in
                     cell?.updateProgress(task)
@@ -273,7 +288,6 @@ extension APFileListViewController: APMoreMenuViewControllerDelegate {
         switch index {
         case 0:
             print("upload file")
-            
         case 1:
             print("create folder: \(dict)")
             createFolderInAppRoot(folderName: dict["name"] ?? "")

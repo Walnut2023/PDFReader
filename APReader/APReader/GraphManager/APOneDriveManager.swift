@@ -52,8 +52,13 @@ class APOneDriveManager {
         client = MSClientFactory.createHTTPClient(with: APAuthManager.instance)
     }
     
-    func createUploadSession(fileName: String, completion: @escaping (OneDriveManagerResult, _ uploadUrl: String?, _ expirationDateTime: String?, _ nextExpectedRanges: [String]?) -> Void) {
-        let urlString = "\(MSGraphBaseURL)/me/drive/special/approot:/\(fileName):/createUploadSession".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    func createUploadSession(filePath: String? = nil, fileName: String, completion: @escaping (OneDriveManagerResult, _ uploadUrl: String?, _ expirationDateTime: String?, _ nextExpectedRanges: [String]?) -> Void) {
+        var urlString: String!
+        if filePath == nil {
+            urlString = "\(MSGraphBaseURL)/me/drive/root:/\(fileName):/createUploadSession".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        } else {
+            urlString = "\(MSGraphBaseURL)/me/drive/root:/\(filePath!)/\(fileName):/createUploadSession".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        }
         let request = NSMutableURLRequest(url: URL(string: urlString)!)
         request.httpMethod = "POST"
         let params = ["item": ["name": fileName]] as [String : Any]
@@ -108,16 +113,16 @@ class APOneDriveManager {
         uploadTask?.execute()
     }
     
-    func uploadPDFBytes(fileName: String, uploadUrl: String, completion: @escaping (OneDriveManagerResult, _ webUrl: String?, _ fileId: String?) -> Void) {
-        let fileManager = FileManager.default
-        let docsurl = try! fileManager.url(
-            for: .cachesDirectory, in: .userDomainMask,
-            appropriateFor: nil, create: true)
-        let fileUrl = docsurl.appendingPathComponent("APReader.OneDrive/File/\(fileName)")
-        let pdfDocument = PDFDocument(url: fileUrl)
+    func uploadPDFBytes(driveItem: MSGraphDriveItem?, uploadFilePath: URL? = nil, uploadUrl: String, completion: @escaping (OneDriveManagerResult, _ webUrl: String?, _ fileId: String?) -> Void) {
+        var pdfDocument: PDFDocument!
+        if uploadFilePath != nil {
+            pdfDocument = PDFDocument(url: uploadFilePath ?? URL(string: "")!)
+        } else {
+            pdfDocument = PDFDocument(url: driveItem?.localFilePath() ?? URL(string: "")!)
+        }
         
         let data = pdfDocument?.dataRepresentation()
-        let imageSize: Int = data!.count
+        let dataSize: Int = data!.count
         
         var returnWebUrl: String?
         var returnFileId: String?
@@ -148,7 +153,7 @@ class APOneDriveManager {
         dispatchQueue.async {
             while (returnWebUrl == nil) {
                 dispatchGroup.enter()
-                self.uploadByteParts(defaultSession: defaultSession, uploadUrl: uploadUrl, data: data!, startPointer: returnNextExpectedRange, endPointer: returnNextExpectedRange + APOneDriveManager.partSize - 1, imageSize: imageSize, completion: uploadBytePartsCompletionHandler)
+                self.uploadByteParts(defaultSession: defaultSession, uploadUrl: uploadUrl, data: data!, startPointer: returnNextExpectedRange, endPointer: returnNextExpectedRange + APOneDriveManager.partSize - 1, dataSize: dataSize, completion: uploadBytePartsCompletionHandler)
                 dispatchSemaphore.wait()
             }
         }
@@ -160,19 +165,19 @@ class APOneDriveManager {
         }
     }
     
-    func uploadByteParts(defaultSession: URLSession, uploadUrl:String, data:Data,startPointer:Int, endPointer:Int, imageSize:Int, completion: @escaping (OneDriveManagerResult, _ nextExpectedRangeStart: Int?, _ webUrl: String?, _ fileId: String?) -> Void) {
+    func uploadByteParts(defaultSession: URLSession, uploadUrl: String, data: Data,startPointer: Int, endPointer: Int, dataSize: Int, completion: @escaping (OneDriveManagerResult, _ nextExpectedRangeStart: Int?, _ webUrl: String?, _ fileId: String?) -> Void) {
         
         var dataEndPointer = endPointer
-        if (endPointer + 1 >= imageSize){
-            dataEndPointer = imageSize - 1
+        if (endPointer + 1 >= dataSize){
+            dataEndPointer = dataSize - 1
         }
-        let strContentRange = "bytes \(startPointer)-\(dataEndPointer)/\(imageSize)"
+        let strContentRange = "bytes \(startPointer)-\(dataEndPointer)/\(dataSize)"
         print(strContentRange)
         
         var request = URLRequest(url: URL(string: uploadUrl)!)
         request.httpMethod = "PUT"
         request.setValue(strContentRange, forHTTPHeaderField: "Content-Range")
-        request.setValue("\(imageSize)", forHTTPHeaderField: "Content-Length")
+        request.setValue("\(dataSize)", forHTTPHeaderField: "Content-Length")
         
         let uploadTaskCompletionHandler: (Data?, URLResponse?, Error?) -> Void = {
             (data, response, error) in

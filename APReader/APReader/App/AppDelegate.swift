@@ -8,10 +8,12 @@
 
 import UIKit
 import MSAL
-
 import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
+import Tiercel
+
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // workaround
     var window: UIWindow?
 
+    var sessionManager: SessionManager = {
+        var configuration = SessionConfiguration()
+        configuration.allowsCellularAccess = true
+        let path = Cache.defaultDiskCachePathClosure("APReader.OneDrive")
+        let cacahe = Cache("OneDrive", downloadPath: path)
+        let manager = SessionManager("OneDrive", configuration: configuration, cache: cacahe, operationQueue: DispatchQueue(label: "com.tango.SessionManager.operationQueue"))
+        return manager
+    }()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         MSAppCenter.start("07987603-5e0a-4898-bcef-185ff9250a0f", withServices:[
           MSAnalytics.self,
@@ -49,6 +60,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: sourceApplication)
+    }
+    
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+
+        if sessionManager.identifier == identifier {
+            sessionManager.completionHandler = completionHandler
+        }
     }
 
 }

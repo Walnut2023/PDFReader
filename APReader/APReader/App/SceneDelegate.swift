@@ -24,7 +24,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             
             // workaround for svprogresshud
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.window = window
             
             APAuthManager.instance.getTokenSilently { (token: String?, error: Error?) in

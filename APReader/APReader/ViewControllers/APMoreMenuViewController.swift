@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import MSGraphClientModels
 
 protocol APMoreMenuViewControllerDelegate: AnyObject {
     func moreMenuDidSelectRow(index: Int, dict: [String: String])
@@ -19,15 +20,25 @@ class APMoreMenuViewController: UITableViewController {
     private let tableCellIdentifier = "APMoreMenuCell"
     
     public weak var delegate: APMoreMenuViewControllerDelegate?
+    public var driveItem: MSGraphDriveItem?
+    
+    private var uploadFileUrl: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupData()
         setupDataSource()
     }
     
     func setupUI() {
         tableView.tableFooterView = UIView()
+    }
+    
+    func setupData() {
+        if driveItem == nil {
+            driveItem = MSGraphDriveItem()
+        }
     }
     
     func setupDataSource() {
@@ -91,9 +102,18 @@ extension APMoreMenuViewController: UIDocumentPickerDelegate {
                 let docsurl = try! fileManager.url(
                     for: .cachesDirectory, in: .userDomainMask,
                     appropriateFor: nil, create: true)
-                let fileUrl = docsurl.appendingPathComponent("APReader.OneDrive/File/\(fileName ?? "")")
+                let fileUrl: URL!
+                if self.driveItem?.folder != nil {
+                    fileUrl = docsurl.appendingPathComponent("APReader.OneDrive/File/\(self.driveItem?.folderItemShortRelativePath() ?? "")/\(fileName ?? "")")
+                } else {
+                    fileUrl = docsurl.appendingPathComponent("APReader.OneDrive/File/\(fileName ?? "")")
+                }
+                self.uploadFileUrl = fileUrl
                 data.write(to: fileUrl, atomically: true)
-                self.uploadFile(name: fileName ?? "")
+                SVProgressHUD.showInfo(withStatus: "Uploading to OneDrive")
+                DispatchQueue.global().async {
+                    self.uploadFile(name: fileName ?? "")
+                }
             }
         } else {
             // Show the error
@@ -110,27 +130,31 @@ extension APMoreMenuViewController: UIDocumentPickerDelegate {
     
     func uploadFile(name: String, sharing: Bool = true) {
         
-        SVProgressHUD.showInfo(withStatus: "Uploading to OneDrive")
-        APOneDriveManager.instance.createUploadSession(fileName: name, completion: { (result: OneDriveManagerResult, uploadUrl, expirationDateTime, nextExpectedRanges) -> Void in
+        APOneDriveManager.instance.createUploadSession(filePath: driveItem?.folderItemShortRelativePath(), fileName: name, completion: { (result: OneDriveManagerResult, uploadUrl, expirationDateTime, nextExpectedRanges) -> Void in
             switch(result) {
             case .Success:
-                
-                APOneDriveManager.instance.uploadPDFBytes(fileName: name, uploadUrl: uploadUrl!, completion: { (result: OneDriveManagerResult, webUrl, fileId) -> Void in
+                APOneDriveManager.instance.uploadPDFBytes(driveItem: self.driveItem, uploadFilePath: self.uploadFileUrl, uploadUrl: uploadUrl!, completion: { (result: OneDriveManagerResult, webUrl, fileId) -> Void in
                     switch(result) {
                     case .Success:
                         print ("Web Url of file \(String(describing: webUrl))")
                         print ("FileId of file \(String(describing: fileId))")
-                        SVProgressHUD.showSuccess(withStatus: "Upload succeed")
+                        DispatchQueue.main.async {
+                            SVProgressHUD.showSuccess(withStatus: "Upload succeed")
+                        }
                         
                         if sharing {
                             APOneDriveManager.instance.createSharingLink(fileId: fileId!, completion: { (result: OneDriveManagerResult, sharingUrl) -> Void in
                                 switch(result) {
                                 case .Success:
                                     print ("Sharing Url of file \(String(describing: sharingUrl))")
-                                    SVProgressHUD.showSuccess(withStatus: "Sharing Url created")
+                                    DispatchQueue.main.async {
+                                        SVProgressHUD.showSuccess(withStatus: "Sharing Url created")
+                                    }
                                 case .Failure(let error):
                                     print("\(error)")
-                                    SVProgressHUD.showError(withStatus: "Unknown Error")
+                                    DispatchQueue.main.async {
+                                        SVProgressHUD.showError(withStatus: "Unknown Error")
+                                    }
                                 }
                             })
                         }
@@ -138,11 +162,16 @@ extension APMoreMenuViewController: UIDocumentPickerDelegate {
                         
                     case .Failure(let error):
                         print("\(error)")
-                        SVProgressHUD.showError(withStatus: "Unknown Error")
+                        DispatchQueue.main.async {
+                            SVProgressHUD.showError(withStatus: "Uploading Failed")
+                        }
                     }
                 })
             case .Failure(let error):
                 print("\(error)")
+                DispatchQueue.main.async {
+                    SVProgressHUD.showError(withStatus: "Uploading Failed")
+                }
             }
         })
     }

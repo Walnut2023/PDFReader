@@ -41,9 +41,9 @@ class APFileItemTableViewCell: UITableViewCell {
                 let docsurl = try! fileManager.url(
                     for: .cachesDirectory, in: .userDomainMask,
                     appropriateFor: nil, create: true)
-                return docsurl.appendingPathComponent("APReader.OneDrive/File/\(filename ?? "")")
+                return docsurl.appendingPathComponent("APReader.OneDrive/File/\(self.driveItem?.fileItemShortRelativePath() ?? "")\(filename ?? "")")
             }()
-            if checkFileExists(atPath: filename) {
+            if checkFileExists(atPath: self.driveItem?.fileItemShortRelativePath(), fileName: filename) {
                 downloadBtn.isHidden = true
                 fileTypeImage.image = #imageLiteral(resourceName: "pdf_checked")
                 progressview.isHidden = true
@@ -91,7 +91,7 @@ class APFileItemTableViewCell: UITableViewCell {
             break
         }
         downloadBtn.setImage(image, for: .normal)
-        if checkFileExists(atPath: filename) {
+        if checkFileExists(atPath: self.driveItem?.fileItemShortRelativePath(), fileName: filename) {
             self.downloadBtn.isHidden = true
             fileTypeImage.image = #imageLiteral(resourceName: "pdf_checked")
             progressview.isHidden = true
