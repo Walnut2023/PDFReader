@@ -26,6 +26,7 @@
 		C45B13BC24CD635B00D30445 /* APNonSelectablePDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B13BB24CD635B00D30445 /* APNonSelectablePDFView.swift */; };
 		C46A150C24EFC2BB00A5AFE8 /* APFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46A150B24EFC2BB00A5AFE8 /* APFileManager.swift */; };
 		C46A150F24EFC63B00A5AFE8 /* MSGraphDriveItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46A150E24EFC63B00A5AFE8 /* MSGraphDriveItemExtension.swift */; };
+		C46A151124F102A200A5AFE8 /* APNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46A151024F102A200A5AFE8 /* APNavigationController.swift */; };
 		C49BE3FD24CC7178006E5D56 /* React.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C49BE3FC24CC7178006E5D56 /* React.pdf */; };
 		C49BE40324CC7A26006E5D56 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40224CC7A26006E5D56 /* UIKitExtensions.swift */; };
 		C49BE40524CC7ACE006E5D56 /* PDFKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40424CC7ACE006E5D56 /* PDFKitExtensions.swift */; };
@@ -84,6 +85,7 @@
 		C45B13BB24CD635B00D30445 /* APNonSelectablePDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNonSelectablePDFView.swift; sourceTree = "<group>"; };
 		C46A150B24EFC2BB00A5AFE8 /* APFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APFileManager.swift; path = APReader/FileManager/APFileManager.swift; sourceTree = SOURCE_ROOT; };
 		C46A150E24EFC63B00A5AFE8 /* MSGraphDriveItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGraphDriveItemExtension.swift; sourceTree = "<group>"; };
+		C46A151024F102A200A5AFE8 /* APNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNavigationController.swift; sourceTree = "<group>"; };
 		C49BE3FC24CC7178006E5D56 /* React.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = React.pdf; sourceTree = "<group>"; };
 		C49BE40224CC7A26006E5D56 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		C49BE40424CC7ACE006E5D56 /* PDFKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitExtensions.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				C4EF3B3E24CC09E7002E6A6A /* APFileListViewController.swift */,
+				C46A151024F102A200A5AFE8 /* APNavigationController.swift */,
 				C42CCCBB24CC655500D6F0E8 /* APPreviewViewController.swift */,
 				C43D8E5924D16F3700558110 /* APPDFToolbarActionControl.swift */,
 				C43D8E5D24D1709400558110 /* APOutlineTableViewController.swift */,
@@ -483,6 +486,7 @@
 				C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */,
 				C4256D0724EB740B00F6621B /* APNavigationTittleView.swift in Sources */,
 				C4E42A6024EE815D0049AB38 /* APCloudManager.swift in Sources */,
+				C46A151124F102A200A5AFE8 /* APNavigationController.swift in Sources */,
 				C4BFFD7124DED75C00222D28 /* UIColor+Utilities.swift in Sources */,
 				C43D8E6124D173A400558110 /* APOutlineTableViewCell.swift in Sources */,
 				C45B13BC24CD635B00D30445 /* APNonSelectablePDFView.swift in Sources */,
@@ -591,7 +595,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -729,7 +733,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -753,7 +757,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.0;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
