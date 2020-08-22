@@ -248,6 +248,8 @@ class APOneDriveManager {
             switch(statusCode) {
             case 200, 201:
                 completion(OneDriveManagerResult.Success)
+            case 409:
+                completion(OneDriveManagerResult.Failure(OneDriveAPIError.UnspecifiedError(response)))
             default:
                 completion(OneDriveManagerResult.Failure(OneDriveAPIError.UnspecifiedError(response)))
             }

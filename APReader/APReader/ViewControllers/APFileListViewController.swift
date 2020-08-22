@@ -284,6 +284,13 @@ extension APFileListViewController: UITableViewDelegate {
 }
 
 extension APFileListViewController: APMoreMenuViewControllerDelegate {
+    func clearCacheOnDisk() {
+        appDelegate.sessionManager.cache.clearDiskCache()
+        DispatchQueue.main.async {
+            self.setupDataSource(for: self.folderName, itemId: self.selectedDriveItem?.entityId)
+        }
+    }
+    
     func moreMenuDidSelectRow(index: Int, dict: [String : String]) {
         switch index {
         case 0:
@@ -296,14 +303,25 @@ extension APFileListViewController: APMoreMenuViewControllerDelegate {
         }
     }
     
+    func uploadFileInMoreMenu(status: Bool) {
+        if status {
+            setupDataSource(for: folderName, itemId: selectedDriveItem?.entityId)
+        }
+    }
+    
     func createFolderInAppRoot(folderName: String) {
         APOneDriveManager.instance.createFolder(folderName: folderName, completion: {(result: OneDriveManagerResult) in
             switch(result) {
             case .Success:
                 print ("success")
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.setupDataSource(for: folderName, itemId: self.selectedDriveItem?.entityId)
+                }
             case .Failure(let error):
                 print("\(error)")
+                DispatchQueue.main.async {
+                    SVProgressHUD.showError(withStatus: "Folder Exists")
+                }
             }
         })
     }
@@ -317,7 +335,7 @@ extension APFileListViewController: DZNEmptyDataSetSource {
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let nofilesStr = "No PDF Files"
-        let noAttr = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18.0), NSAttributedString.Key.foregroundColor: UIColor.black]
+        let noAttr = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18.0), NSAttributedString.Key.foregroundColor: UIColor.hex(0xC3C3C3)]
         return NSAttributedString(string: nofilesStr, attributes: noAttr)
     }
 }

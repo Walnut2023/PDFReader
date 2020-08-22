@@ -20,7 +20,13 @@ func dateConvertString(date:Date, dateFormat:String="yyyy-MM-dd") -> String {
 
 func checkFileExists(atPath path: String? = nil, fileName: String?) -> Bool {
     let fileManager = FileManager.default
-    if fileManager.fileExists(atPath: NSHomeDirectory() + "/Library/Caches/APReader.OneDrive/File/\(path ?? "")\(fileName ?? "")") {
+    var filePath: String!
+    if path != nil {
+        filePath = NSHomeDirectory() + "/Library/Caches/APReader.OneDrive/File/\(path ?? "")/\(fileName ?? "")"
+    } else {
+        filePath = NSHomeDirectory() + "/Library/Caches/APReader.OneDrive/File/\(fileName ?? "")"
+    }
+    if fileManager.fileExists(atPath: filePath) {
         return true
     }
     return false

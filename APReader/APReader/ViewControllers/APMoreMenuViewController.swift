@@ -12,6 +12,8 @@ import MSGraphClientModels
 
 protocol APMoreMenuViewControllerDelegate: AnyObject {
     func moreMenuDidSelectRow(index: Int, dict: [String: String])
+    func uploadFileInMoreMenu(status: Bool)
+    func clearCacheOnDisk()
 }
 
 class APMoreMenuViewController: UITableViewController {
@@ -42,7 +44,7 @@ class APMoreMenuViewController: UITableViewController {
     }
     
     func setupDataSource() {
-        items = [["storage": "Upload PDF Files"], ["addfolders": "Add Folder"]]
+        items = [["storage": "Upload PDF Files"], ["addfolders": "Add Folder in APReader"], ["trash": "Clear Cache"]]
     }
     
     // MARK: - Table view data source
@@ -69,6 +71,8 @@ class APMoreMenuViewController: UITableViewController {
             selectUploadFileFromiCouldDrive()
         case 1:
             showCreateFolderOption()
+        case 2:
+            clearCache()
         default:
             print("do nothing")
         }
@@ -105,6 +109,14 @@ extension APMoreMenuViewController: UIDocumentPickerDelegate {
                 let fileUrl: URL!
                 if self.driveItem?.folder != nil {
                     fileUrl = docsurl.appendingPathComponent("APReader.OneDrive/File/\(self.driveItem?.folderItemShortRelativePath() ?? "")/\(fileName ?? "")")
+                    let exist = checkFileExists(atPath: self.driveItem?.folderItemShortRelativePath(), fileName: nil)
+                    if !exist {
+                        do {
+                            try FileManager.default.createDirectory(atPath: self.driveItem?.localFolderPath().path ?? "", withIntermediateDirectories: true, attributes: nil)
+                        } catch {
+                            print("\(error)")
+                        }
+                    }
                 } else {
                     fileUrl = docsurl.appendingPathComponent("APReader.OneDrive/File/\(fileName ?? "")")
                 }
@@ -129,7 +141,9 @@ extension APMoreMenuViewController: UIDocumentPickerDelegate {
     }
     
     func uploadFile(name: String, sharing: Bool = true) {
-        
+        if !checkFileExists(atPath: driveItem?.folderItemShortRelativePath(), fileName: name) {
+            return
+        }
         APOneDriveManager.instance.createUploadSession(filePath: driveItem?.folderItemShortRelativePath(), fileName: name, completion: { (result: OneDriveManagerResult, uploadUrl, expirationDateTime, nextExpectedRanges) -> Void in
             switch(result) {
             case .Success:
@@ -140,6 +154,7 @@ extension APMoreMenuViewController: UIDocumentPickerDelegate {
                         print ("FileId of file \(String(describing: fileId))")
                         DispatchQueue.main.async {
                             SVProgressHUD.showSuccess(withStatus: "Upload succeed")
+                            self.delegate?.uploadFileInMoreMenu(status: true)
                         }
                         
                         if sharing {
@@ -187,8 +202,7 @@ extension APMoreMenuViewController {
             message: "Please enter folder name",
             preferredStyle: UIAlertController.Style.alert)
         
-        let createAction = UIAlertAction(
-        title: "Create", style: UIAlertAction.Style.default) { (action) -> Void in
+        let createAction = UIAlertAction(title: "Create", style: .default) { (action) -> Void in
             
             if let folderName = nameTextField?.text, folderName.count > 0 {
                 print("folder name = \(folderName)")
@@ -201,7 +215,7 @@ extension APMoreMenuViewController {
             }
         }
         
-        let cancelAction = UIAlertAction( title: "Cancel", style: .cancel) { (action) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             self.dismiss(animated: true, completion: nil)
         }
         
@@ -213,6 +227,26 @@ extension APMoreMenuViewController {
         
         alertController.addAction(cancelAction)
         alertController.addAction(createAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func clearCache() {
+        let alertController = UIAlertController(
+            title: "Info",
+            message: "Clear Cache on Disk",
+            preferredStyle: UIAlertController.Style.alert)
+        
+        let sureAction = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            self.delegate?.clearCacheOnDisk()
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(sureAction)
+        alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
     }
 }
