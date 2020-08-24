@@ -695,14 +695,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="APBookmarkTableViewCell" id="z21-IL-l9d" customClass="APBookmarkTableViewCell" customModule="APReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="30"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="29.666666030883789"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z21-IL-l9d" id="xNq-QS-kko">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="29.666666030883789"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2u-A0-fpJ">
-                                                    <rect key="frame" x="16" y="4" width="382" height="20.666666666666668"/>
+                                                    <rect key="frame" x="16" y="4" width="382" height="20.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -919,13 +919,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8o-9h-M6T">
-                                <rect key="frame" x="122.66666666666669" y="586" width="169" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8o-9h-M6T">
+                                <rect key="frame" x="75" y="572" width="264" height="44"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="a8o-9h-M6T" secondAttribute="height" multiplier="169:30" id="fwG-U1-6tr"/>
+                                    <constraint firstAttribute="height" constant="44" id="SXf-At-qsh"/>
+                                    <constraint firstAttribute="width" secondItem="a8o-9h-M6T" secondAttribute="height" multiplier="6:1" id="fwG-U1-6tr"/>
                                 </constraints>
-                                <state key="normal" title="Login">
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                <state key="normal" title="Sign in with Microsoft" image="microsoft">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -946,15 +949,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A PDF Reader" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpX-Eu-J7G">
-                                <rect key="frame" x="151" y="556" width="112" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="tcw-JL-Rrq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login" translatesAutoresizingMaskIntoConstraints="NO" id="FzM-Zv-fST">
                                 <rect key="frame" x="58" y="191" width="24" height="24"/>
                                 <constraints>
@@ -971,21 +965,30 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A PDF Reader base on OneDrive for Microsoft Business" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpX-Eu-J7G">
+                                <rect key="frame" x="51" y="624" width="312" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="kTA-IH-4fc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="rpX-Eu-J7G" firstAttribute="centerX" secondItem="j9x-BE-4Tm" secondAttribute="centerX" id="6vL-9I-x22"/>
                             <constraint firstItem="FzM-Zv-fST" firstAttribute="leading" secondItem="j9x-BE-4Tm" secondAttribute="leading" constant="58" id="7SI-P5-HOK"/>
                             <constraint firstItem="0fw-GW-Agf" firstAttribute="top" secondItem="j9x-BE-4Tm" secondAttribute="top" constant="142" id="8I8-bA-k6t"/>
                             <constraint firstItem="a8o-9h-M6T" firstAttribute="centerX" secondItem="j9x-BE-4Tm" secondAttribute="centerX" id="8pU-1Y-0pS"/>
+                            <constraint firstItem="rpX-Eu-J7G" firstAttribute="top" secondItem="a8o-9h-M6T" secondAttribute="bottom" constant="8" id="BXm-X9-9Mz"/>
                             <constraint firstItem="j9x-BE-4Tm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Tx1-6a-SXx" secondAttribute="trailing" priority="750" constant="10" id="FaP-wN-yAI"/>
                             <constraint firstItem="0fw-GW-Agf" firstAttribute="leading" secondItem="j9x-BE-4Tm" secondAttribute="leading" constant="58" id="GSI-gx-28i"/>
                             <constraint firstItem="j9x-BE-4Tm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0fw-GW-Agf" secondAttribute="trailing" symbolic="YES" id="PT7-Y3-RjB"/>
                             <constraint firstItem="Tx1-6a-SXx" firstAttribute="centerY" secondItem="FzM-Zv-fST" secondAttribute="centerY" id="Sdc-2u-sJu"/>
-                            <constraint firstItem="rpX-Eu-J7G" firstAttribute="centerX" secondItem="a8o-9h-M6T" secondAttribute="centerX" id="cLO-Uh-kd7"/>
                             <constraint firstItem="Tx1-6a-SXx" firstAttribute="leading" secondItem="FzM-Zv-fST" secondAttribute="trailing" constant="8" id="evy-UC-sDN"/>
                             <constraint firstItem="FzM-Zv-fST" firstAttribute="top" secondItem="0fw-GW-Agf" secondAttribute="bottom" constant="20" id="ilA-75-Gxb"/>
                             <constraint firstItem="j9x-BE-4Tm" firstAttribute="bottom" secondItem="a8o-9h-M6T" secondAttribute="bottom" constant="120" id="pKa-My-F1A"/>
-                            <constraint firstItem="a8o-9h-M6T" firstAttribute="top" secondItem="rpX-Eu-J7G" secondAttribute="bottom" constant="8" id="quw-Ax-92g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="j9x-BE-4Tm"/>
                     </view>
@@ -1063,6 +1066,7 @@
         <image name="highlighter_dis" width="30" height="30"/>
         <image name="highlighter_sel" width="30" height="30"/>
         <image name="login" width="28" height="26"/>
+        <image name="microsoft" width="30" height="30"/>
         <image name="onedrive_nor" width="30" height="20"/>
         <image name="onedrive_sel" width="30" height="20"/>
         <image name="paperplane" catalog="system" width="128" height="121"/>

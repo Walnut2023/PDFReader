@@ -427,13 +427,17 @@ extension APPreviewViewController {
     }
     
     func addTimer() {
-        timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
-        timer?.schedule(deadline: .now() + .seconds(5), repeating: DispatchTimeInterval.seconds(2), leeway: DispatchTimeInterval.seconds(0))
-        timer?.setEventHandler { [weak self] in
-            print("\(Date()) timer running")
-            self?.savePDFDocument()
+        if timer == nil {
+            timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
+            timer?.schedule(deadline: .now() + .seconds(5), repeating: DispatchTimeInterval.seconds(2), leeway: DispatchTimeInterval.seconds(0))
+            timer?.setEventHandler { [weak self] in
+                print("\(Date()) timer running")
+                self?.savePDFDocument()
+            }
         }
-        timer?.resume()
+        if !(timer?.isCancelled ?? false) {
+            timer?.resume()
+        }
     }
     
     func stopTimer() {
