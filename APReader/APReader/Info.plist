@@ -17,6 +17,10 @@
 			<array>
 				<string>public.content</string>
 			</array>
+			<key>LSSupportsOpeningDocumentsInPlace</key>
+			<false/>
+			<key>UISupportsDocumentBrowser</key>
+			<false/>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>

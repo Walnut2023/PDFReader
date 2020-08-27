@@ -29,7 +29,8 @@ extension APTabBarController: UITabBarControllerDelegate {
                         // no user is signed in, so stay here
                         print("user status: not sign in")
                         let vc = storyBoard.instantiateViewController(identifier: "SignInVC")
-                        self.present(vc, animated: true)
+                        vc.modalPresentationStyle = .fullScreen 
+                        self.show(vc, sender: nil)
                         return
                     }
                 }

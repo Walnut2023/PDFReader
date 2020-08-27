@@ -664,14 +664,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="APBookmarkTableViewCell" id="z21-IL-l9d" customClass="APBookmarkTableViewCell" customModule="APReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="30.333333969116211"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="29.666666030883789"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z21-IL-l9d" id="xNq-QS-kko">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30.333333969116211"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="29.666666030883789"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2u-A0-fpJ">
-                                                    <rect key="frame" x="16" y="4" width="382" height="21"/>
+                                                    <rect key="frame" x="16" y="4" width="382" height="20.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -943,12 +943,24 @@
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggt-HZ-z4K">
+                                <rect key="frame" x="330" y="40" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="O9R-OI-bQc"/>
+                                    <constraint firstAttribute="height" constant="44" id="tSb-h5-sKZ"/>
+                                </constraints>
+                                <state key="normal" image="cancel"/>
+                                <connections>
+                                    <action selector="cancelAction:" destination="NtT-q0-8wZ" eventType="touchUpInside" id="266-MO-JUP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="rpX-Eu-J7G" firstAttribute="centerX" secondItem="j9x-BE-4Tm" secondAttribute="centerX" id="6vL-9I-x22"/>
                             <constraint firstItem="FzM-Zv-fST" firstAttribute="leading" secondItem="j9x-BE-4Tm" secondAttribute="leading" constant="58" id="7SI-P5-HOK"/>
                             <constraint firstItem="0fw-GW-Agf" firstAttribute="top" secondItem="j9x-BE-4Tm" secondAttribute="top" constant="142" id="8I8-bA-k6t"/>
+                            <constraint firstItem="Ggt-HZ-z4K" firstAttribute="top" secondItem="j9x-BE-4Tm" secondAttribute="top" constant="40" id="8h8-52-vk9"/>
                             <constraint firstItem="a8o-9h-M6T" firstAttribute="centerX" secondItem="j9x-BE-4Tm" secondAttribute="centerX" id="8pU-1Y-0pS"/>
                             <constraint firstItem="rpX-Eu-J7G" firstAttribute="top" secondItem="a8o-9h-M6T" secondAttribute="bottom" constant="8" id="BXm-X9-9Mz"/>
                             <constraint firstItem="j9x-BE-4Tm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Tx1-6a-SXx" secondAttribute="trailing" priority="750" constant="10" id="FaP-wN-yAI"/>
@@ -958,6 +970,7 @@
                             <constraint firstItem="Tx1-6a-SXx" firstAttribute="leading" secondItem="FzM-Zv-fST" secondAttribute="trailing" constant="8" id="evy-UC-sDN"/>
                             <constraint firstItem="FzM-Zv-fST" firstAttribute="top" secondItem="0fw-GW-Agf" secondAttribute="bottom" constant="20" id="ilA-75-Gxb"/>
                             <constraint firstItem="j9x-BE-4Tm" firstAttribute="bottom" secondItem="a8o-9h-M6T" secondAttribute="bottom" constant="120" id="pKa-My-F1A"/>
+                            <constraint firstItem="j9x-BE-4Tm" firstAttribute="trailing" secondItem="Ggt-HZ-z4K" secondAttribute="trailing" constant="40" id="wpF-PI-RYR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="j9x-BE-4Tm"/>
                     </view>
@@ -1026,6 +1039,7 @@
                 <tabBarController storyboardIdentifier="TabbarVC" automaticallyAdjustsScrollViewInsets="NO" id="fWE-HS-eIg" customClass="APTabBarController" customModule="APReader" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FPp-2x-X2G">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -1061,6 +1075,7 @@
     <resources>
         <image name="arrow_right" width="24" height="24"/>
         <image name="article" width="24" height="30"/>
+        <image name="cancel" width="44" height="44"/>
         <image name="down" width="20" height="28"/>
         <image name="download" width="30" height="30"/>
         <image name="edit_begin" width="30" height="30"/>

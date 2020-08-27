@@ -69,11 +69,11 @@ class APTestTableViewController: UITableViewController {
                 fileName.contains(".pdf")
             })
             if files?.count == 0 {
-                let bundlePath = Bundle.main.path(forResource: "test", ofType: ".pdf")
+                let bundlePath = Bundle.main.path(forResource: "Demo", ofType: ".pdf")
                 print("\(bundlePath ?? "")") //prints the correct path
                 let destPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
                 let fileManager = FileManager.default
-                let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent("APReader.Local/File/test.pdf")
+                let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent("APReader.Local/File/Demo.pdf")
                 let fullDestPathString = fullDestPath?.path
                 print(fileManager.fileExists(atPath: bundlePath!)) // prints true
                 

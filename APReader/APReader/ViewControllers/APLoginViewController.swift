@@ -15,6 +15,14 @@ class APLoginViewController: UIViewController {
     }
     
     
+    @IBAction func cancelAction(_ sender: Any) {
+        self.dismiss(animated: true) {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyBoard.instantiateViewController(identifier: "TabbarVC") as APTabBarController
+            self.sceneDelegateWindow()?.rootViewController = vc
+        }
+    }
+    
     @IBAction func signIn() {
         // Do an interactive sign in
         APAuthManager.instance.getTokenInteractively(parentViewController: self) {

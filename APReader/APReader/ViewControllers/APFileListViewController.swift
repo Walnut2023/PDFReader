@@ -96,7 +96,6 @@ class APFileListViewController: UIViewController {
     }
     
     func setupDataSource(for folder: String, itemId: String?) {
-        SVProgressHUD.show()
         APGraphManager.instance.getFiles(folderName: folder, itemId: itemId) {
             (fileArray: [MSGraphDriveItem]?, error: Error?) in
             DispatchQueue.main.async {
@@ -110,7 +109,6 @@ class APFileListViewController: UIViewController {
                     self.present(alert, animated: true)
                     return
                 }
-                SVProgressHUD.dismiss()
                 self.files = files.filter({ (fileItem) -> Bool in
                     fileItem.name?.contains(".pdf") ?? false || fileItem.folder != nil
                 })

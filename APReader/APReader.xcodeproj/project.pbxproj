@@ -32,7 +32,7 @@
 		C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */; };
 		C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */; };
 		C49C88CC24F817F4002253E0 /* APTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88CB24F817F4002253E0 /* APTabBarController.swift */; };
-		C49C88CE24F8250A002253E0 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C49C88CD24F8250A002253E0 /* test.pdf */; };
+		C49C88CE24F8250A002253E0 /* Demo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C49C88CD24F8250A002253E0 /* Demo.pdf */; };
 		C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */; };
 		C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */; };
 		C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6A24DED75B00222D28 /* ChromaShadeSlider.swift */; };
@@ -91,7 +91,7 @@
 		C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
 		C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawingAnnotation.swift; sourceTree = "<group>"; };
 		C49C88CB24F817F4002253E0 /* APTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APTabBarController.swift; sourceTree = "<group>"; };
-		C49C88CD24F8250A002253E0 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
+		C49C88CD24F8250A002253E0 /* Demo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Demo.pdf; sourceTree = "<group>"; };
 		C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APReader.entitlements; sourceTree = "<group>"; };
 		C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPencilControl.swift; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 		C49BE3FB24CC7178006E5D56 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C49C88CD24F8250A002253E0 /* test.pdf */,
+				C49C88CD24F8250A002253E0 /* Demo.pdf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -406,7 +406,7 @@
 				C4EF3B4724CC09EE002E6A6A /* LaunchScreen.storyboard in Resources */,
 				C4EF3B4424CC09EE002E6A6A /* Assets.xcassets in Resources */,
 				C4EF3B4224CC09E7002E6A6A /* Main.storyboard in Resources */,
-				C49C88CE24F8250A002253E0 /* test.pdf in Resources */,
+				C49C88CE24F8250A002253E0 /* Demo.pdf in Resources */,
 				C4256D0924EB742400F6621B /* APNavigationTittleView.xib in Resources */,
 				C4F1DBCB24E28E4000476494 /* AuthSettings.plist in Resources */,
 			);
@@ -595,7 +595,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -734,7 +734,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -759,7 +759,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
