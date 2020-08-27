@@ -130,7 +130,7 @@ class APFileListViewController: UIViewController {
         APAuthManager.instance.signOut()
         // Signed Out successfully
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyBoard.instantiateViewController(identifier: "SignInVC")
+        let vc = storyBoard.instantiateViewController(identifier: "TabbarVC") as APTabBarController
         self.sceneDelegateWindow()?.rootViewController = vc
     }
     

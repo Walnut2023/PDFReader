@@ -13,6 +13,11 @@ import MSGraphClientModels
 
 class APPreviewViewController: UIViewController {
     
+    enum FileSourceType {
+        case LOCAL
+        case CLOUD
+    }
+    
     enum EditingMode {
         case pen
         case text
@@ -21,7 +26,7 @@ class APPreviewViewController: UIViewController {
     public var filePath: String?
     public var pdfDocument: PDFDocument?
     public var driveItem: MSGraphDriveItem?
-    
+    public var fileSourceType: FileSourceType? = .CLOUD
     var editingMode: EditingMode? = .pen
     var editingColor: UIColor? = .red
     
@@ -190,7 +195,9 @@ class APPreviewViewController: UIViewController {
     
     @objc func backAction(_ sender: Any) {
         stopTimer()
-        uploadPDFFileToOneDrive()
+        if fileSourceType == .CLOUD {
+            uploadPDFFileToOneDrive()
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -365,8 +372,17 @@ class APPreviewViewController: UIViewController {
     }
     
     func getFileUrl() -> URL? {
-        guard let driveItem = driveItem else { return nil }
-        return driveItem.localFilePath()
+        switch fileSourceType {
+        case .LOCAL:
+            guard let driveItem = driveItem else { return nil }
+            return driveItem.localFolderFilePath()
+        case .CLOUD:
+            guard let driveItem = driveItem else { return nil }
+            return driveItem.localFilePath()
+        default:
+            guard let driveItem = driveItem else { return nil }
+            return driveItem.localFilePath()
+        }
     }
     
     func updatePageNumberLabel() {

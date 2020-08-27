@@ -26,23 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // workaround for svprogresshud
             appDelegate.window = window
             
-            APAuthManager.instance.getTokenSilently { (token: String?, error: Error?) in
-                DispatchQueue.main.async {
-                    guard let _ = token, error == nil else {
-                        // If there is no token or if there's an error,
-                        // no user is signed in, so stay here
-                        print("user status: not sign in")
-                        let vc = storyBoard.instantiateViewController(identifier: "SignInVC")
-                        self.window?.rootViewController = vc
-                        self.window?.makeKeyAndVisible()
-                        return
-                    }
-                    let vc = storyBoard.instantiateViewController(identifier: "NavigationVC")
-                    self.window?.rootViewController = vc
-                    self.window?.makeKeyAndVisible()
-                }
-            }
-
+            let vc = storyBoard.instantiateViewController(identifier: "TabbarVC")
+            self.window?.rootViewController = vc
+            self.window?.makeKeyAndVisible()
         }
     }
 
@@ -72,26 +58,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-    }
-
-    // MARK: - Helper
-    func userSignedIn() -> Bool {
-        var userSignedIn = true
-        APAuthManager.instance.getTokenSilently {
-            (token: String?, error: Error?) in
-            DispatchQueue.main.async {
-                guard let _ = token, error == nil else {
-                    // If there is no token or if there's an error,
-                    // no user is signed in, so stay here
-                    userSignedIn = false
-                    print("user status: not sign in")
-                    return
-                }
-                print("user status: signed in")
-            }
-        }
-        print("will return user status")
-        return userSignedIn
     }
 
 }

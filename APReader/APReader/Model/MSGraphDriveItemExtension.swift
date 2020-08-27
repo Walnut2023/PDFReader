@@ -68,5 +68,14 @@ extension MSGraphDriveItem {
             return docsurl.appendingPathComponent("APReader.OneDrive/File/\(self.fileItemShortRelativePath() ?? "")/\(self.name ?? "")")
         }
     }
+    
+    // for local APReader.Local
+    func localFolderFilePath() -> URL {
+        let fileManager = FileManager.default
+        let docsurl = try! fileManager.url(
+            for: .cachesDirectory, in: .userDomainMask,
+            appropriateFor: nil, create: true)
+        return docsurl.appendingPathComponent("APReader.Local/File/\(self.name ?? "")")
+    }
 }
 

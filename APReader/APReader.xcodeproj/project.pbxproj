@@ -16,7 +16,6 @@
 		C437859924CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */; };
 		C437859B24CDB3BE00AE2C07 /* APPDFTextDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437859A24CDB3BE00AE2C07 /* APPDFTextDrawer.swift */; };
 		C43D8E5A24D16F3700558110 /* APPDFToolbarActionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E5924D16F3700558110 /* APPDFToolbarActionControl.swift */; };
-		C43D8E5C24D1702A00558110 /* test-driven.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C43D8E5B24D1702900558110 /* test-driven.pdf */; };
 		C43D8E5E24D1709400558110 /* APOutlineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E5D24D1709400558110 /* APOutlineTableViewController.swift */; };
 		C43D8E6124D173A400558110 /* APOutlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E5F24D173A400558110 /* APOutlineTableViewCell.swift */; };
 		C43D8E6624D1A65F00558110 /* APBookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43D8E6524D1A65F00558110 /* APBookmarkViewController.swift */; };
@@ -27,12 +26,13 @@
 		C46A150C24EFC2BB00A5AFE8 /* APFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46A150B24EFC2BB00A5AFE8 /* APFileManager.swift */; };
 		C46A150F24EFC63B00A5AFE8 /* MSGraphDriveItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46A150E24EFC63B00A5AFE8 /* MSGraphDriveItemExtension.swift */; };
 		C46A151124F102A200A5AFE8 /* APNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46A151024F102A200A5AFE8 /* APNavigationController.swift */; };
-		C49BE3FD24CC7178006E5D56 /* React.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C49BE3FC24CC7178006E5D56 /* React.pdf */; };
 		C49BE40324CC7A26006E5D56 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40224CC7A26006E5D56 /* UIKitExtensions.swift */; };
 		C49BE40524CC7ACE006E5D56 /* PDFKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40424CC7ACE006E5D56 /* PDFKitExtensions.swift */; };
 		C49BE40824CC7DB0006E5D56 /* APPDFDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40724CC7DB0006E5D56 /* APPDFDrawer.swift */; };
 		C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */; };
 		C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */; };
+		C49C88CC24F817F4002253E0 /* APTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88CB24F817F4002253E0 /* APTabBarController.swift */; };
+		C49C88CE24F8250A002253E0 /* final.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C49C88CD24F8250A002253E0 /* final.pdf */; };
 		C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */; };
 		C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */; };
 		C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6A24DED75B00222D28 /* ChromaShadeSlider.swift */; };
@@ -75,7 +75,6 @@
 		C437859824CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APTextDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
 		C437859A24CDB3BE00AE2C07 /* APPDFTextDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPDFTextDrawer.swift; sourceTree = "<group>"; };
 		C43D8E5924D16F3700558110 /* APPDFToolbarActionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPDFToolbarActionControl.swift; sourceTree = "<group>"; };
-		C43D8E5B24D1702900558110 /* test-driven.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "test-driven.pdf"; sourceTree = "<group>"; };
 		C43D8E5D24D1709400558110 /* APOutlineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APOutlineTableViewController.swift; sourceTree = "<group>"; };
 		C43D8E5F24D173A400558110 /* APOutlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APOutlineTableViewCell.swift; sourceTree = "<group>"; };
 		C43D8E6524D1A65F00558110 /* APBookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APBookmarkViewController.swift; sourceTree = "<group>"; };
@@ -86,12 +85,13 @@
 		C46A150B24EFC2BB00A5AFE8 /* APFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APFileManager.swift; path = APReader/FileManager/APFileManager.swift; sourceTree = SOURCE_ROOT; };
 		C46A150E24EFC63B00A5AFE8 /* MSGraphDriveItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGraphDriveItemExtension.swift; sourceTree = "<group>"; };
 		C46A151024F102A200A5AFE8 /* APNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APNavigationController.swift; sourceTree = "<group>"; };
-		C49BE3FC24CC7178006E5D56 /* React.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = React.pdf; sourceTree = "<group>"; };
 		C49BE40224CC7A26006E5D56 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		C49BE40424CC7ACE006E5D56 /* PDFKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitExtensions.swift; sourceTree = "<group>"; };
 		C49BE40724CC7DB0006E5D56 /* APPDFDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPDFDrawer.swift; sourceTree = "<group>"; };
 		C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
 		C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawingAnnotation.swift; sourceTree = "<group>"; };
+		C49C88CB24F817F4002253E0 /* APTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APTabBarController.swift; sourceTree = "<group>"; };
+		C49C88CD24F8250A002253E0 /* final.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = final.pdf; sourceTree = "<group>"; };
 		C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APReader.entitlements; sourceTree = "<group>"; };
 		C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPencilControl.swift; sourceTree = "<group>"; };
@@ -169,8 +169,7 @@
 		C49BE3FB24CC7178006E5D56 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C43D8E5B24D1702900558110 /* test-driven.pdf */,
-				C49BE3FC24CC7178006E5D56 /* React.pdf */,
+				C49C88CD24F8250A002253E0 /* final.pdf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -230,6 +229,7 @@
 				C4256D0824EB742400F6621B /* APNavigationTittleView.xib */,
 				C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */,
 				C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */,
+				C49C88CB24F817F4002253E0 /* APTabBarController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -403,11 +403,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C49BE3FD24CC7178006E5D56 /* React.pdf in Resources */,
 				C4EF3B4724CC09EE002E6A6A /* LaunchScreen.storyboard in Resources */,
-				C43D8E5C24D1702A00558110 /* test-driven.pdf in Resources */,
 				C4EF3B4424CC09EE002E6A6A /* Assets.xcassets in Resources */,
 				C4EF3B4224CC09E7002E6A6A /* Main.storyboard in Resources */,
+				C49C88CE24F8250A002253E0 /* final.pdf in Resources */,
 				C4256D0924EB742400F6621B /* APNavigationTittleView.xib in Resources */,
 				C4F1DBCB24E28E4000476494 /* AuthSettings.plist in Resources */,
 			);
@@ -479,6 +478,7 @@
 				C4F1DBDE24E2F96900476494 /* APFileItemTableViewCell.swift in Sources */,
 				C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */,
 				C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */,
+				C49C88CC24F817F4002253E0 /* APTabBarController.swift in Sources */,
 				C4F1DBD724E2D3E500476494 /* APGraphManager.swift in Sources */,
 				C4F1DBDC24E2F62900476494 /* APTestTableViewController.swift in Sources */,
 				C4F1DC2924E787AA00476494 /* APTestTableViewCell.swift in Sources */,
@@ -595,13 +595,14 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tango.apreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Ad Hoc";
@@ -733,13 +734,14 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tango.apreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -757,13 +759,14 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tango.apreader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "App Store";
