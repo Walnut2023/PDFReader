@@ -59,6 +59,42 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+            print("url: \(url)")
+            openFileWithUrl(url.path)
+        }
+    }
+    
+    func openFileWithUrl(_ filePath: String) {
+        
+        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+        let docURL = URL(string: documentsDirectory)!
+        let localPath = docURL.appendingPathComponent("APReader.Local/File/")
+        let array = filePath.components(separatedBy: "/")
+        let fileName = array.last
+        
+        do {
+            let localFilePath = localPath.path.appending("/\(fileName ?? "")")
+            if FileManager.default.fileExists(atPath: localFilePath) {
+                do {
+                    try FileManager.default.removeItem(atPath: localFilePath)
+                } catch {
+                    print("\(error)")
+                }
+            }
+            
+            try FileManager.default.moveItem(atPath: filePath, toPath: localFilePath)
+            if FileManager.default.fileExists(atPath: localFilePath) {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name("OpenPDFFile"), object: nil, userInfo: ["filePath": localFilePath, "fileName": fileName ?? ""])
+                }
+            }
+        } catch {
+            print("\(error)")
+        }
+    }
 
 }
 
