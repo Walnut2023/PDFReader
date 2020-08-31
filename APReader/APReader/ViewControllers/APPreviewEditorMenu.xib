@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="APPreviewEditorMenu" customModule="APReader" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="374" height="54"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="asD-Sz-Wdg">
+                    <rect key="frame" x="77.5" y="12" width="219" height="30"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tWL-CP-F3T">
+                            <rect key="frame" x="0.0" y="0.0" width="31" height="30"/>
+                            <state key="normal" title="评论"/>
+                            <connections>
+                                <action selector="commentAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="I1M-4U-4kZ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihd-xq-WEa">
+                            <rect key="frame" x="47" y="0.0" width="31" height="30"/>
+                            <state key="normal" title="文本"/>
+                            <connections>
+                                <action selector="textInputAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="aHA-Za-rYk"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc6-SH-1tU">
+                            <rect key="frame" x="94" y="0.0" width="31" height="30"/>
+                            <state key="normal" title="涂鸦"/>
+                            <connections>
+                                <action selector="penAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="NjE-Qn-wdb"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjl-Fg-w57">
+                            <rect key="frame" x="141" y="0.0" width="31" height="30"/>
+                            <state key="normal" title="图形"/>
+                            <connections>
+                                <action selector="ractAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="9Rp-yz-akB"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Twl-qN-bvv">
+                            <rect key="frame" x="188" y="0.0" width="31" height="30"/>
+                            <state key="normal" title="直线"/>
+                            <connections>
+                                <action selector="lineAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="wJp-1z-q0R"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="asD-Sz-Wdg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="a8L-Dg-3xH"/>
+                <constraint firstItem="asD-Sz-Wdg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="pXm-aL-Uj2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="102.89855072463769" y="386.38392857142856"/>
+        </view>
+    </objects>
+</document>

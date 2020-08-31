@@ -23,12 +23,24 @@ class APPreviewViewController: UIViewController {
         case text
     }
     
+    // menu select level
+    enum MenuSelectLevel {
+        case root
+        case middle
+        case final
+    }
+    
     public var filePath: String?
     public var pdfDocument: PDFDocument?
     public var driveItem: MSGraphDriveItem?
     public var fileSourceType: FileSourceType? = .CLOUD
     var editingMode: EditingMode? = .pen
     var editingColor: UIColor? = .red
+    var menuSelectLevel: MenuSelectLevel? = .root {
+        didSet {
+            updateBottomContainer()
+        }
+    }
     
     @IBOutlet weak var pageNumberContainer: UIView!
     @IBOutlet weak var tittleLabelContainer: UIView!
@@ -38,7 +50,6 @@ class APPreviewViewController: UIViewController {
     @IBOutlet weak var thumbnailView: PDFThumbnailView!
     @IBOutlet weak var thumbnailViewContainer: UIView!
     @IBOutlet weak var pageControl: UIView!
-    @IBOutlet weak var toolContainer: UIView!
     
     @IBOutlet weak var pencilBtn: UIButton!
     @IBOutlet weak var penBtn: UIButton!
@@ -46,9 +57,12 @@ class APPreviewViewController: UIViewController {
     @IBOutlet weak var eraserBtn: UIButton!
     @IBOutlet weak var colorBtn: UIButton!
     @IBOutlet weak var moreBtn: UIButton!
+    @IBOutlet weak var bottomViewContainer: UIView!
     
     private lazy var backBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "back"), style: .plain, target: self, action: #selector(backAction))
+    private lazy var cancelBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "cancelBtn"), style: .plain, target: self, action: #selector(cancelAction))
     private lazy var outlineBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "outline"), style: .plain, target: self, action: #selector(outlineAction))
+    private lazy var thumbnailBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "thumbnail"), style: .plain, target: self, action: #selector(thunbnailAction))
     private lazy var editBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "edit"), style: .plain, target: self, action: #selector(editAction))
     private lazy var edittingBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "editing"), style: .plain, target: self, action: #selector(editAction))
     private lazy var bookmarkBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "bookmark"), style: .plain, target: self, action: #selector(bookmarkAction))
@@ -60,8 +74,33 @@ class APPreviewViewController: UIViewController {
     private lazy var pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
     private lazy var pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
     
+    private lazy var bottomMenu: APPreviewBottomMenu = {
+        let bottomMenu = APPreviewBottomMenu.initInstanceFromXib()
+        bottomMenu.frame.size.height = 54
+        bottomMenu.frame.origin.x = bottomViewContainer.frame.origin.x
+        bottomMenu.width = view.width
+        bottomMenu.delegate = self
+        return bottomMenu
+    }()
+    private lazy var edittorMenu: APPreviewEditorMenu = {
+        let edittorMenu = APPreviewEditorMenu.initInstanceFromXib()
+        edittorMenu.frame.size.height = 54
+        edittorMenu.frame.origin.x = bottomViewContainer.frame.origin.x
+        edittorMenu.width = view.width
+        edittorMenu.delegate = self
+        return edittorMenu
+    }()
+    private lazy var penControlMenu: APPreviewPenToolMenu = {
+        let penControlMenu = APPreviewPenToolMenu.initInstanceFromXib()
+        penControlMenu.frame.size.height = 54
+        penControlMenu.frame.origin.x = bottomViewContainer.frame.origin.x
+        penControlMenu.width = view.width
+        penControlMenu.delegate = self
+        penControlMenu.initPenControl()
+        return penControlMenu
+    }()
+    
     private var toolbarActionControl: APPDFToolbarActionControl?
-    private var penControl: APPencilControl?
     private var editButtonClicked: Bool = false
     private var needUpload: Bool = false
     
@@ -107,22 +146,54 @@ class APPreviewViewController: UIViewController {
     
     private func setupUI() {
         navigationController?.hidesBarsOnTap = false
-        navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem], animated: true)
-        navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, editBarButtonItem], animated: true)
+        navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
+        navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem], animated: true)
         if pdfDocument?.outlineRoot == nil {
             outlineBarButtonItem.isEnabled = false
         }
         pdfTittleLabel.text = pdfDocument?.documentAttributes?[PDFDocumentAttribute.titleAttribute] as? String ?? pdfDocument?.documentURL?.lastPathComponent
         
-        setupPenControl()
         updatePageNumberLabel()
         
         self.pageControl.isHidden = true
-        self.toolContainer.isHidden = true
         self.toolbarActionControl = APPDFToolbarActionControl(pdfPreviewController: self)
         self.tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
         pdfView.addGestureRecognizer(tapGestureRecognizer)
+        setupBottomMenuContainer()
+        menuSelectLevel = .root
+    }
+    
+    func setupBottomMenuContainer() {
+        bottomMenu = APPreviewBottomMenu.initInstanceFromXib()
+        bottomMenu.frame.size.height = 54
+        bottomMenu.frame.origin.x = bottomViewContainer.frame.origin.x
+        bottomMenu.width = view.width
+        bottomMenu.delegate = self
+
+        edittorMenu = APPreviewEditorMenu.initInstanceFromXib()
+        edittorMenu.frame.size.height = 54
+        edittorMenu.frame.origin.x = bottomViewContainer.frame.origin.x
+        edittorMenu.width = view.width
+        edittorMenu.delegate = self
+    }
+    
+    func updateBottomContainer() {
+        var bottomView: UIView!
+        for view in bottomViewContainer.subviews {
+            view.removeFromSuperview()
+        }
+        switch menuSelectLevel {
+        case .root:
+            bottomView = bottomMenu
+        case .middle:
+            bottomView = edittorMenu
+        case .final:
+            bottomView = penControlMenu
+        default:
+            bottomView = bottomMenu
+        }
+        bottomViewContainer.addSubview(bottomView)
     }
     
     func setupStates() {
@@ -147,11 +218,6 @@ class APPreviewViewController: UIViewController {
                                                object:nil)
     }
     
-    func setupPenControl() {
-        penControl = APPencilControl(buttonsArray: [penBtn, pencilBtn, paintBtn, eraserBtn])
-        penControl?.defaultButton = pencilBtn
-    }
-    
     private func setupPDFView() {
         pdfView.displayDirection = .horizontal
         pdfView.displayMode = .singlePage
@@ -164,6 +230,8 @@ class APPreviewViewController: UIViewController {
         thumbnailView.thumbnailSize = CGSize(width: 44, height: 54)
         thumbnailView.layoutMode = .horizontal
         thumbnailView.backgroundColor = thumbnailViewContainer.backgroundColor!
+        thumbnailView.isHidden = true
+        thumbnailViewContainer.isHidden = true
         
         pdfDrawer.pdfView = pdfView
         pdfTextDrawer.pdfView = pdfView
@@ -182,18 +250,19 @@ class APPreviewViewController: UIViewController {
     
     // MARK: -  Action
     
-    @objc func tappedAction() {
+    @objc
+    func tappedAction() {
         print("tapped")
-        UIView.transition(with: self.thumbnailViewContainer, duration: 0.25, options: .transitionCrossDissolve, animations: {
+        UIView.transition(with: self.bottomViewContainer, duration: 0.25, options: .transitionCrossDissolve, animations: {
             self.navigationController?.setNavigationBarHidden(!(self.navigationController?.isNavigationBarHidden ?? false) , animated: true)
-            self.thumbnailView.isHidden = !self.thumbnailView.isHidden
-            self.thumbnailViewContainer.isHidden = !self.thumbnailViewContainer.isHidden
+            self.bottomViewContainer.isHidden = !self.bottomViewContainer.isHidden
             self.pageNumberContainer.isHidden = !self.pageNumberContainer.isHidden
             self.tittleLabelContainer.isHidden = !self.tittleLabelContainer.isHidden
         }, completion: nil)
     }
     
-    @objc func backAction(_ sender: Any) {
+    @objc
+    func backAction(_ sender: Any) {
         stopTimer()
         if fileSourceType == .CLOUD {
             uploadPDFFileToOneDrive()
@@ -201,42 +270,72 @@ class APPreviewViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func outlineAction(_ sender: Any) {
-        print("Click outline")
-        self.toolbarActionControl?.showOutlineTableForPFDDocument(for: self.pdfDocument, from: sender)
+    @objc
+    func cancelAction(_ sender: Any) {
+        if editButtonClicked && menuSelectLevel == .final {
+            menuSelectLevel = .middle
+            updateLeftNavigationBarButtons()
+            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem], animated: true)
+            pageControl.isHidden = true
+            tittleLabelContainer.isHidden = false
+            pdfView.removeGestureRecognizer(pdfDrawingGestureRecognizer)
+            pdfView.removeGestureRecognizer(pdfTextDrawingGestureRecognizer)
+            tapGestureRecognizer = UITapGestureRecognizer()
+            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            pdfView.addGestureRecognizer(tapGestureRecognizer)
+            stopTimer()
+            editButtonClicked = !editButtonClicked
+        } else if menuSelectLevel == .final {
+            menuSelectLevel = .middle
+            updateLeftNavigationBarButtons()
+        } else {
+            menuSelectLevel = .root
+            updateLeftNavigationBarButtons()
+        }
     }
     
-    @objc func editAction() {
+    @objc
+    func outlineAction(_ sender: Any) {
+        print("Click outline")
+        toolbarActionControl?.showOutlineTableForPFDDocument(for: pdfDocument, from: sender)
+    }
+    
+    @objc
+    func thunbnailAction(_ sender: Any) {
+        print("Click thumbnail")
+        thumbnailViewContainer.isHidden = !thumbnailViewContainer.isHidden
+        thumbnailView.isHidden = !thumbnailView.isHidden
+        bottomViewContainer.isHidden = !bottomViewContainer.isHidden
+    }
+    
+    @objc
+    func editAction() {
         print("editAction tapped")
         editButtonClicked = !editButtonClicked
         if editButtonClicked {
             needUpload = true
-            navigationItem.setLeftBarButtonItems([backBarButtonItem], animated: true)
-            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, edittingBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
-            
-            self.thumbnailViewContainer.isHidden = true
-            self.pageControl.isHidden = false
-            self.toolContainer.isHidden = false
-            self.tittleLabelContainer.isHidden = true
-            pdfView.removeGestureRecognizer(self.tapGestureRecognizer)
-            self.pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
+            pageControl.isHidden = false
+            tittleLabelContainer.isHidden = true
+            menuSelectLevel = .final
+            pdfView.removeGestureRecognizer(tapGestureRecognizer)
+            pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
             pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
             pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
             addTimer()
-        } else {
-            navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem], animated: true)
-            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, editBarButtonItem], animated: true)
-            
-            thumbnailViewContainer.isHidden = false
-            self.pageControl.isHidden = true
-            self.toolContainer.isHidden = true
-            self.tittleLabelContainer.isHidden = false
-            pdfView.removeGestureRecognizer(pdfDrawingGestureRecognizer)
-            pdfView.removeGestureRecognizer(pdfTextDrawingGestureRecognizer)
-            self.tapGestureRecognizer = UITapGestureRecognizer()
-            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
-            pdfView.addGestureRecognizer(tapGestureRecognizer)
-            stopTimer()
+        }
+    }
+    
+    func updateLeftNavigationBarButtons() {
+        switch menuSelectLevel {
+        case .root:
+            navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
+        case .middle:
+            navigationItem.setLeftBarButtonItems([cancelBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
+        case .final:
+            navigationItem.setLeftBarButtonItems([cancelBarButtonItem], animated: true)
+            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
+        default:
+            navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
         }
     }
     
@@ -249,17 +348,17 @@ class APPreviewViewController: UIViewController {
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         
-        self.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
     @objc func bookmarkAction(_ sender: Any) {
         print("Click bookmark")
-        self.toolbarActionControl?.showBookmarkTable(from: sender)
+        toolbarActionControl?.showBookmarkTable(from: sender)
     }
     
     @objc func searchAction(_ sender: Any) {
         print("click search")
-        self.toolbarActionControl?.showSearchViewController(for: self.pdfDocument, from: sender)
+        toolbarActionControl?.showSearchViewController(for: self.pdfDocument, from: sender)
     }
     
     @objc func undoAction() {
@@ -272,38 +371,27 @@ class APPreviewViewController: UIViewController {
         pdfDrawer.redoAction()
     }
     
-    @IBAction func penControlClicked(_ sender: UIButton) {
-        print("penControlClicked")
-        penControl?.buttonArrayUpdated(buttonSelected: sender)
-        self.pdfDrawer.drawingTool = penControl!.selectedValue
-    }
-    
-    @IBAction func colorBtnClicked(_ sender: Any) {
-        print("colorBtnClicked")
-        self.toolbarActionControl?.showColorPickerViewController(editingColor!, from: sender)
-    }
-    
     @IBAction func moreBtnClicked(_ sender: Any) {
         print("moreBtnClicked")
         if count == 0 {
             editingMode = .text
-            pdfView.removeGestureRecognizer(self.tapGestureRecognizer)
+            pdfView.removeGestureRecognizer(tapGestureRecognizer)
             pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
             pdfView.addGestureRecognizer(pdfTextDrawingGestureRecognizer)
             pdfTextDrawer.color = editingColor!
             pdfTextDrawingGestureRecognizer.drawingDelegate = pdfTextDrawer
             moreBtn.setImage(UIImage.init(named: "edit_done"), for: .normal)
-            penControl?.disableButtonArray()
+            penControlMenu.disableButtonArray()
             count = 1
         } else {
             pdfTextDrawer.endEditing()
             editingMode = .pen
-            pdfView.removeGestureRecognizer(self.pdfTextDrawingGestureRecognizer)
+            pdfView.removeGestureRecognizer(pdfTextDrawingGestureRecognizer)
             tapGestureRecognizer = UITapGestureRecognizer()
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             moreBtn.setImage(UIImage.init(named: "edit_begin"), for: .normal)
-            penControl?.enableButtonArray()
+            penControlMenu.enableButtonArray()
             count = 0
         }
     }
@@ -320,37 +408,38 @@ class APPreviewViewController: UIViewController {
     
     func didSelectPdfOutline(_ pdfOutline: PDFOutline?) {
         if let pdfOutline = pdfOutline {
-            self.pdfView.go(to: (pdfOutline.destination?.page)!)
+            pdfView.go(to: (pdfOutline.destination?.page)!)
         }
     }
     
     func didSelectPdfPageFromBookmark(_ pdfPage: PDFPage?) {
         if let page = pdfPage {
-            self.pdfView.go(to: page)
+            pdfView.go(to: page)
         }
     }
     
     func didSelectPdfSelection(_ pdfSelection: PDFSelection?) {
         if let selection = pdfSelection {
             selection.color = .yellow
-            self.pdfView.currentSelection = selection
-            self.pdfView.go(to: selection)
+            pdfView.currentSelection = selection
+            pdfView.go(to: selection)
         }
     }
     
-    func didSelectColor(_ color: UIColor?) {
+    func didSelectColorInColorPicker(_ color: UIColor?) {
         if let color = color {
             if editingMode == .pen {
-                self.pdfDrawer.color = color
+                pdfDrawer.color = color
             } else {
-                self.pdfTextDrawer.color = color
+                pdfTextDrawer.color = color
             }
             editingColor = color
-            self.colorBtn.backgroundColor = color
+            penControlMenu.updateColorBtnColor(color)
         }
     }
     
     // MARK: - Notification Events
+    
     @objc func pdfViewPageChanged(_ notification: Notification) {
         updatePageNumberLabel()
     }
@@ -403,7 +492,53 @@ extension APPreviewViewController: APPDFDrawerDelegate {
     }
 }
 
-// Auto saving
+extension APPreviewViewController: APPreviewBottomMenuDelegate {
+    func didSelectComment() {
+        print("didSelectComment")
+        menuSelectLevel = .middle
+        updateLeftNavigationBarButtons()
+    }
+    
+    func didSelectInsertPage() {
+        print("didSelectInsertPage")
+    }
+    
+    func didSelectSignaure() {
+        print("didSelectSignaure")
+    }
+}
+
+extension APPreviewViewController: APPreviewEditorMenuDelegate {
+    func didSelectCommentAction() {
+
+    }
+    func didSelectTextInputAction() {
+        
+    }
+    func didSelectPenAction() {
+        menuSelectLevel = .final
+        updateLeftNavigationBarButtons()
+        editAction()
+    }
+    func didSelectRactAction() {
+        
+    }
+    func didSelectLineAction() {
+        
+    }
+}
+
+extension APPreviewViewController: APPreviewPenToolMenuDelegate {
+    func didSelectPenControl(_ selectedValue: DrawingTool) {
+        pdfDrawer.drawingTool = selectedValue
+    }
+    
+    func didSelectColor(_ sender: UIButton) {
+        toolbarActionControl?.showColorPickerViewController(editingColor!, from: sender)
+    }
+}
+
+// MARK: - Auto Saving
 extension APPreviewViewController {
     func uploadPDFFileToOneDrive() {
         guard let selectedFileName = filePath, needUpload == true  else {
@@ -433,9 +568,8 @@ extension APPreviewViewController {
     
     func savePDFDocument() {
         print("\(Date()) savePDFDocument")
+        let copyPdfDoc = pdfDocument!.copy() as! PDFDocument
         DispatchQueue.global(qos: .background).sync { [weak self] in
-            let copyPdfDoc = (self?.pdfDocument)!.copy() as! PDFDocument
-                
             if let data = copyPdfDoc.dataRepresentation() {
                 try? data.write(to: (self?.getFileUrl())!, options: .atomicWrite)
             }

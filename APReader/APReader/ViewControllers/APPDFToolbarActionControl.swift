@@ -125,7 +125,7 @@ extension APPDFToolbarActionControl: SearchTableViewControllerDelegate {
 
 extension APPDFToolbarActionControl: APColorPickerViewControllerDelegate {
     func colorPickerDidSelectColor(color: UIColor) {
-        self.pdfPreviewController?.didSelectColor(color)
+        self.pdfPreviewController?.didSelectColorInColorPicker(color)
         self.pdfPreviewController?.dismiss(animated: true, completion: nil)
     }
 }

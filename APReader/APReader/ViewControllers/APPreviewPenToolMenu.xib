@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="APPreviewPenToolMenu" customModule="APReader" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="54"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cvv-XU-mjw">
+                    <rect key="frame" x="92" y="12" width="230" height="30"/>
+                    <subviews>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0v-Vf-o34">
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="pen"/>
+                            <state key="disabled" image="pen_dis"/>
+                            <state key="selected" image="pen_sel"/>
+                            <connections>
+                                <action selector="pencilAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="JYS-uX-FjD"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwh-tD-9W1">
+                            <rect key="frame" x="50" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="pencil"/>
+                            <state key="disabled" image="pencil_dis"/>
+                            <state key="selected" image="pencil_sel"/>
+                            <connections>
+                                <action selector="pencilAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Rq0-eQ-Zmx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aiC-d1-sud">
+                            <rect key="frame" x="100" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="highlighter"/>
+                            <state key="disabled" image="highlighter_dis"/>
+                            <state key="selected" image="highlighter_sel"/>
+                            <connections>
+                                <action selector="pencilAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="mKx-8Q-IQ9"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fn-1V-jMI">
+                            <rect key="frame" x="150" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="eraser"/>
+                            <state key="disabled" image="eraser_dis"/>
+                            <state key="selected" image="eraser_sel"/>
+                            <connections>
+                                <action selector="pencilAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="pny-89-OvP"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IeW-Cx-dr6">
+                            <rect key="frame" x="200" y="0.0" width="30" height="30"/>
+                            <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="IeW-Cx-dr6" secondAttribute="height" id="Fjb-Ad-57g"/>
+                                <constraint firstAttribute="width" constant="30" id="fk2-3s-G0t"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="colorAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="fUC-OB-juh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="eoL-Cq-0kg"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="cvv-XU-mjw" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Sgl-km-5IS"/>
+                <constraint firstItem="cvv-XU-mjw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="YcU-vC-7DG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="colorBtn" destination="IeW-Cx-dr6" id="sMm-z6-1tK"/>
+                <outlet property="eraserBtn" destination="0fn-1V-jMI" id="747-2j-ngd"/>
+                <outlet property="markBtn" destination="aiC-d1-sud" id="PSs-rW-WqD"/>
+                <outlet property="penBtn" destination="Cwh-tD-9W1" id="7Lm-6q-nig"/>
+                <outlet property="pencilBtn" destination="B0v-Vf-o34" id="y2x-pm-jsQ"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="386.38392857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="eraser" width="30" height="29"/>
+        <image name="eraser_dis" width="30" height="29"/>
+        <image name="eraser_sel" width="30" height="29"/>
+        <image name="highlighter" width="30" height="30"/>
+        <image name="highlighter_dis" width="30" height="30"/>
+        <image name="highlighter_sel" width="30" height="30"/>
+        <image name="pen" width="30" height="30"/>
+        <image name="pen_dis" width="30" height="30"/>
+        <image name="pen_sel" width="30" height="30"/>
+        <image name="pencil" width="28" height="28"/>
+        <image name="pencil_dis" width="28" height="28"/>
+        <image name="pencil_sel" width="28" height="28"/>
+    </resources>
+</document>

@@ -18,9 +18,9 @@ enum DrawingTool: Int {
     var width: CGFloat {
         switch self {
         case .pencil:
-            return 1
+            return 3
         case .pen:
-            return 5
+            return 7
         case .highlighter:
             return 10
         default:

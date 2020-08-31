@@ -34,6 +34,9 @@
 		C49C88CC24F817F4002253E0 /* APTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88CB24F817F4002253E0 /* APTabBarController.swift */; };
 		C49C88D024FC907C002253E0 /* DevelopGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C49C88CF24FC907C002253E0 /* DevelopGuide.pdf */; };
 		C49C88D224FC93DD002253E0 /* APAddFolderAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D124FC93DD002253E0 /* APAddFolderAlertViewController.swift */; };
+		C49C88D824FCD115002253E0 /* YPDrawSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D724FCD115002253E0 /* YPDrawSignatureView.swift */; };
+		C49C88DA24FCFBFF002253E0 /* APPreviewBottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */; };
+		C49C88DC24FCFC1F002253E0 /* APPreviewBottomMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */; };
 		C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */; };
 		C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */; };
 		C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6A24DED75B00222D28 /* ChromaShadeSlider.swift */; };
@@ -46,6 +49,10 @@
 		C4E42A5A24EE2DB50049AB38 /* APMoreMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */; };
 		C4E42A5C24EE6D760049AB38 /* APFolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5B24EE6D760049AB38 /* APFolderTableViewCell.swift */; };
 		C4E42A6024EE815D0049AB38 /* APCloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5F24EE815D0049AB38 /* APCloudManager.swift */; };
+		C4E9FDAF24FD0D84008BC15F /* APPreviewEditorMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E9FDAE24FD0D84008BC15F /* APPreviewEditorMenu.swift */; };
+		C4E9FDB124FD0D9D008BC15F /* APPreviewEditorMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4E9FDB024FD0D9D008BC15F /* APPreviewEditorMenu.xib */; };
+		C4E9FDB324FD56C5008BC15F /* APPreviewPenToolMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E9FDB224FD56C5008BC15F /* APPreviewPenToolMenu.swift */; };
+		C4E9FDB524FD5723008BC15F /* APPreviewPenToolMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4E9FDB424FD5723008BC15F /* APPreviewPenToolMenu.xib */; };
 		C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */; };
 		C4EF3B3D24CC09E7002E6A6A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */; };
 		C4EF3B3F24CC09E7002E6A6A /* APFileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF3B3E24CC09E7002E6A6A /* APFileListViewController.swift */; };
@@ -94,6 +101,9 @@
 		C49C88CB24F817F4002253E0 /* APTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APTabBarController.swift; sourceTree = "<group>"; };
 		C49C88CF24FC907C002253E0 /* DevelopGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DevelopGuide.pdf; sourceTree = "<group>"; };
 		C49C88D124FC93DD002253E0 /* APAddFolderAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APAddFolderAlertViewController.swift; sourceTree = "<group>"; };
+		C49C88D724FCD115002253E0 /* YPDrawSignatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDrawSignatureView.swift; sourceTree = "<group>"; };
+		C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewBottomMenu.swift; sourceTree = "<group>"; };
+		C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPreviewBottomMenu.xib; sourceTree = "<group>"; };
 		C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APReader.entitlements; sourceTree = "<group>"; };
 		C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPencilControl.swift; sourceTree = "<group>"; };
@@ -108,6 +118,10 @@
 		C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APMoreMenuViewController.swift; sourceTree = "<group>"; };
 		C4E42A5B24EE6D760049AB38 /* APFolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APFolderTableViewCell.swift; sourceTree = "<group>"; };
 		C4E42A5F24EE815D0049AB38 /* APCloudManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCloudManager.swift; sourceTree = "<group>"; };
+		C4E9FDAE24FD0D84008BC15F /* APPreviewEditorMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewEditorMenu.swift; sourceTree = "<group>"; };
+		C4E9FDB024FD0D9D008BC15F /* APPreviewEditorMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPreviewEditorMenu.xib; sourceTree = "<group>"; };
+		C4E9FDB224FD56C5008BC15F /* APPreviewPenToolMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewPenToolMenu.swift; sourceTree = "<group>"; };
+		C4E9FDB424FD5723008BC15F /* APPreviewPenToolMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPreviewPenToolMenu.xib; sourceTree = "<group>"; };
 		C4EF3B3724CC09E7002E6A6A /* APReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EF3B3A24CC09E7002E6A6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EF3B3C24CC09E7002E6A6A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -233,6 +247,13 @@
 				C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */,
 				C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */,
 				C49C88CB24F817F4002253E0 /* APTabBarController.swift */,
+				C4E9FDB224FD56C5008BC15F /* APPreviewPenToolMenu.swift */,
+				C4E9FDB424FD5723008BC15F /* APPreviewPenToolMenu.xib */,
+				C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */,
+				C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */,
+				C4E9FDAE24FD0D84008BC15F /* APPreviewEditorMenu.swift */,
+				C4E9FDB024FD0D9D008BC15F /* APPreviewEditorMenu.xib */,
+				C49C88D724FCD115002253E0 /* YPDrawSignatureView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -406,12 +427,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C49C88DC24FCFC1F002253E0 /* APPreviewBottomMenu.xib in Resources */,
 				C4EF3B4724CC09EE002E6A6A /* LaunchScreen.storyboard in Resources */,
+				C4E9FDB524FD5723008BC15F /* APPreviewPenToolMenu.xib in Resources */,
 				C4EF3B4424CC09EE002E6A6A /* Assets.xcassets in Resources */,
 				C49C88D024FC907C002253E0 /* DevelopGuide.pdf in Resources */,
 				C4EF3B4224CC09E7002E6A6A /* Main.storyboard in Resources */,
 				C4256D0924EB742400F6621B /* APNavigationTittleView.xib in Resources */,
 				C4F1DBCB24E28E4000476494 /* AuthSettings.plist in Resources */,
+				C4E9FDB124FD0D9D008BC15F /* APPreviewEditorMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4E9FDB324FD56C5008BC15F /* APPreviewPenToolMenu.swift in Sources */,
 				C42CCCB824CC610C00D6F0E8 /* FileItem.swift in Sources */,
 				C49BE40824CC7DB0006E5D56 /* APPDFDrawer.swift in Sources */,
 				C4E42A5C24EE6D760049AB38 /* APFolderTableViewCell.swift in Sources */,
@@ -480,6 +505,7 @@
 				C43D8E5E24D1709400558110 /* APOutlineTableViewController.swift in Sources */,
 				C4F1DBDE24E2F96900476494 /* APFileItemTableViewCell.swift in Sources */,
 				C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */,
+				C49C88D824FCD115002253E0 /* YPDrawSignatureView.swift in Sources */,
 				C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */,
 				C49C88CC24F817F4002253E0 /* APTabBarController.swift in Sources */,
 				C4F1DBD724E2D3E500476494 /* APGraphManager.swift in Sources */,
@@ -498,6 +524,7 @@
 				C4BFFD7324DED75C00222D28 /* ColorModeToggleButton.swift in Sources */,
 				C4F1DBE724E590C700476494 /* APDriveEntityExtensions.swift in Sources */,
 				C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */,
+				C4E9FDAF24FD0D84008BC15F /* APPreviewEditorMenu.swift in Sources */,
 				C4BFFD7424DED75C00222D28 /* ChromaHandle.swift in Sources */,
 				C43D8E6624D1A65F00558110 /* APBookmarkViewController.swift in Sources */,
 				C4F1DBEA24E5947500476494 /* APUtils.swift in Sources */,
@@ -507,6 +534,7 @@
 				C4BFFD7524DED75C00222D28 /* ChromaAddButton.swift in Sources */,
 				C43D8E5A24D16F3700558110 /* APPDFToolbarActionControl.swift in Sources */,
 				C46A150C24EFC2BB00A5AFE8 /* APFileManager.swift in Sources */,
+				C49C88DA24FCFBFF002253E0 /* APPreviewBottomMenu.swift in Sources */,
 				C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */,
 				C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */,
 				C4F1DBCE24E28F5E00476494 /* APAuthManager.swift in Sources */,
