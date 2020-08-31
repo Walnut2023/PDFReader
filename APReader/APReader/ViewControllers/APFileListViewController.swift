@@ -71,7 +71,6 @@ class APFileListViewController: UIViewController {
         } else {
             navigationItem.setLeftBarButtonItems([signOoutBarButtonItem], animated: true)
         }
-
     }
     
     func updateUserInfo() {
@@ -96,9 +95,11 @@ class APFileListViewController: UIViewController {
     }
     
     func setupDataSource(for folder: String, itemId: String?) {
+        SVProgressHUD.show()
         APGraphManager.instance.getFiles(folderName: folder, itemId: itemId) {
             (fileArray: [MSGraphDriveItem]?, error: Error?) in
             DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
                 guard let files = fileArray, error == nil else {
                     // Show the error
                     let alert = UIAlertController(title: "Error getting files",

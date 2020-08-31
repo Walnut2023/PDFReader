@@ -138,6 +138,20 @@ extension UIColor {
                        blue: CGFloat(b) / 255.0,
                        alpha: CGFloat(a) / 255.0)
     }
+    
+    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
+        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
+    }
 }
 
-
+extension UITextField {
+    func shake() {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.fromValue = CGPoint(x: self.center.x - 4, y: self.center.y)
+        animation.toValue = CGPoint(x: self.center.x + 4, y: self.center.y)
+        animation.duration = 0.05
+        animation.repeatCount = 5
+        animation.autoreverses = true
+        self.layer.add(animation, forKey: "position")
+    }
+}

@@ -13,14 +13,33 @@ import DZNEmptyDataSet
 class APTestTableViewController: UITableViewController {
     
     private let tableCellIdentifier = "APTestTableViewCell"
-    private var files: [String]?
+    private var files: [MSGraphDriveItem]?
+    public var driveItem: MSGraphDriveItem?
     
+    private lazy var addFolderButtonItem = UIBarButtonItem(image: UIImage.init(named: "addfolders"), style: .plain, target: self, action: #selector(addFolderAction))
+    private lazy var backBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "back"), style: .plain, target: self, action: #selector(backAction))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNotification()
-        loadLocalFiles()
+        loadLocalFiles(driveItem)
+        setupUI()
+    }
+    
+    func setupUI() {
         tableView.rowHeight = 100
         tableView.tableFooterView = UIView()
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+        setupNavigationUI()
+    }
+    
+    func setupNavigationUI() {
+        if driveItem != nil {
+            navigationItem.setLeftBarButtonItems([backBarButtonItem, addFolderButtonItem], animated: true)
+        } else {
+            navigationItem.setLeftBarButton(addFolderButtonItem, animated: true)
+        }
     }
     
     func registerNotification() {
@@ -56,9 +75,36 @@ class APTestTableViewController: UITableViewController {
         self.navigationController?.pushViewController(previewVC, animated: true)
     }
     
-    func loadLocalFiles() {
+    func showFileListVC(_ fileItem: MSGraphDriveItem?) {
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let localFileListVC: APTestTableViewController = storyBoard.instantiateViewController(identifier: "LocalFileListVC")
+        localFileListVC.driveItem = fileItem
+        localFileListVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(localFileListVC, animated: true)
+    }
+    
+    @objc
+    func addFolderAction() {
+        print("add folder clicked")
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let addFolderVC: APAddFolderAlertViewController = storyBoard.instantiateViewController(identifier: "AddFolderVC")
+        addFolderVC.delegate = self
+        present(addFolderVC, animated: true, completion: nil)
+    }
+    
+    @objc
+    func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func loadLocalFiles(_ driveItem: MSGraphDriveItem? = nil) {
         let manger = FileManager.default
-        let cachePath = NSHomeDirectory() + "/Library/Caches/APReader.Local/File"
+        var cachePath: String!
+        if driveItem != nil {
+            cachePath = NSHomeDirectory() + "/Library/Caches/APReader.Local/File/\(driveItem?.name ?? "")"
+        } else {
+            cachePath = NSHomeDirectory() + "/Library/Caches/APReader.Local/File"
+        }
         do {
             try manger.createDirectory(atPath: cachePath, withIntermediateDirectories: true, attributes: nil)
         } catch {
@@ -66,28 +112,45 @@ class APTestTableViewController: UITableViewController {
         }
         do {
             files = try manger.contentsOfDirectory(atPath: cachePath).filter({ (fileName) -> Bool in
-                fileName.contains(".pdf")
+                fileName.contains(".pdf") || !fileName.contains(".")
+            }).map({ (fileName) -> MSGraphDriveItem in
+                let fileItem = MSGraphDriveItem()
+                fileItem.name = fileName
+                if !fileName.contains(".") {
+                    fileItem.folder = MSGraphFolder()
+                }
+                return fileItem
             })
             if files?.count == 0 {
-                let bundlePath = Bundle.main.path(forResource: "Demo", ofType: ".pdf")
+                let bundlePath = Bundle.main.path(forResource: "DevelopGuide", ofType: ".pdf")
                 print("\(bundlePath ?? "")") //prints the correct path
                 let destPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!
                 let fileManager = FileManager.default
-                let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent("APReader.Local/File/Demo.pdf")
+                let fullDestPath = NSURL(fileURLWithPath: destPath).appendingPathComponent("APReader.Local/File/DevelopGuide.pdf")
                 let fullDestPathString = fullDestPath?.path
                 print(fileManager.fileExists(atPath: bundlePath!)) // prints true
                 
                 do {
                     try fileManager.copyItem(atPath: bundlePath!, toPath: fullDestPathString ?? "")
                     files = try manger.contentsOfDirectory(atPath: cachePath).filter({ (fileName) -> Bool in
-                        fileName.contains(".pdf")
+                        fileName.contains(".pdf") || !fileName.contains(".")
+                    }).map({ (fileName) -> MSGraphDriveItem in
+                        let fileItem = MSGraphDriveItem()
+                        fileItem.name = fileName
+                        if !fileName.contains(".") {
+                            fileItem.folder = MSGraphFolder()
+                        }
+                        return fileItem
                     })
                     DispatchQueue.main.async {
+                        for item in self.files! {
+                            print("name: \(item.name ?? "null name")")
+                        }
                         self.tableView.reloadData()
                     }
                 } catch {
-                        print(error)
-                        self.tableView.reloadData()
+                    print(error)
+                    self.tableView.reloadData()
                 }
             }
         } catch {
@@ -96,14 +159,35 @@ class APTestTableViewController: UITableViewController {
         
         do {
             files = try manger.contentsOfDirectory(atPath: cachePath).filter({ (fileName) -> Bool in
-                fileName.contains(".pdf")
+                fileName.contains(".pdf") || !fileName.contains(".")
+            }).map({ (fileName) -> MSGraphDriveItem in
+                let fileItem = MSGraphDriveItem()
+                fileItem.name = fileName
+                if !fileName.contains(".") {
+                    fileItem.folder = MSGraphFolder()
+                }
+                return fileItem
             })
             DispatchQueue.main.async {
+                for item in self.files! {
+                    print("name: \(item.name ?? "null name")")
+                }
                 self.tableView.reloadData()
             }
         } catch {
             print("\(error)")
             self.tableView.reloadData()
+        }
+    }
+    
+    func createLocalFolder(_ folderName: String?) {
+        guard let folderName = folderName else { return }
+        let manger = FileManager.default
+        let cachePath = NSHomeDirectory() + "/Library/Caches/APReader.Local/File/\(folderName)"
+        do {
+            try manger.createDirectory(atPath: cachePath, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            print("directory create failed")
         }
     }
     
@@ -134,22 +218,35 @@ class APTestTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIdentifier, for: indexPath) as! APTestTableViewCell
-        cell.titleLabel.text = files?[indexPath.row]
+        cell.filename = files?[indexPath.row].name
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let fileName = files?[indexPath.row]
-        showPreviewVC(fileName ?? "")
+        let fileItem = files?[indexPath.row]
+        if fileItem?.folder == nil {
+            showPreviewVC(fileItem?.name ?? "")
+        } else {
+            showFileListVC(fileItem)
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let index = indexPath.row
-            let fileName = files?[indexPath.row]
+            let fileName = files?[indexPath.row].name
             files?.remove(at: index)
             tableView.deleteRows(at: [indexPath], with: .left)
             deleteLocalFiles(fileName)
+        }
+    }
+}
+
+extension APTestTableViewController: APAddFolderControllerDelegate {
+    func didTapCreateNewFolder(_ folderName: String) {
+        createLocalFolder(folderName)
+        DispatchQueue.main.async {
+            self.loadLocalFiles()
         }
     }
 }

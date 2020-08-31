@@ -509,7 +509,7 @@
         <!--Files-->
         <scene sceneID="Tvj-qd-DIF">
             <objects>
-                <tableViewController storyboardIdentifier="TestVC" title="Files" id="33Q-Je-j2M" customClass="APTestTableViewController" customModule="APReader" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocalFileListVC" title="Files" id="33Q-Je-j2M" customClass="APTestTableViewController" customModule="APReader" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qpD-D8-o0d">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -545,6 +545,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="fileImageView" destination="h35-wX-NXF" id="YcS-eb-fbI"/>
                                     <outlet property="titleLabel" destination="Hgv-Wl-9B3" id="P1k-zR-OON"/>
                                 </connections>
                             </tableViewCell>
@@ -1055,7 +1056,7 @@
         <!--Files-->
         <scene sceneID="2L4-2p-cVF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4uc-06-VVe" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4uc-06-VVe" customClass="APNavigationController" customModule="APReader" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Files" image="folder_nor" selectedImage="folder_sel" id="AyU-VN-hMZ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gKv-ei-dBe">
@@ -1070,6 +1071,109 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dm5-zQ-Hdw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1993" y="2340"/>
+        </scene>
+        <!--AddFolder-->
+        <scene sceneID="NV1-Kl-Ool">
+            <objects>
+                <viewController storyboardIdentifier="AddFolderVC" title="AddFolder" id="oVH-l1-L8o" customClass="APAddFolderAlertViewController" customModule="APReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r2S-kE-cNH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dDD-Au-im6">
+                                <rect key="frame" x="68" y="229" width="278" height="278"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter folder name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vDE-SJ-YfR">
+                                        <rect key="frame" x="16" y="81" width="246" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="weL-FP-Ik6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Folder Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Np7-ny-tFh">
+                                        <rect key="frame" x="16" y="40" width="98" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="uFo-qr-j68"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSc-Aq-X2J">
+                                        <rect key="frame" x="16" y="176" width="246" height="30"/>
+                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="GZo-wz-aC7"/>
+                                        </constraints>
+                                        <state key="normal" title="Create Folder">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="createFolderTapped:" destination="oVH-l1-L8o" eventType="touchUpInside" id="Jmb-hy-MYS"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kV-6X-Eh2">
+                                        <rect key="frame" x="16" y="218" width="246" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="olO-AV-U5y"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="oVH-l1-L8o" eventType="touchUpInside" id="kwE-B8-7eQ"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter folder name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZj-gD-Ha0">
+                                        <rect key="frame" x="16" y="141" width="141" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="and-fM-YPu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="gSc-Aq-X2J" firstAttribute="top" secondItem="rZj-gD-Ha0" secondAttribute="bottom" constant="20" id="3qN-0F-IFs"/>
+                                    <constraint firstAttribute="trailing" secondItem="vDE-SJ-YfR" secondAttribute="trailing" constant="16" id="5fa-jZ-Be3"/>
+                                    <constraint firstItem="vDE-SJ-YfR" firstAttribute="leading" secondItem="dDD-Au-im6" secondAttribute="leading" constant="16" id="82p-l3-x5m"/>
+                                    <constraint firstItem="5kV-6X-Eh2" firstAttribute="top" secondItem="gSc-Aq-X2J" secondAttribute="bottom" constant="12" id="9rT-oE-Z15"/>
+                                    <constraint firstItem="vDE-SJ-YfR" firstAttribute="top" secondItem="Np7-ny-tFh" secondAttribute="bottom" constant="20" id="CgB-g4-2wt"/>
+                                    <constraint firstItem="Np7-ny-tFh" firstAttribute="top" secondItem="dDD-Au-im6" secondAttribute="top" constant="40" id="K3F-7U-GKB"/>
+                                    <constraint firstItem="gSc-Aq-X2J" firstAttribute="leading" secondItem="dDD-Au-im6" secondAttribute="leading" constant="16" id="PfG-if-cfW"/>
+                                    <constraint firstItem="rZj-gD-Ha0" firstAttribute="leading" secondItem="dDD-Au-im6" secondAttribute="leading" constant="16" id="Q5b-5c-Gwh"/>
+                                    <constraint firstAttribute="trailing" secondItem="gSc-Aq-X2J" secondAttribute="trailing" constant="16" id="TpG-kw-3yI"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rZj-gD-Ha0" secondAttribute="trailing" constant="20" symbolic="YES" id="VMI-pJ-ggM"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Np7-ny-tFh" secondAttribute="trailing" constant="20" symbolic="YES" id="X6r-TW-Zi1"/>
+                                    <constraint firstAttribute="bottom" secondItem="5kV-6X-Eh2" secondAttribute="bottom" constant="30" id="XgK-Yu-q0A"/>
+                                    <constraint firstAttribute="width" constant="278" id="a7K-RR-fYX"/>
+                                    <constraint firstAttribute="trailing" secondItem="5kV-6X-Eh2" secondAttribute="trailing" constant="16" id="bNf-y0-CR8"/>
+                                    <constraint firstItem="Np7-ny-tFh" firstAttribute="leading" secondItem="dDD-Au-im6" secondAttribute="leading" constant="16" id="jpE-XS-Na8"/>
+                                    <constraint firstAttribute="width" secondItem="dDD-Au-im6" secondAttribute="height" multiplier="1:1" id="mGg-y5-adb"/>
+                                    <constraint firstItem="5kV-6X-Eh2" firstAttribute="leading" secondItem="dDD-Au-im6" secondAttribute="leading" constant="16" id="rrg-lz-7KT"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dDD-Au-im6" firstAttribute="centerY" secondItem="r2S-kE-cNH" secondAttribute="centerY" id="23L-ya-xsd"/>
+                            <constraint firstItem="dDD-Au-im6" firstAttribute="centerX" secondItem="r2S-kE-cNH" secondAttribute="centerX" id="EgD-Pg-ADU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EmS-9f-6jv"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="5kV-6X-Eh2" id="adZ-7J-Pwx"/>
+                        <outlet property="containerView" destination="dDD-Au-im6" id="aXX-UA-B1j"/>
+                        <outlet property="createFolderButton" destination="gSc-Aq-X2J" id="nVt-4y-qfP"/>
+                        <outlet property="folderAlertLabel" destination="rZj-gD-Ha0" id="X3f-QZ-X9B"/>
+                        <outlet property="folderNameLabel" destination="Np7-ny-tFh" id="fPU-ix-IlV"/>
+                        <outlet property="folderNameTextField" destination="vDE-SJ-YfR" id="LKm-DJ-aSx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tim-cN-q3P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-110.14492753623189" y="2339.6739130434785"/>
         </scene>
     </scenes>
     <resources>

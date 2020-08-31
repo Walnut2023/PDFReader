@@ -10,7 +10,15 @@ import UIKit
 
 class APTestTableViewCell: UITableViewCell {
 
+    var filename: String? {
+        didSet {
+            titleLabel.text = filename
+            fileImageView.image = filename?.contains(".") ?? false ? #imageLiteral(resourceName: "pdf_checked") : #imageLiteral(resourceName: "folder")
+        }
+    }
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var fileImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
