@@ -247,12 +247,12 @@
 				C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */,
 				C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */,
 				C49C88CB24F817F4002253E0 /* APTabBarController.swift */,
-				C4E9FDB224FD56C5008BC15F /* APPreviewPenToolMenu.swift */,
-				C4E9FDB424FD5723008BC15F /* APPreviewPenToolMenu.xib */,
 				C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */,
 				C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */,
 				C4E9FDAE24FD0D84008BC15F /* APPreviewEditorMenu.swift */,
 				C4E9FDB024FD0D9D008BC15F /* APPreviewEditorMenu.xib */,
+				C4E9FDB224FD56C5008BC15F /* APPreviewPenToolMenu.swift */,
+				C4E9FDB424FD5723008BC15F /* APPreviewPenToolMenu.xib */,
 				C49C88D724FCD115002253E0 /* YPDrawSignatureView.swift */,
 			);
 			path = ViewControllers;

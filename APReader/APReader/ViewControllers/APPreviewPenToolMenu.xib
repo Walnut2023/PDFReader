@@ -14,10 +14,33 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cvv-XU-mjw">
-                    <rect key="frame" x="92" y="12" width="230" height="30"/>
+                    <rect key="frame" x="17" y="12" width="380" height="30"/>
                     <subviews>
-                        <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0v-Vf-o34">
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0u0-se-VDy">
                             <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="Line"/>
+                            <connections>
+                                <action selector="lineBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="DVG-7N-Eyo"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ic-Tt-htW">
+                            <rect key="frame" x="50" y="0.0" width="30" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="Rect"/>
+                            <connections>
+                                <action selector="rectBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="oG6-yb-cZH"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYx-E6-bSX">
+                            <rect key="frame" x="100" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="edit_begin"/>
+                            <connections>
+                                <action selector="textBtnClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="2xj-xB-Eie"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0v-Vf-o34">
+                            <rect key="frame" x="150" y="0.0" width="30" height="30"/>
                             <state key="normal" image="pen"/>
                             <state key="disabled" image="pen_dis"/>
                             <state key="selected" image="pen_sel"/>
@@ -26,7 +49,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cwh-tD-9W1">
-                            <rect key="frame" x="50" y="0.0" width="30" height="30"/>
+                            <rect key="frame" x="200" y="0.0" width="30" height="30"/>
                             <state key="normal" image="pencil"/>
                             <state key="disabled" image="pencil_dis"/>
                             <state key="selected" image="pencil_sel"/>
@@ -35,7 +58,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aiC-d1-sud">
-                            <rect key="frame" x="100" y="0.0" width="30" height="30"/>
+                            <rect key="frame" x="250" y="0.0" width="30" height="30"/>
                             <state key="normal" image="highlighter"/>
                             <state key="disabled" image="highlighter_dis"/>
                             <state key="selected" image="highlighter_sel"/>
@@ -44,7 +67,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fn-1V-jMI">
-                            <rect key="frame" x="150" y="0.0" width="30" height="30"/>
+                            <rect key="frame" x="300" y="0.0" width="30" height="30"/>
                             <state key="normal" image="eraser"/>
                             <state key="disabled" image="eraser_dis"/>
                             <state key="selected" image="eraser_sel"/>
@@ -53,7 +76,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IeW-Cx-dr6">
-                            <rect key="frame" x="200" y="0.0" width="30" height="30"/>
+                            <rect key="frame" x="350" y="0.0" width="30" height="30"/>
                             <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="IeW-Cx-dr6" secondAttribute="height" id="Fjb-Ad-57g"/>
@@ -84,14 +107,18 @@
             <connections>
                 <outlet property="colorBtn" destination="IeW-Cx-dr6" id="sMm-z6-1tK"/>
                 <outlet property="eraserBtn" destination="0fn-1V-jMI" id="747-2j-ngd"/>
+                <outlet property="lineBtn" destination="0u0-se-VDy" id="cG9-pz-gSO"/>
                 <outlet property="markBtn" destination="aiC-d1-sud" id="PSs-rW-WqD"/>
                 <outlet property="penBtn" destination="Cwh-tD-9W1" id="7Lm-6q-nig"/>
                 <outlet property="pencilBtn" destination="B0v-Vf-o34" id="y2x-pm-jsQ"/>
+                <outlet property="rectBtn" destination="2Ic-Tt-htW" id="a78-hD-brS"/>
+                <outlet property="textBtn" destination="eYx-E6-bSX" id="x3Q-fF-5Tz"/>
             </connections>
-            <point key="canvasLocation" x="131.8840579710145" y="386.38392857142856"/>
+            <point key="canvasLocation" x="126" y="386"/>
         </view>
     </objects>
     <resources>
+        <image name="edit_begin" width="30" height="30"/>
         <image name="eraser" width="30" height="29"/>
         <image name="eraser_dis" width="30" height="29"/>
         <image name="eraser_sel" width="30" height="29"/>

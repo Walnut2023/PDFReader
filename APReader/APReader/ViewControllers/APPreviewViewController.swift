@@ -50,13 +50,6 @@ class APPreviewViewController: UIViewController {
     @IBOutlet weak var thumbnailView: PDFThumbnailView!
     @IBOutlet weak var thumbnailViewContainer: UIView!
     @IBOutlet weak var pageControl: UIView!
-    
-    @IBOutlet weak var pencilBtn: UIButton!
-    @IBOutlet weak var penBtn: UIButton!
-    @IBOutlet weak var paintBtn: UIButton!
-    @IBOutlet weak var eraserBtn: UIButton!
-    @IBOutlet weak var colorBtn: UIButton!
-    @IBOutlet weak var moreBtn: UIButton!
     @IBOutlet weak var bottomViewContainer: UIView!
     
     private lazy var backBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "back"), style: .plain, target: self, action: #selector(backAction))
@@ -96,7 +89,6 @@ class APPreviewViewController: UIViewController {
         penControlMenu.frame.origin.x = bottomViewContainer.frame.origin.x
         penControlMenu.width = view.width
         penControlMenu.delegate = self
-        penControlMenu.initPenControl()
         return penControlMenu
     }()
     
@@ -317,6 +309,7 @@ class APPreviewViewController: UIViewController {
             pageControl.isHidden = false
             tittleLabelContainer.isHidden = true
             menuSelectLevel = .final
+            penControlMenu.initPenControl()
             pdfView.removeGestureRecognizer(tapGestureRecognizer)
             pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
             pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
@@ -339,18 +332,6 @@ class APPreviewViewController: UIViewController {
         }
     }
     
-    func showAlertController() {
-        let alertController = UIAlertController(title:"Info", message: "Are you willing to save the changes?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Canecl", style: .cancel) { (action) in
-            self.pdfDrawer.clearAllAnnotations()
-        }
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
-        alertController.addAction(cancelAction)
-        alertController.addAction(okAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
     @objc func bookmarkAction(_ sender: Any) {
         print("Click bookmark")
         toolbarActionControl?.showBookmarkTable(from: sender)
@@ -369,31 +350,6 @@ class APPreviewViewController: UIViewController {
     @objc func redoAction() {
         print("redo action tapped")
         pdfDrawer.redoAction()
-    }
-    
-    @IBAction func moreBtnClicked(_ sender: Any) {
-        print("moreBtnClicked")
-        if count == 0 {
-            editingMode = .text
-            pdfView.removeGestureRecognizer(tapGestureRecognizer)
-            pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
-            pdfView.addGestureRecognizer(pdfTextDrawingGestureRecognizer)
-            pdfTextDrawer.color = editingColor!
-            pdfTextDrawingGestureRecognizer.drawingDelegate = pdfTextDrawer
-            moreBtn.setImage(UIImage.init(named: "edit_done"), for: .normal)
-            penControlMenu.disableButtonArray()
-            count = 1
-        } else {
-            pdfTextDrawer.endEditing()
-            editingMode = .pen
-            pdfView.removeGestureRecognizer(pdfTextDrawingGestureRecognizer)
-            tapGestureRecognizer = UITapGestureRecognizer()
-            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
-            pdfView.addGestureRecognizer(tapGestureRecognizer)
-            moreBtn.setImage(UIImage.init(named: "edit_begin"), for: .normal)
-            penControlMenu.enableButtonArray()
-            count = 0
-        }
     }
     
     @IBAction func pageUpAction(_ sender: Any) {
@@ -509,22 +465,14 @@ extension APPreviewViewController: APPreviewBottomMenuDelegate {
 }
 
 extension APPreviewViewController: APPreviewEditorMenuDelegate {
-    func didSelectCommentAction() {
+    func didSelectCommentAction(_ sender: UIButton) {
 
     }
-    func didSelectTextInputAction() {
-        
-    }
-    func didSelectPenAction() {
+   
+    func didSelectPenAction(_ sender: UIButton) {
         menuSelectLevel = .final
         updateLeftNavigationBarButtons()
         editAction()
-    }
-    func didSelectRactAction() {
-        
-    }
-    func didSelectLineAction() {
-        
     }
 }
 
@@ -536,9 +484,38 @@ extension APPreviewViewController: APPreviewPenToolMenuDelegate {
     func didSelectColor(_ sender: UIButton) {
         toolbarActionControl?.showColorPickerViewController(editingColor!, from: sender)
     }
+    
+    func didSelectTextInputMode(_ sender: UIButton) {
+        if count == 0 {
+            editingMode = .text
+            pdfView.removeGestureRecognizer(tapGestureRecognizer)
+            pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
+            pdfView.addGestureRecognizer(pdfTextDrawingGestureRecognizer)
+            pdfTextDrawer.color = editingColor!
+            pdfTextDrawingGestureRecognizer.drawingDelegate = pdfTextDrawer
+            sender.setImage(UIImage.init(named: "edit_done"), for: .normal)
+            penControlMenu.disableOtherButtons()
+            count = 1
+            addTimer()
+            navigationItem.leftBarButtonItem?.isEnabled = false
+        } else {
+            pdfTextDrawer.endEditing()
+            editingMode = .pen
+            pdfView.removeGestureRecognizer(pdfTextDrawingGestureRecognizer)
+            tapGestureRecognizer = UITapGestureRecognizer()
+            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            pdfView.addGestureRecognizer(tapGestureRecognizer)
+            sender.setImage(UIImage.init(named: "edit_begin"), for: .normal)
+            penControlMenu.enableOtherButtons()
+            count = 0
+            stopTimer()
+            navigationItem.leftBarButtonItem?.isEnabled = true
+        }
+    }
 }
 
 // MARK: - Auto Saving
+
 extension APPreviewViewController {
     func uploadPDFFileToOneDrive() {
         guard let selectedFileName = filePath, needUpload == true  else {
@@ -579,14 +556,13 @@ extension APPreviewViewController {
     func addTimer() {
         if timer == nil {
             timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
-            timer?.schedule(deadline: .now() + .seconds(5), repeating: DispatchTimeInterval.seconds(2), leeway: DispatchTimeInterval.seconds(0))
+            timer?.schedule(deadline: .now() + .seconds(5), repeating: DispatchTimeInterval.seconds(4), leeway: DispatchTimeInterval.seconds(0))
             timer?.setEventHandler { [weak self] in
                 print("\(Date()) timer running")
                 self?.savePDFDocument()
             }
-        }
-        if !(timer?.isCancelled ?? false) {
-            timer?.resume()
+        } else {
+            timer!.resume()
         }
     }
     

@@ -9,41 +9,29 @@
 import UIKit
 
 protocol APPreviewEditorMenuDelegate {
-    func didSelectCommentAction()
-    func didSelectTextInputAction()
-    func didSelectPenAction()
-    func didSelectRactAction()
-    func didSelectLineAction()
-
+    func didSelectCommentAction(_ sender: UIButton)
+    func didSelectPenAction(_ sender: UIButton)
 }
 
 class APPreviewEditorMenu: UIView {
     
+    @IBOutlet weak var commentBtn: UIButton!
+    @IBOutlet weak var paintBtn: UIButton!
+    
     public var delegate: APPreviewEditorMenuDelegate?
     
-    @IBAction func commentAction(_ sender: Any) {
-        delegate?.didSelectCommentAction()
+    @IBAction func commentAction(_ sender: UIButton) {
+        delegate?.didSelectCommentAction(sender)
     }
     
-    @IBAction func textInputAction(_ sender: Any) {
-        delegate?.didSelectTextInputAction()
-    }
-    
-    @IBAction func penAction(_ sender: Any) {
-        delegate?.didSelectPenAction()
-    }
-    
-    @IBAction func ractAction(_ sender: Any) {
-        delegate?.didSelectRactAction()
-    }
-    
-    @IBAction func lineAction(_ sender: Any) {
-        delegate?.didSelectLineAction()
+    @IBAction func penAction(_ sender: UIButton) {
+        delegate?.didSelectPenAction(sender)
     }
 }
 
 extension APPreviewEditorMenu {
     public class func initInstanceFromXib()-> APPreviewEditorMenu {
-        return Bundle.main.loadNibNamed("\(self)", owner: self, options: nil)?.last as! APPreviewEditorMenu
+        let menu = Bundle.main.loadNibNamed("\(self)", owner: self, options: nil)?.last as! APPreviewEditorMenu
+        return menu
     }
 }

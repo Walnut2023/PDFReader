@@ -11,9 +11,13 @@ import UIKit
 protocol APPreviewPenToolMenuDelegate {
     func didSelectPenControl(_ selectedValue: DrawingTool)
     func didSelectColor(_ sender: UIButton)
+    func didSelectTextInputMode(_ sender: UIButton)
 }
 
 class APPreviewPenToolMenu: UIView {
+    @IBOutlet weak var lineBtn: UIButton!
+    @IBOutlet weak var rectBtn: UIButton!
+    @IBOutlet weak var textBtn: UIButton!
     @IBOutlet weak var pencilBtn: UIButton!
     @IBOutlet weak var penBtn: UIButton!
     @IBOutlet weak var markBtn: UIButton!
@@ -24,7 +28,7 @@ class APPreviewPenToolMenu: UIView {
     private var penControl: APPencilControl?
 
     public func initPenControl() {
-        penControl = APPencilControl(buttonsArray: [pencilBtn, penBtn, markBtn, eraserBtn])
+        penControl = APPencilControl(buttonsArray: [lineBtn, rectBtn, textBtn, pencilBtn, penBtn, markBtn, eraserBtn])
         penControl?.defaultButton = pencilBtn
     }
     
@@ -32,12 +36,33 @@ class APPreviewPenToolMenu: UIView {
         colorBtn.backgroundColor = color
     }
     
-    public func disableButtonArray() {
-        penControl?.disableButtonArray()
+    public func enableOtherButtons() {
+        penControl?.enableOtherButtons()
     }
     
     public func enableButtonArray() {
         penControl?.enableButtonArray()
+    }
+    
+    public func disableButtonArray() {
+        penControl?.disableButtonArray()
+    }
+    
+    public func disableOtherButtons() {
+        penControl?.disableOtherButtons()
+    }
+    
+    @IBAction func lineBtnClicked(_ sender: UIButton) {
+        penControl?.buttonArrayUpdated(buttonSelected: sender)
+    }
+    
+    @IBAction func rectBtnClicked(_ sender: UIButton) {
+        penControl?.buttonArrayUpdated(buttonSelected: sender)
+    }
+    
+    @IBAction func textBtnClicked(_ sender: UIButton) {
+        penControl?.buttonArrayUpdated(buttonSelected: sender)
+        delegate?.didSelectTextInputMode(sender)
     }
     
     @IBAction func pencilAction(_ sender: UIButton) {
@@ -51,7 +76,9 @@ class APPreviewPenToolMenu: UIView {
 }
 
 extension APPreviewPenToolMenu {
-    public class func initInstanceFromXib()-> APPreviewPenToolMenu {
-        return Bundle.main.loadNibNamed("\(self)", owner: self, options: nil)?.last as! APPreviewPenToolMenu
+    public class func initInstanceFromXib() -> APPreviewPenToolMenu {
+        let menu = Bundle.main.loadNibNamed("\(self)", owner: self, options: nil)?.last as! APPreviewPenToolMenu
+        menu.initPenControl()
+        return menu
     }
 }

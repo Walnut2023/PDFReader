@@ -14,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="asD-Sz-Wdg">
-                    <rect key="frame" x="77.5" y="12" width="219" height="30"/>
+                    <rect key="frame" x="148" y="12" width="78" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tWL-CP-F3T">
                             <rect key="frame" x="0.0" y="0.0" width="31" height="30"/>
@@ -23,32 +23,11 @@
                                 <action selector="commentAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="I1M-4U-4kZ"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihd-xq-WEa">
-                            <rect key="frame" x="47" y="0.0" width="31" height="30"/>
-                            <state key="normal" title="文本"/>
-                            <connections>
-                                <action selector="textInputAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="aHA-Za-rYk"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc6-SH-1tU">
-                            <rect key="frame" x="94" y="0.0" width="31" height="30"/>
+                            <rect key="frame" x="47" y="0.0" width="31" height="30"/>
                             <state key="normal" title="涂鸦"/>
                             <connections>
                                 <action selector="penAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="NjE-Qn-wdb"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjl-Fg-w57">
-                            <rect key="frame" x="141" y="0.0" width="31" height="30"/>
-                            <state key="normal" title="图形"/>
-                            <connections>
-                                <action selector="ractAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="9Rp-yz-akB"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Twl-qN-bvv">
-                            <rect key="frame" x="188" y="0.0" width="31" height="30"/>
-                            <state key="normal" title="直线"/>
-                            <connections>
-                                <action selector="lineAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="wJp-1z-q0R"/>
                             </connections>
                         </button>
                     </subviews>
@@ -61,6 +40,10 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="commentBtn" destination="tWL-CP-F3T" id="uCr-Y3-3sA"/>
+                <outlet property="paintBtn" destination="Hc6-SH-1tU" id="cgP-Rx-gka"/>
+            </connections>
             <point key="canvasLocation" x="102.89855072463769" y="386.38392857142856"/>
         </view>
     </objects>

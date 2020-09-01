@@ -50,4 +50,18 @@ class APPencilControl: NSObject {
         }
         selectedButton?.isSelected = false
     }
+    
+    public func enableOtherButtons() {
+        for button in buttonsArray {
+            button.isEnabled = true
+        }
+    }
+    
+    public func disableOtherButtons() {
+        for button in buttonsArray {
+            button.isEnabled = false
+        }
+        selectedButton?.isEnabled = true
+        selectedButton?.isSelected = true
+    }
 }
