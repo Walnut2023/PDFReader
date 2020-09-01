@@ -268,10 +268,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bW3-xs-fy4">
-                                <rect key="frame" x="152" y="634" width="110" height="40"/>
+                                <rect key="frame" x="152" y="636" width="110" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Page Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdN-ut-AHy">
-                                        <rect key="frame" x="11" y="9.6666666666666288" width="88" height="21"/>
+                                        <rect key="frame" x="11" y="9.6666666666666288" width="88" height="14.666666666666664"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -279,10 +279,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="OdN-ut-AHy" firstAttribute="centerX" secondItem="bW3-xs-fy4" secondAttribute="centerX" id="4BZ-gC-WZo"/>
-                                    <constraint firstItem="OdN-ut-AHy" firstAttribute="width" secondItem="bW3-xs-fy4" secondAttribute="width" multiplier="0.8" id="Hrf-rg-KnC"/>
-                                    <constraint firstItem="OdN-ut-AHy" firstAttribute="centerY" secondItem="bW3-xs-fy4" secondAttribute="centerY" id="Jyx-og-JSG"/>
-                                    <constraint firstItem="OdN-ut-AHy" firstAttribute="height" secondItem="bW3-xs-fy4" secondAttribute="height" multiplier="0.525" id="bXA-RY-e2N"/>
+                                    <constraint firstItem="OdN-ut-AHy" firstAttribute="width" secondItem="bW3-xs-fy4" secondAttribute="width" multiplier="0.8" id="KmF-eS-vJ5"/>
+                                    <constraint firstAttribute="height" constant="34" id="gGc-pu-qB6"/>
+                                    <constraint firstItem="OdN-ut-AHy" firstAttribute="centerY" secondItem="bW3-xs-fy4" secondAttribute="centerY" id="pat-0j-3dM"/>
+                                    <constraint firstItem="OdN-ut-AHy" firstAttribute="height" secondItem="bW3-xs-fy4" secondAttribute="height" multiplier="0.425" id="tPM-LV-jzX"/>
+                                    <constraint firstItem="OdN-ut-AHy" firstAttribute="centerX" secondItem="bW3-xs-fy4" secondAttribute="centerX" id="wSO-k9-FCR"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVx-6F-UOO">
@@ -298,16 +299,15 @@
                         <constraints>
                             <constraint firstItem="97a-Yt-Bif" firstAttribute="bottom" secondItem="ZVQ-d1-BIx" secondAttribute="bottom" id="1fZ-e7-nvn"/>
                             <constraint firstItem="v1Q-bd-U1t" firstAttribute="centerX" secondItem="ZVQ-d1-BIx" secondAttribute="centerX" id="3Rc-ZM-0hY"/>
-                            <constraint firstItem="bW3-xs-fy4" firstAttribute="centerX" secondItem="ZVQ-d1-BIx" secondAttribute="centerX" id="KD4-Zk-icg"/>
                             <constraint firstItem="97a-Yt-Bif" firstAttribute="leading" secondItem="ZVQ-d1-BIx" secondAttribute="leading" id="LFi-F1-tbe"/>
                             <constraint firstItem="9LJ-Em-8cW" firstAttribute="trailing" secondItem="ZVQ-d1-BIx" secondAttribute="trailing" id="P93-Hd-NUZ"/>
-                            <constraint firstItem="bW3-xs-fy4" firstAttribute="top" secondItem="ynD-es-v0q" secondAttribute="bottom" constant="-102" id="UdO-nY-rQG"/>
+                            <constraint firstItem="9LJ-Em-8cW" firstAttribute="top" secondItem="bW3-xs-fy4" secondAttribute="bottom" constant="12" id="TZD-lf-WpK"/>
                             <constraint firstItem="NVx-6F-UOO" firstAttribute="trailing" secondItem="ZVQ-d1-BIx" secondAttribute="trailing" id="VrR-Hj-jKx"/>
-                            <constraint firstItem="9LJ-Em-8cW" firstAttribute="top" secondItem="bW3-xs-fy4" secondAttribute="bottom" constant="8" id="XN0-F4-blN"/>
                             <constraint firstItem="v1Q-bd-U1t" firstAttribute="top" secondItem="ZVQ-d1-BIx" secondAttribute="top" constant="20" id="XVW-dq-aXp"/>
                             <constraint firstItem="NVx-6F-UOO" firstAttribute="bottom" secondItem="ZVQ-d1-BIx" secondAttribute="bottom" id="XXy-pb-D7D"/>
                             <constraint firstItem="97a-Yt-Bif" firstAttribute="top" secondItem="ynD-es-v0q" secondAttribute="top" constant="50" id="ctG-3U-edp"/>
                             <constraint firstItem="9LJ-Em-8cW" firstAttribute="leading" secondItem="ZVQ-d1-BIx" secondAttribute="leading" id="gH4-u1-Z4m"/>
+                            <constraint firstItem="bW3-xs-fy4" firstAttribute="centerX" secondItem="ynD-es-v0q" secondAttribute="centerX" id="hGm-oi-OuK"/>
                             <constraint firstItem="9LJ-Em-8cW" firstAttribute="top" secondItem="zLN-Tt-UYE" secondAttribute="bottom" constant="8" id="lxF-3t-Xcp"/>
                             <constraint firstItem="9LJ-Em-8cW" firstAttribute="bottom" secondItem="ZVQ-d1-BIx" secondAttribute="bottom" id="nYa-ju-vBW"/>
                             <constraint firstItem="NVx-6F-UOO" firstAttribute="leading" secondItem="ZVQ-d1-BIx" secondAttribute="leading" id="pMf-XZ-hNC"/>
@@ -461,7 +461,13 @@
                             <outlet property="delegate" destination="33Q-Je-j2M" id="3J1-SS-QwV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Files" id="j80-X8-FFB"/>
+                    <navigationItem key="navigationItem" title="Files" id="j80-X8-FFB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Gbn-DM-Q2s">
+                            <connections>
+                                <action selector="addFileAction:" destination="33Q-Je-j2M" id="HP0-Xd-eao"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Owa-R7-Lr4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

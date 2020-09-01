@@ -18,7 +18,7 @@ class APTestTableViewController: UITableViewController {
     
     private lazy var addFolderButtonItem = UIBarButtonItem(image: UIImage.init(named: "addfolders"), style: .plain, target: self, action: #selector(addFolderAction))
     private lazy var backBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "back"), style: .plain, target: self, action: #selector(backAction))
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNotification()
@@ -95,6 +95,10 @@ class APTestTableViewController: UITableViewController {
     @objc
     func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func addFileAction(_ sender: Any) {
+        selectFileFromiCouldDrive()
     }
     
     func loadLocalFiles(_ driveItem: MSGraphDriveItem? = nil) {
@@ -270,5 +274,59 @@ extension APTestTableViewController: DZNEmptyDataSetDelegate {
     
     func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
         return true
+    }
+}
+
+extension APTestTableViewController {
+    private func selectFileFromiCouldDrive()  {
+        let documentTypes = ["com.adobe.pdf"]
+        let document = UIDocumentPickerViewController.init(documentTypes: documentTypes, in: .open)
+        document.delegate = self
+        document.modalPresentationStyle = .automatic
+        self.present(document, animated:true, completion:nil)
+    }
+}
+
+extension APTestTableViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        guard controller.documentPickerMode == .open, url.startAccessingSecurityScopedResource() else { return }
+        let fileName = url.lastPathComponent.removingPercentEncoding
+        print("fileName: \(fileName!)")
+        if APCloudManager.iCouldEnable() {
+            APCloudManager.downloadFile(forDocumentUrl: url) { (fileData) in
+                let data = fileData as NSData
+                let fileManager = FileManager.default
+                let docsurl = try! fileManager.url(
+                    for: .cachesDirectory, in: .userDomainMask,
+                    appropriateFor: nil, create: true)
+                let fileUrl: URL!
+                if self.driveItem?.folder != nil {
+                    fileUrl = docsurl.appendingPathComponent("APReader.Local/File/\(self.driveItem?.name ?? "")/\(fileName ?? "")")
+                    let exist = checkFileExists(atPath: self.driveItem?.folderItemShortRelativePath(), fileName: nil)
+                    if !exist {
+                        do {
+                            try FileManager.default.createDirectory(atPath: docsurl.appendingPathComponent("APReader.Local/File/\(self.driveItem?.name ?? "")").path, withIntermediateDirectories: true, attributes: nil)
+                        } catch {
+                            print("\(error)")
+                        }
+                    }
+                } else {
+                    fileUrl = docsurl.appendingPathComponent("APReader.Local/File/\(fileName ?? "")")
+                }
+                data.write(to: fileUrl, atomically: true)
+                DispatchQueue.main.async {
+                    self.loadLocalFiles(self.driveItem)
+                }
+            }
+        } else {
+            let alert = UIAlertController(title: "Error",
+                                          message: "iCloud Documents unavailable",
+                                          preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true)
+        }
     }
 }

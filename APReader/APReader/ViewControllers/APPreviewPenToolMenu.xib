@@ -97,7 +97,7 @@
                     </constraints>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="cvv-XU-mjw" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Sgl-km-5IS"/>
                 <constraint firstItem="cvv-XU-mjw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="YcU-vC-7DG"/>
@@ -118,7 +118,7 @@
         </view>
     </objects>
     <resources>
-        <image name="edit_begin" width="30" height="30"/>
+        <image name="edit_begin" width="24" height="24"/>
         <image name="eraser" width="30" height="29"/>
         <image name="eraser_dis" width="30" height="29"/>
         <image name="eraser_sel" width="30" height="29"/>
