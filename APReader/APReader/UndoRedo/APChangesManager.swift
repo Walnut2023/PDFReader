@@ -54,6 +54,11 @@ class APChangesManager: NSObject {
         let change = APTextAnnotation(annotation, forPage: page)
         undoCommands.append(change)
     }
+    
+    func addWidgetAnnotation(_ annotation: PDFAnnotation, forPage page: PDFPage) {
+        let change = APWidgetAnnotation(annotation, forPage: page)
+        undoCommands.append(change)
+    }
 
     func reset() {
         undoCommands.reversed().forEach({ $0.unexecute() })

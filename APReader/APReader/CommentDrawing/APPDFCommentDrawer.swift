@@ -9,12 +9,33 @@
 import UIKit
 import PDFKit
 
+protocol APPDFCommentDrawerDelegate: NSObject {
+    func pdfCommentDrawerDidFinishDrawing()
+}
+
 class APPDFCommentDrawer: NSObject {
     weak var pdfView: PDFView!
+    weak var delegate: APPDFCommentDrawerDelegate?
     private var currentAnnotation: PDFAnnotation?
     private var currentPage: PDFPage?
     private var currentLocation: CGPoint?
     var color = UIColor.red
+    
+    public var changesManager = APChangesManager()
+
+    public func undoAction() {
+        changesManager.undo {
+            print("undo succeed")
+            delegate?.pdfCommentDrawerDidFinishDrawing()
+        }
+    }
+    
+    public func redoAction() {
+        changesManager.redo {
+            print("redo succeed")
+            delegate?.pdfCommentDrawerDidFinishDrawing()
+        }
+    }
 }
 
 enum FieldNames: String {
@@ -43,5 +64,8 @@ extension APPDFCommentDrawer: APCommentDrawingGestureRecognizerDelegate {
         resetFormAction.fields = [FieldNames.colaPrice.rawValue, FieldNames.rrPrice.rawValue]
         resetFormAction.fieldsIncludedAreCleared = false
         clearButton.action = resetFormAction
+        
+        changesManager.addWidgetAnnotation(clearButton, forPage: page)
+        delegate?.pdfCommentDrawerDidFinishDrawing()
     }
 }

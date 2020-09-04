@@ -232,6 +232,8 @@ class APPreviewViewController: UIViewController {
         pdfCommentDrawer.pdfView = pdfView
         
         pdfDrawer.delegate = self
+        pdfTextDrawer.delegate = self
+        pdfCommentDrawer.delegate = self
         
         undoBarButtonItem.isEnabled = pdfDrawer.changesManager.undoEnable
         redoBarButtonItem.isEnabled = pdfDrawer.changesManager.redoEnable
@@ -326,6 +328,7 @@ class APPreviewViewController: UIViewController {
         print("commentAction tapped")
         commentButtonClicked = !commentButtonClicked
         if commentButtonClicked {
+            editingMode = .comment
             pageControl.isHidden = false
             tittleLabelContainer.isHidden = true
             pdfView.removeGestureRecognizer(tapGestureRecognizer)
@@ -335,6 +338,7 @@ class APPreviewViewController: UIViewController {
             addTimer()
             navigationItem.leftBarButtonItem?.isEnabled = false
         } else {
+            editingMode = .pen
             pageControl.isHidden = true
             tittleLabelContainer.isHidden = false
             pdfView.removeGestureRecognizer(pdfCommentDrawingGestureRecognizer)
@@ -342,6 +346,8 @@ class APPreviewViewController: UIViewController {
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             stopTimer()
+            pdfCommentDrawer.changesManager.clear()
+            pdfCommentDrawer.delegate?.pdfCommentDrawerDidFinishDrawing()
             navigationItem.leftBarButtonItem?.isEnabled = true
         }
     }
@@ -371,12 +377,31 @@ class APPreviewViewController: UIViewController {
     
     @objc func undoAction() {
         print("undo action tapped")
-        pdfDrawer.undoAction()
+        switch editingMode {
+        case .comment:
+            pdfCommentDrawer.undoAction()
+        case .pen:
+            pdfDrawer.undoAction()
+        case .text:
+            pdfTextDrawer.undoAction()
+        default:
+            print("undo action")
+        }
     }
     
     @objc func redoAction() {
         print("redo action tapped")
         pdfDrawer.redoAction()
+        switch editingMode {
+        case .comment:
+            pdfCommentDrawer.redoAction()
+        case .pen:
+            pdfDrawer.redoAction()
+        case .text:
+            pdfTextDrawer.redoAction()
+        default:
+            print("redo Action")
+        }
     }
     
     @IBAction func pageUpAction(_ sender: Any) {
@@ -476,6 +501,20 @@ extension APPreviewViewController: APPDFDrawerDelegate {
     }
 }
 
+extension APPreviewViewController: APPDFTextDrawerDelegate {
+    func pdfTextDrawerDidFinishDrawing() {
+        undoBarButtonItem.isEnabled = pdfTextDrawer.changesManager.undoEnable
+        redoBarButtonItem.isEnabled = pdfTextDrawer.changesManager.redoEnable
+    }
+}
+
+extension APPreviewViewController: APPDFCommentDrawerDelegate {
+    func pdfCommentDrawerDidFinishDrawing() {
+        undoBarButtonItem.isEnabled = pdfCommentDrawer.changesManager.undoEnable
+        redoBarButtonItem.isEnabled = pdfCommentDrawer.changesManager.redoEnable
+    }
+}
+
 extension APPreviewViewController: APPreviewBottomMenuDelegate {
     func didSelectComment() {
         print("didSelectComment")
@@ -516,7 +555,6 @@ extension APPreviewViewController: APPreviewEditorMenuDelegate {
    
     func didSelectPenAction(_ sender: UIButton) {
         menuSelectLevel = .final
-        updateLeftNavigationBarButtons()
         editAction()
     }
     
@@ -558,6 +596,8 @@ extension APPreviewViewController: APPreviewPenToolMenuDelegate {
             penControlMenu.enableOtherButtons()
             count = 0
             stopTimer()
+            pdfTextDrawer.changesManager.clear()
+            pdfTextDrawer.delegate?.pdfTextDrawerDidFinishDrawing()
             navigationItem.leftBarButtonItem?.isEnabled = true
         }
     }
@@ -593,7 +633,9 @@ extension APPreviewViewController {
     }
     
     func savePDFDocument() {
-        if !pdfDrawer.changesManager.undoEnable {
+        if !pdfDrawer.changesManager.undoEnable &&
+            !pdfTextDrawer.changesManager.undoEnable &&
+            !pdfCommentDrawer.changesManager.undoEnable {
             print("no changes to save")
             return
         }
