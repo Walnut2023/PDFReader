@@ -39,6 +39,9 @@
 		C49C88DC24FCFC1F002253E0 /* APPreviewBottomMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */; };
 		C49CC8032500906800B19511 /* APArrowBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CC8022500906800B19511 /* APArrowBezierPath.swift */; };
 		C49CC8052500910500B19511 /* APDrawUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CC8042500910500B19511 /* APDrawUtilities.swift */; };
+		C49CC807250235EC00B19511 /* APChangesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CC806250235EC00B19511 /* APChangesManager.swift */; };
+		C49CC80A2502367A00B19511 /* APInkAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CC8092502367A00B19511 /* APInkAnnotation.swift */; };
+		C49CC80C250236C500B19511 /* APTextAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CC80B250236C500B19511 /* APTextAnnotation.swift */; };
 		C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */; };
 		C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */; };
 		C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6A24DED75B00222D28 /* ChromaShadeSlider.swift */; };
@@ -108,6 +111,9 @@
 		C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPreviewBottomMenu.xib; sourceTree = "<group>"; };
 		C49CC8022500906800B19511 /* APArrowBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APArrowBezierPath.swift; sourceTree = "<group>"; };
 		C49CC8042500910500B19511 /* APDrawUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawUtilities.swift; sourceTree = "<group>"; };
+		C49CC806250235EC00B19511 /* APChangesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APChangesManager.swift; sourceTree = "<group>"; };
+		C49CC8092502367A00B19511 /* APInkAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APInkAnnotation.swift; sourceTree = "<group>"; };
+		C49CC80B250236C500B19511 /* APTextAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APTextAnnotation.swift; sourceTree = "<group>"; };
 		C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APReader.entitlements; sourceTree = "<group>"; };
 		C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPencilControl.swift; sourceTree = "<group>"; };
@@ -273,6 +279,16 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		C49CC808250235F100B19511 /* UndoRedo */ = {
+			isa = PBXGroup;
+			children = (
+				C49CC806250235EC00B19511 /* APChangesManager.swift */,
+				C49CC8092502367A00B19511 /* APInkAnnotation.swift */,
+				C49CC80B250236C500B19511 /* APTextAnnotation.swift */,
+			);
+			path = UndoRedo;
+			sourceTree = "<group>";
+		};
 		C4BFFD5B24DCEF8C00222D28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +346,7 @@
 				C49BE40624CC7CDF006E5D56 /* App */,
 				C4BFFD6924DED75B00222D28 /* ColorPicker */,
 				C49BE3FF24CC71D7006E5D56 /* Drawing */,
+				C49CC808250235F100B19511 /* UndoRedo */,
 				C49BE40024CC71FB006E5D56 /* Extensions */,
 				C46A150D24EFC2C800A5AFE8 /* FileManager */,
 				C4E42A5E24EE81350049AB38 /* CloudDocument */,
@@ -537,14 +554,17 @@
 				C4F1DBEA24E5947500476494 /* APUtils.swift in Sources */,
 				C49CC8032500906800B19511 /* APArrowBezierPath.swift in Sources */,
 				C43D8E7024D2B2EF00558110 /* APSearchTableViewCell.swift in Sources */,
+				C49CC80A2502367A00B19511 /* APInkAnnotation.swift in Sources */,
 				C4256D1424EBD56700F6621B /* APOneDriveManager.swift in Sources */,
 				C4F1DBD024E296C700476494 /* APLoginViewController.swift in Sources */,
 				C4BFFD7524DED75C00222D28 /* ChromaAddButton.swift in Sources */,
 				C43D8E5A24D16F3700558110 /* APPDFToolbarActionControl.swift in Sources */,
 				C46A150C24EFC2BB00A5AFE8 /* APFileManager.swift in Sources */,
 				C49C88DA24FCFBFF002253E0 /* APPreviewBottomMenu.swift in Sources */,
+				C49CC80C250236C500B19511 /* APTextAnnotation.swift in Sources */,
 				C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */,
 				C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */,
+				C49CC807250235EC00B19511 /* APChangesManager.swift in Sources */,
 				C4F1DBCE24E28F5E00476494 /* APAuthManager.swift in Sources */,
 				C4F1DBD224E2AE8300476494 /* APProfileViewController.swift in Sources */,
 				C4EF3B3D24CC09E7002E6A6A /* SceneDelegate.swift in Sources */,

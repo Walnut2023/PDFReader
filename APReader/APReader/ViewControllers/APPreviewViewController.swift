@@ -230,8 +230,8 @@ class APPreviewViewController: UIViewController {
         
         pdfDrawer.delegate = self
         
-        undoBarButtonItem.isEnabled = pdfDrawer.undoEnable
-        redoBarButtonItem.isEnabled = pdfDrawer.redoEnable
+        undoBarButtonItem.isEnabled = pdfDrawer.changesManager.undoEnable
+        redoBarButtonItem.isEnabled = pdfDrawer.changesManager.redoEnable
     }
     
     private func loadPdfFile() {
@@ -275,6 +275,8 @@ class APPreviewViewController: UIViewController {
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             stopTimer()
+            pdfDrawer.changesManager.clear()
+            pdfDrawer.delegate?.pdfDrawerDidFinishDrawing()
             editButtonClicked = !editButtonClicked
         } else if menuSelectLevel == .final {
             menuSelectLevel = .middle
@@ -321,6 +323,7 @@ class APPreviewViewController: UIViewController {
         switch menuSelectLevel {
         case .root:
             navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
+            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem], animated: true)
         case .middle, .final:
             navigationItem.setLeftBarButtonItems([cancelBarButtonItem], animated: true)
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
@@ -441,8 +444,8 @@ class APPreviewViewController: UIViewController {
 
 extension APPreviewViewController: APPDFDrawerDelegate {
     func pdfDrawerDidFinishDrawing() {
-        undoBarButtonItem.isEnabled = pdfDrawer.undoEnable
-        redoBarButtonItem.isEnabled = pdfDrawer.redoEnable
+        undoBarButtonItem.isEnabled = pdfDrawer.changesManager.undoEnable
+        redoBarButtonItem.isEnabled = pdfDrawer.changesManager.redoEnable
     }
 }
 
@@ -563,6 +566,10 @@ extension APPreviewViewController {
     }
     
     func savePDFDocument() {
+        if !pdfDrawer.changesManager.undoEnable {
+            print("no changes to save")
+            return
+        }
         print("\(Date()) savePDFDocument")
         let copyPdfDoc = pdfDocument!.copy() as! PDFDocument
         DispatchQueue.global(qos: .background).sync { [weak self] in
