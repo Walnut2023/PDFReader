@@ -267,7 +267,6 @@ class APPreviewViewController: UIViewController {
         if editButtonClicked && menuSelectLevel == .final {
             menuSelectLevel = .middle
             updateLeftNavigationBarButtons()
-            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem], animated: true)
             pageControl.isHidden = true
             tittleLabelContainer.isHidden = false
             pdfView.removeGestureRecognizer(pdfDrawingGestureRecognizer)
@@ -322,9 +321,7 @@ class APPreviewViewController: UIViewController {
         switch menuSelectLevel {
         case .root:
             navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
-        case .middle:
-            navigationItem.setLeftBarButtonItems([cancelBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
-        case .final:
+        case .middle, .final:
             navigationItem.setLeftBarButtonItems([cancelBarButtonItem], animated: true)
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
         default:
@@ -391,6 +388,7 @@ class APPreviewViewController: UIViewController {
             }
             editingColor = color
             penControlMenu.updateColorBtnColor(color)
+            edittorMenu.updateColorBtnColor(color)
         }
     }
     
@@ -465,6 +463,23 @@ extension APPreviewViewController: APPreviewBottomMenuDelegate {
 }
 
 extension APPreviewViewController: APPreviewEditorMenuDelegate {
+    func didSelectTextEditAction(_ sender: UIButton) {
+        let tag = sender.tag
+        switch tag {
+        case 2:
+            print("HighLight")
+            pdfDrawer.addAnnotation(.highlight, markUpType: .highlight)
+        case 3:
+            print("UnderLine")
+            pdfDrawer.addAnnotation(.underline, markUpType: .underline)
+        case 4:
+            print("StrikeOut")
+            pdfDrawer.addAnnotation(.strikeOut, markUpType: .strikeOut)
+        default:
+            print("HighLight")
+        }
+    }
+    
     func didSelectCommentAction(_ sender: UIButton) {
 
     }
@@ -474,6 +489,10 @@ extension APPreviewViewController: APPreviewEditorMenuDelegate {
         updateLeftNavigationBarButtons()
         editAction()
     }
+    
+    func didSelectColorInEditorMenu(_ sender: UIButton) {
+        toolbarActionControl?.showColorPickerViewController(editingColor!, from: sender)
+    }
 }
 
 extension APPreviewViewController: APPreviewPenToolMenuDelegate {
@@ -481,7 +500,7 @@ extension APPreviewViewController: APPreviewPenToolMenuDelegate {
         pdfDrawer.drawingTool = selectedValue
     }
     
-    func didSelectColor(_ sender: UIButton) {
+    func didSelectColorinPenTool(_ sender: UIButton) {
         toolbarActionControl?.showColorPickerViewController(editingColor!, from: sender)
     }
     
@@ -556,25 +575,16 @@ extension APPreviewViewController {
     func addTimer() {
         if timer == nil {
             timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
-            timer?.schedule(deadline: .now() + .seconds(5), repeating: DispatchTimeInterval.seconds(4), leeway: DispatchTimeInterval.seconds(0))
+            timer?.schedule(deadline: .now() + .seconds(5), repeating: DispatchTimeInterval.seconds(2), leeway: DispatchTimeInterval.seconds(0))
             timer?.setEventHandler { [weak self] in
                 print("\(Date()) timer running")
                 self?.savePDFDocument()
             }
-        } else {
-            timer!.resume()
         }
+        timer!.resume()
     }
     
     func stopTimer() {
         timer?.suspend()
-    }
-    
-    func cancelTimer() {
-        guard let t = timer else {
-            return
-        }
-        t.cancel()
-        timer = nil
     }
 }

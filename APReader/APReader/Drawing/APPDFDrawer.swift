@@ -9,11 +9,41 @@
 import Foundation
 import PDFKit
 
+enum ArrowEndLineType: Int {
+    case open, closed
+
+    var description: String {
+        switch self {
+        case .open:
+            return "open"
+        case .closed:
+            return "closed"
+        }
+    }
+}
+
+enum ShapeType: Int {
+    case circle, roundedRectangle, regularRectangle
+
+    var description: String {
+        switch self {
+        case .circle:
+            return "circle"
+        case .roundedRectangle:
+            return "roundedRectangle"
+        case .regularRectangle:
+            return "regularRectangle"
+        }
+    }
+}
+
 enum DrawingTool: Int {
     case eraser = 0
     case pencil = 1
     case pen = 2
     case highlighter = 3
+    case arrow = 4
+    case shape = 5
     
     var width: CGFloat {
         switch self {
@@ -56,6 +86,7 @@ class APPDFDrawer {
     weak var delegate: APPDFDrawerDelegate?
     private var path: UIBezierPath?
     private var currentAnnotation : APDrawingAnnotation?
+    private var annotation : PDFAnnotation?
     public var undoAnnotations: [APAnnotationItem] {
         didSet {
             undoEnable = undoAnnotations.count > 0
@@ -77,12 +108,19 @@ class APPDFDrawer {
     private var currentPage: PDFPage?
     
     var undoEnable: Bool = false
-    
     var redoEnable: Bool = false
     
     var color = UIColor.red // default color is red
     var drawingTool = DrawingTool.pencil
     
+    private var startPoint: CGPoint!
+    private var lastPoint: CGPoint!
+    
+    private var shape: ShapeType = ShapeType.circle
+    private var endLineStyle: ArrowEndLineType = ArrowEndLineType.closed
+    
+//    private var annotation: PDFAnnotation?
+
     public func undoAction() {
         if undoAnnotations.count < 0 {
             return
@@ -126,11 +164,14 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
         guard let currentPage = currentPage else { return }
         let nearestPage = pdfView.page(for: location, nearest: true) ?? currentPage
 
+        // 如果需要跨页面, 则重新开始绘制
         if currentPage != nearestPage {
-            endAnnotating(for: currentPage)
+            let convertedPoint = pdfView.convert(location, to: nearestPage)
+            endAnnotating(atPoint: convertedPoint, for: currentPage)
             self.currentPage = nearestPage
             beginAnnotating(for: nearestPage, in: location)
         }
+        
         let convertedPoint = pdfView.convert(location, to: nearestPage)
 
         // Erasing
@@ -162,22 +203,76 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
         path?.move(to: convertedPoint)
         
         // Final annotation
-        endAnnotating(for: nearestPage)
+        endAnnotating(atPoint: convertedPoint, for: nearestPage)
     }
     
+    // 开始注释
+    // 获取对应的点, 然后将 path 移动到对应的点
     private func beginAnnotating(for page: PDFPage, in location: CGPoint) {
         currentPage = page
         let convertedPoint = pdfView.convert(location, to: page)
         path = UIBezierPath()
         path?.move(to: convertedPoint)
+        
+        lastPoint = convertedPoint
+        startPoint = convertedPoint
     }
     
-    private func endAnnotating(for page: PDFPage) {
+    // 结束绘制
+    private func endAnnotating(atPoint point: CGPoint, for page: PDFPage) {
         page.removeAnnotation(currentAnnotation!)
+        
+        switch drawingTool {
+        case .arrow:
+            // arrow
+            let angle = APDrawUtilities.angleBetweenPoint(point, andOtherPoint: startPoint)
+            path = APArrowBezierPath.endLine(atPoint: point, fromType: endLineStyle)
+            APDrawUtilities.rotateBezierPath(path!, aroundPoint: point, withAngle: angle)
+    
+            path?.move(to: startPoint)
+            path?.addLine(to: CGPoint(x: point.x, y: point.y))
+    
+        case .shape:
+            // shape
+            let shapeRect = APDrawUtilities.rectBetween(point, startPoint)
+    
+            if shape == ShapeType.regularRectangle {
+                path = UIBezierPath(rect: shapeRect)
+            } else if shape == ShapeType.roundedRectangle {
+                path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 2.0)
+            } else if shape == ShapeType.circle {
+                path = UIBezierPath(ovalIn: shapeRect)
+            }
+        default:
+            print("default")
+        }
+
+        path?.lineWidth = drawingTool.width
+
         createFinalAnnotation(path: path!, page: page)
         currentAnnotation = nil
         // notify
         delegate?.pdfDrawerDidFinishDrawing()
+    }
+    
+    public func addAnnotation(_ sybtype: PDFAnnotationSubtype, markUpType: PDFMarkupType) {
+//        var annotations = [PDFAnnotation]()
+        pdfView?.currentSelection?.selectionsByLine().forEach({ selection in
+            if pdfView != nil, pdfView!.currentPage != nil {
+                annotation = PDFAnnotation(bounds: selection.bounds(for: pdfView!.currentPage!),
+                                           forType: sybtype, withProperties: nil)
+                annotation?.markupType = markUpType
+                annotation?.color = color
+                annotation?.border?.lineWidth = drawingTool.width
+                pdfView?.currentPage?.addAnnotation(annotation!)
+//                annotations.append(annotation!)
+            }
+        })
+        
+//        guard let page = pdfView?.currentPage else {
+//             return
+//        }
+        // add to
     }
     
     private func createAnnotation(path: UIBezierPath, page: PDFPage) -> APDrawingAnnotation {
@@ -201,6 +296,8 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
         forceRedraw(annotation: currentAnnotation!, onPage: onPage)
     }
     
+    // 根据不同选择绘制最终的 annotation
+    // 这里或者前一步需要进行对应的类型判断, 看需要何种类型
     private func createFinalAnnotation(path: UIBezierPath, page: PDFPage) {
         
         if drawingTool == .eraser {

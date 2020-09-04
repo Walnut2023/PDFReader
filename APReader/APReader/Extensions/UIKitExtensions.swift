@@ -67,6 +67,12 @@ extension UIBezierPath {
         
         return self
     }
+    
+    convenience init(byConnectingThePoints points: [CGPoint]) {
+        self.init()
+        self.move(to: points[0])
+        points.forEach({ self.addLine(to: $0) })
+    }
 }
 
 extension UIViewController {

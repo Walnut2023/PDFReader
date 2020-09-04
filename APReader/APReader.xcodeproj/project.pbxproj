@@ -37,6 +37,8 @@
 		C49C88D824FCD115002253E0 /* YPDrawSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D724FCD115002253E0 /* YPDrawSignatureView.swift */; };
 		C49C88DA24FCFBFF002253E0 /* APPreviewBottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */; };
 		C49C88DC24FCFC1F002253E0 /* APPreviewBottomMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */; };
+		C49CC8032500906800B19511 /* APArrowBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CC8022500906800B19511 /* APArrowBezierPath.swift */; };
+		C49CC8052500910500B19511 /* APDrawUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CC8042500910500B19511 /* APDrawUtilities.swift */; };
 		C4BFFD6424DEAA3900222D28 /* APPencilControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */; };
 		C4BFFD6624DED31200222D28 /* APColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6524DED31200222D28 /* APColorPickerViewController.swift */; };
 		C4BFFD7024DED75C00222D28 /* ChromaShadeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BFFD6A24DED75B00222D28 /* ChromaShadeSlider.swift */; };
@@ -104,6 +106,8 @@
 		C49C88D724FCD115002253E0 /* YPDrawSignatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDrawSignatureView.swift; sourceTree = "<group>"; };
 		C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewBottomMenu.swift; sourceTree = "<group>"; };
 		C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPreviewBottomMenu.xib; sourceTree = "<group>"; };
+		C49CC8022500906800B19511 /* APArrowBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APArrowBezierPath.swift; sourceTree = "<group>"; };
+		C49CC8042500910500B19511 /* APDrawUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawUtilities.swift; sourceTree = "<group>"; };
 		C4BFFD5A24DCEF7600222D28 /* APReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APReader.entitlements; sourceTree = "<group>"; };
 		C4BFFD5C24DCEF8C00222D28 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C4BFFD6324DEAA3900222D28 /* APPencilControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPencilControl.swift; sourceTree = "<group>"; };
@@ -206,6 +210,8 @@
 				C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */,
 				C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */,
 				C45B13BB24CD635B00D30445 /* APNonSelectablePDFView.swift */,
+				C49CC8022500906800B19511 /* APArrowBezierPath.swift */,
+				C49CC8042500910500B19511 /* APDrawUtilities.swift */,
 			);
 			path = Drawing;
 			sourceTree = "<group>";
@@ -497,6 +503,7 @@
 				C4EF3B3F24CC09E7002E6A6A /* APFileListViewController.swift in Sources */,
 				C49BE40324CC7A26006E5D56 /* UIKitExtensions.swift in Sources */,
 				C46A150F24EFC63B00A5AFE8 /* MSGraphDriveItemExtension.swift in Sources */,
+				C49CC8052500910500B19511 /* APDrawUtilities.swift in Sources */,
 				C437859924CDB29F00AE2C07 /* APTextDrawingGestureRecognizer.swift in Sources */,
 				C43D8E6924D1AAE800558110 /* APBookmarkTableViewCell.swift in Sources */,
 				C4E42A5624EE265C0049AB38 /* APMoreMenuCell.swift in Sources */,
@@ -528,6 +535,7 @@
 				C4BFFD7424DED75C00222D28 /* ChromaHandle.swift in Sources */,
 				C43D8E6624D1A65F00558110 /* APBookmarkViewController.swift in Sources */,
 				C4F1DBEA24E5947500476494 /* APUtils.swift in Sources */,
+				C49CC8032500906800B19511 /* APArrowBezierPath.swift in Sources */,
 				C43D8E7024D2B2EF00558110 /* APSearchTableViewCell.swift in Sources */,
 				C4256D1424EBD56700F6621B /* APOneDriveManager.swift in Sources */,
 				C4F1DBD024E296C700476494 /* APLoginViewController.swift in Sources */,

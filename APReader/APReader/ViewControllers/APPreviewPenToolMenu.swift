@@ -10,7 +10,7 @@ import UIKit
 
 protocol APPreviewPenToolMenuDelegate {
     func didSelectPenControl(_ selectedValue: DrawingTool)
-    func didSelectColor(_ sender: UIButton)
+    func didSelectColorinPenTool(_ sender: UIButton)
     func didSelectTextInputMode(_ sender: UIButton)
 }
 
@@ -52,14 +52,6 @@ class APPreviewPenToolMenu: UIView {
         penControl?.disableOtherButtons()
     }
     
-    @IBAction func lineBtnClicked(_ sender: UIButton) {
-        penControl?.buttonArrayUpdated(buttonSelected: sender)
-    }
-    
-    @IBAction func rectBtnClicked(_ sender: UIButton) {
-        penControl?.buttonArrayUpdated(buttonSelected: sender)
-    }
-    
     @IBAction func textBtnClicked(_ sender: UIButton) {
         penControl?.buttonArrayUpdated(buttonSelected: sender)
         delegate?.didSelectTextInputMode(sender)
@@ -71,7 +63,7 @@ class APPreviewPenToolMenu: UIView {
     }
     
     @IBAction func colorAction(_ sender: UIButton) {
-        delegate?.didSelectColor(sender)
+        delegate?.didSelectColorinPenTool(sender)
     }
 }
 
