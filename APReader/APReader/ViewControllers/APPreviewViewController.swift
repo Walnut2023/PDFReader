@@ -21,6 +21,7 @@ class APPreviewViewController: UIViewController {
     enum EditingMode {
         case pen
         case text
+        case comment
     }
     
     // menu select level
@@ -56,8 +57,6 @@ class APPreviewViewController: UIViewController {
     private lazy var cancelBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "cancelBtn"), style: .plain, target: self, action: #selector(cancelAction))
     private lazy var outlineBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "outline"), style: .plain, target: self, action: #selector(outlineAction))
     private lazy var thumbnailBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "thumbnail"), style: .plain, target: self, action: #selector(thunbnailAction))
-    private lazy var editBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "edit"), style: .plain, target: self, action: #selector(editAction))
-    private lazy var edittingBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "editing"), style: .plain, target: self, action: #selector(editAction))
     private lazy var bookmarkBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "bookmark"), style: .plain, target: self, action: #selector(bookmarkAction))
     private lazy var searchBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "search"), style: .plain, target: self, action: #selector(searchAction))
     private lazy var undoBarButtonItem = UIBarButtonItem(image: UIImage.init(named: "undo"), style: .plain, target: self, action: #selector(undoAction))
@@ -66,7 +65,8 @@ class APPreviewViewController: UIViewController {
     private lazy var tapGestureRecognizer = UITapGestureRecognizer()
     private lazy var pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
     private lazy var pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
-    
+    private lazy var pdfCommentDrawingGestureRecognizer = APCommentDrawingGestureRecognizer()
+
     private lazy var bottomMenu: APPreviewBottomMenu = {
         let bottomMenu = APPreviewBottomMenu.initInstanceFromXib()
         bottomMenu.frame.size.height = 54
@@ -94,14 +94,16 @@ class APPreviewViewController: UIViewController {
     
     private var toolbarActionControl: APPDFToolbarActionControl?
     private var editButtonClicked: Bool = false
+    private var commentButtonClicked: Bool = false
     private var needUpload: Bool = false
     
     private let pdfDrawer = APPDFDrawer()
     private let pdfTextDrawer = APPDFTextDrawer()
-    
+    private let pdfCommentDrawer = APPDFCommentDrawer()
+
     private var count = 0
     
-    private var timer: DispatchSourceTimer?
+    private var timer: APRepeatingTimer?
     
     // MARK: - LifeCycle
     
@@ -227,6 +229,7 @@ class APPreviewViewController: UIViewController {
         
         pdfDrawer.pdfView = pdfView
         pdfTextDrawer.pdfView = pdfView
+        pdfCommentDrawer.pdfView = pdfView
         
         pdfDrawer.delegate = self
         
@@ -316,6 +319,30 @@ class APPreviewViewController: UIViewController {
             pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
             pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
             addTimer()
+        }
+    }
+    
+    func commentAction() {
+        print("commentAction tapped")
+        commentButtonClicked = !commentButtonClicked
+        if commentButtonClicked {
+            pageControl.isHidden = false
+            tittleLabelContainer.isHidden = true
+            pdfView.removeGestureRecognizer(tapGestureRecognizer)
+            pdfCommentDrawingGestureRecognizer = APCommentDrawingGestureRecognizer()
+            pdfView.addGestureRecognizer(pdfCommentDrawingGestureRecognizer)
+            pdfCommentDrawingGestureRecognizer.drawingDelegate = pdfCommentDrawer
+            addTimer()
+            navigationItem.leftBarButtonItem?.isEnabled = false
+        } else {
+            pageControl.isHidden = true
+            tittleLabelContainer.isHidden = false
+            pdfView.removeGestureRecognizer(pdfCommentDrawingGestureRecognizer)
+            tapGestureRecognizer = UITapGestureRecognizer()
+            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            pdfView.addGestureRecognizer(tapGestureRecognizer)
+            stopTimer()
+            navigationItem.leftBarButtonItem?.isEnabled = true
         }
     }
     
@@ -484,7 +511,7 @@ extension APPreviewViewController: APPreviewEditorMenuDelegate {
     }
     
     func didSelectCommentAction(_ sender: UIButton) {
-
+        commentAction()
     }
    
     func didSelectPenAction(_ sender: UIButton) {
@@ -580,15 +607,12 @@ extension APPreviewViewController {
     }
     
     func addTimer() {
-        if timer == nil {
-            timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
-            timer?.schedule(deadline: .now() + .seconds(5), repeating: DispatchTimeInterval.seconds(2), leeway: DispatchTimeInterval.seconds(0))
-            timer?.setEventHandler { [weak self] in
-                print("\(Date()) timer running")
-                self?.savePDFDocument()
-            }
+        timer = APRepeatingTimer(timeInterval: 5)
+        timer?.eventHandler = { [weak self] in
+            print("\(Date()) timer running")
+            self?.savePDFDocument()
         }
-        timer!.resume()
+        timer?.resume()
     }
     
     func stopTimer() {

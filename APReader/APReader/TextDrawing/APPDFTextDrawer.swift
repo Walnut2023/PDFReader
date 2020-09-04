@@ -24,7 +24,7 @@ class APPDFTextDrawer: NSObject {
 }
 
 extension APPDFTextDrawer: APTextDrawingGestureRecognizerDelegate {
-    func gestureRecognizerTapped(_ location: CGPoint) {
+    func textGestureRecognizerTapped(_ location: CGPoint) {
         guard let page = pdfView.page(for: location, nearest: true) else { return }
         currentPage = page
         let convertedPoint = pdfView.convert(location, to: currentPage!)
