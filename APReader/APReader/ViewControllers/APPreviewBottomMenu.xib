@@ -14,28 +14,21 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="65" translatesAutoresizingMaskIntoConstraints="NO" id="dNv-3N-cDa">
-                    <rect key="frame" x="60.5" y="-3" width="263.5" height="70"/>
+                    <rect key="frame" x="60" y="-3" width="264" height="70"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8jn-6n-6cf">
-                            <rect key="frame" x="0.0" y="0.0" width="44.5" height="70"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8jn-6n-6cf">
+                            <rect key="frame" x="0.0" y="0.0" width="99.5" height="70"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="批注"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" image="typography"/>
                             <connections>
                                 <action selector="commentAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="SN7-Xz-w1c"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xKT-Jd-DyG">
-                            <rect key="frame" x="109.5" y="0.0" width="44.5" height="70"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CtX-3k-wd9">
+                            <rect key="frame" x="164.5" y="0.0" width="99.5" height="70"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="插页"/>
-                            <connections>
-                                <action selector="insetAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="SN8-Lo-vd6"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CtX-3k-wd9">
-                            <rect key="frame" x="219" y="0.0" width="44.5" height="70"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="签名"/>
+                            <state key="normal" image="signature"/>
                             <connections>
                                 <action selector="signatureAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="VrK-iy-c9c"/>
                             </connections>
@@ -53,4 +46,8 @@
             <point key="canvasLocation" x="65.217391304347828" y="425.22321428571428"/>
         </view>
     </objects>
+    <resources>
+        <image name="signature" width="26" height="26"/>
+        <image name="typography" width="28" height="28"/>
+    </resources>
 </document>

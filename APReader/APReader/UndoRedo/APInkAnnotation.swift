@@ -12,10 +12,10 @@ import PDFKit
 class APInkAnnotation: NSObject {
 
     let annotation: PDFAnnotation
-    let path: UIBezierPath
+    let path: UIBezierPath?
     let page: PDFPage
 
-    init(_ annotation: PDFAnnotation, path: UIBezierPath, forPDFPage page: PDFPage) {
+    init(_ annotation: PDFAnnotation, path: UIBezierPath?, forPDFPage page: PDFPage) {
         self.page = page
         self.path = path
         self.annotation = annotation

@@ -13,71 +13,82 @@
             <rect key="frame" x="0.0" y="0.0" width="374" height="54"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="asD-Sz-Wdg">
-                    <rect key="frame" x="20" y="12" width="294" height="30"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="asD-Sz-Wdg">
+                    <rect key="frame" x="20" y="12" width="334" height="30"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tWL-CP-F3T">
-                            <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
-                            <state key="normal" title="评论"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tWL-CP-F3T">
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="comment"/>
+                            <state key="selected" image="comment-sel"/>
                             <connections>
                                 <action selector="commentAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="I1M-4U-4kZ"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc6-SH-1tU">
-                            <rect key="frame" x="62" y="0.0" width="46" height="30"/>
-                            <state key="normal" title="涂鸦"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc6-SH-1tU">
+                            <rect key="frame" x="61" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="paint"/>
                             <connections>
                                 <action selector="penAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="NjE-Qn-wdb"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJK-gl-mRj">
-                            <rect key="frame" x="124" y="0.0" width="46" height="30"/>
-                            <state key="normal" title="高亮"/>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJK-gl-mRj">
+                            <rect key="frame" x="121.5" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="highlight"/>
                             <connections>
                                 <action selector="didSelectTextEdit:" destination="iN0-l3-epB" eventType="touchUpInside" id="qi5-gk-IuP"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZr-VC-74H">
-                            <rect key="frame" x="186" y="0.0" width="46" height="30"/>
-                            <state key="normal" title="下划线"/>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZr-VC-74H">
+                            <rect key="frame" x="182.5" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="underline"/>
                             <connections>
                                 <action selector="didSelectTextEdit:" destination="iN0-l3-epB" eventType="touchUpInside" id="yMz-T3-YiD"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMY-9U-J7L">
-                            <rect key="frame" x="248" y="0.0" width="46" height="30"/>
-                            <state key="normal" title="中间线"/>
+                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMY-9U-J7L">
+                            <rect key="frame" x="243" y="0.0" width="30" height="30"/>
+                            <state key="normal" image="strikethrough"/>
                             <connections>
                                 <action selector="didSelectTextEdit:" destination="iN0-l3-epB" eventType="touchUpInside" id="Y3T-au-KiU"/>
                             </connections>
                         </button>
+                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ql6-OV-zGj">
+                            <rect key="frame" x="304" y="0.0" width="30" height="30"/>
+                            <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="o29-qK-3Ya"/>
+                                <constraint firstAttribute="height" constant="30" id="pn3-Yj-oye"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="didSelectColorBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="qqM-jv-k2T"/>
+                            </connections>
+                        </button>
                     </subviews>
-                </stackView>
-                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ql6-OV-zGj">
-                    <rect key="frame" x="332" y="12" width="30" height="30"/>
-                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="adh-xm-SmV"/>
-                        <constraint firstAttribute="width" constant="30" id="jgq-yl-vPo"/>
-                        <constraint firstAttribute="width" secondItem="Ql6-OV-zGj" secondAttribute="height" multiplier="1:1" id="yYV-i7-P5g"/>
+                        <constraint firstItem="Hc6-SH-1tU" firstAttribute="height" secondItem="YJK-gl-mRj" secondAttribute="height" id="24j-gm-JSZ"/>
+                        <constraint firstItem="GMY-9U-J7L" firstAttribute="height" secondItem="Ql6-OV-zGj" secondAttribute="height" id="Hy2-NW-QgR"/>
+                        <constraint firstItem="Hc6-SH-1tU" firstAttribute="width" secondItem="YJK-gl-mRj" secondAttribute="width" id="KGp-m0-5Tt"/>
+                        <constraint firstItem="SZr-VC-74H" firstAttribute="width" secondItem="GMY-9U-J7L" secondAttribute="width" id="RWW-Al-CXf"/>
+                        <constraint firstItem="GMY-9U-J7L" firstAttribute="width" secondItem="Ql6-OV-zGj" secondAttribute="width" id="S5j-xx-sfU"/>
+                        <constraint firstItem="tWL-CP-F3T" firstAttribute="width" secondItem="Hc6-SH-1tU" secondAttribute="width" id="gLc-VW-F7f"/>
+                        <constraint firstItem="SZr-VC-74H" firstAttribute="height" secondItem="GMY-9U-J7L" secondAttribute="height" id="iBR-sd-f3x"/>
+                        <constraint firstItem="YJK-gl-mRj" firstAttribute="width" secondItem="SZr-VC-74H" secondAttribute="width" id="jGo-mr-XZK"/>
+                        <constraint firstItem="YJK-gl-mRj" firstAttribute="height" secondItem="SZr-VC-74H" secondAttribute="height" id="oaW-oy-p9Y"/>
+                        <constraint firstItem="tWL-CP-F3T" firstAttribute="height" secondItem="Hc6-SH-1tU" secondAttribute="height" id="zcu-0r-CbG"/>
                     </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="15"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="didSelectColorBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="qqM-jv-k2T"/>
-                    </connections>
-                </button>
+                </stackView>
             </subviews>
             <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Ql6-OV-zGj" secondAttribute="bottom" constant="12" id="EIk-1U-XXV"/>
-                <constraint firstAttribute="trailing" secondItem="Ql6-OV-zGj" secondAttribute="trailing" constant="12" id="SxT-EW-QTq"/>
+                <constraint firstItem="asD-Sz-Wdg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="3Mk-iC-DLf"/>
+                <constraint firstAttribute="trailing" secondItem="asD-Sz-Wdg" secondAttribute="trailing" constant="20" id="Psc-d4-Hbn"/>
                 <constraint firstItem="asD-Sz-Wdg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="a8L-Dg-3xH"/>
-                <constraint firstItem="Ql6-OV-zGj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="lGW-Ec-pwC"/>
-                <constraint firstItem="asD-Sz-Wdg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-20" id="pXm-aL-Uj2"/>
+                <constraint firstItem="asD-Sz-Wdg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="pXm-aL-Uj2"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -92,4 +103,12 @@
             <point key="canvasLocation" x="102.89855072463769" y="386.38392857142856"/>
         </view>
     </objects>
+    <resources>
+        <image name="comment" width="22" height="18"/>
+        <image name="comment-sel" width="22" height="18"/>
+        <image name="highlight" width="22" height="22"/>
+        <image name="paint" width="20" height="20"/>
+        <image name="strikethrough" width="20" height="24"/>
+        <image name="underline" width="16" height="18"/>
+    </resources>
 </document>

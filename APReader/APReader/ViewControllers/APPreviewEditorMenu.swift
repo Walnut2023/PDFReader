@@ -26,6 +26,29 @@ class APPreviewEditorMenu: UIView {
     
     public var delegate: APPreviewEditorMenuDelegate?
     
+    private var penControl: APPencilControl?
+    public func initPenControl() {
+        penControl = APPencilControl(buttonsArray: [commentBtn, paintBtn, highLightBtn, underLineBtn, strikeOutBtn, colorBtn])
+    }
+
+    public func enableOtherButtons() {
+        penControl?.enableOtherButtons()
+    }
+    
+    public func disableOtherButtons(_ sender: UIButton) {
+        penControl?.disableOtherButtons(sender)
+    }
+    
+    public func enableButtonArray() {
+        penControl?.enableButtonArray()
+    }
+    
+    public func disableButtonArray() {
+        penControl?.disableButtonArray()
+    }
+    
+
+    
     public func updateColorBtnColor(_ color: UIColor?) {
         colorBtn.backgroundColor = color
     }
@@ -45,12 +68,12 @@ class APPreviewEditorMenu: UIView {
     @IBAction func didSelectColorBtn(_ sender: UIButton) {
         delegate?.didSelectColorInEditorMenu(sender)
     }
-    
 }
 
 extension APPreviewEditorMenu {
     public class func initInstanceFromXib()-> APPreviewEditorMenu {
         let menu = Bundle.main.loadNibNamed("\(self)", owner: self, options: nil)?.last as! APPreviewEditorMenu
+        menu.initPenControl()
         return menu
     }
 }

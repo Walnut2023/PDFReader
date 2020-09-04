@@ -201,21 +201,21 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLN-Tt-UYE">
-                                <rect key="frame" x="354" y="546" width="40" height="128"/>
+                                <rect key="frame" x="354" y="576" width="40" height="90"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-f1-QqN">
-                                        <rect key="frame" x="10" y="19.666666666666629" width="20" height="89"/>
+                                        <rect key="frame" x="7" y="10.666666666666629" width="26" height="69"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg0-I5-qfc">
-                                                <rect key="frame" x="0.0" y="0.0" width="20" height="28"/>
-                                                <state key="normal" image="up"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="26" height="18"/>
+                                                <state key="normal" image="up-arrow"/>
                                                 <connections>
                                                     <action selector="pageUpAction:" destination="3Nl-Bs-oA5" eventType="touchUpInside" id="J1w-zw-RtD"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtN-Vn-kNk">
-                                                <rect key="frame" x="0.0" y="61" width="20" height="28"/>
-                                                <state key="normal" image="down"/>
+                                                <rect key="frame" x="0.0" y="51" width="26" height="18"/>
+                                                <state key="normal" image="down-arrow"/>
                                                 <connections>
                                                     <action selector="pageDownAction:" destination="3Nl-Bs-oA5" eventType="touchUpInside" id="D4M-dL-KwT"/>
                                                 </connections>
@@ -226,7 +226,7 @@
                                 <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="YBO-f1-QqN" firstAttribute="centerX" secondItem="zLN-Tt-UYE" secondAttribute="centerX" id="8Ey-GS-gSv"/>
-                                    <constraint firstAttribute="height" constant="128" id="ENo-p5-Z9y"/>
+                                    <constraint firstAttribute="height" constant="90" id="ENo-p5-Z9y"/>
                                     <constraint firstItem="YBO-f1-QqN" firstAttribute="centerY" secondItem="zLN-Tt-UYE" secondAttribute="centerY" id="JVb-Uw-6nz"/>
                                     <constraint firstAttribute="width" constant="40" id="m3a-qN-0kR"/>
                                 </constraints>
@@ -308,7 +308,7 @@
                             <constraint firstItem="97a-Yt-Bif" firstAttribute="top" secondItem="ynD-es-v0q" secondAttribute="top" constant="50" id="ctG-3U-edp"/>
                             <constraint firstItem="9LJ-Em-8cW" firstAttribute="leading" secondItem="ZVQ-d1-BIx" secondAttribute="leading" id="gH4-u1-Z4m"/>
                             <constraint firstItem="bW3-xs-fy4" firstAttribute="centerX" secondItem="ynD-es-v0q" secondAttribute="centerX" id="hGm-oi-OuK"/>
-                            <constraint firstItem="9LJ-Em-8cW" firstAttribute="top" secondItem="zLN-Tt-UYE" secondAttribute="bottom" constant="8" id="lxF-3t-Xcp"/>
+                            <constraint firstItem="9LJ-Em-8cW" firstAttribute="top" secondItem="zLN-Tt-UYE" secondAttribute="bottom" constant="16" id="lxF-3t-Xcp"/>
                             <constraint firstItem="9LJ-Em-8cW" firstAttribute="bottom" secondItem="ZVQ-d1-BIx" secondAttribute="bottom" id="nYa-ju-vBW"/>
                             <constraint firstItem="NVx-6F-UOO" firstAttribute="leading" secondItem="ZVQ-d1-BIx" secondAttribute="leading" id="pMf-XZ-hNC"/>
                             <constraint firstItem="ZVQ-d1-BIx" firstAttribute="trailing" secondItem="zLN-Tt-UYE" secondAttribute="trailing" constant="20" id="sBZ-WH-Ilc"/>
@@ -577,14 +577,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="APBookmarkTableViewCell" id="z21-IL-l9d" customClass="APBookmarkTableViewCell" customModule="APReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="29.666666030883789"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="30.333333969116211"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z21-IL-l9d" id="xNq-QS-kko">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="29.666666030883789"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30.333333969116211"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2u-A0-fpJ">
-                                                    <rect key="frame" x="16" y="4" width="382" height="20.333333333333332"/>
+                                                    <rect key="frame" x="16" y="4" width="382" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -1092,7 +1092,7 @@
         <image name="arrow_right" width="24" height="24"/>
         <image name="article" width="24" height="30"/>
         <image name="cancel" width="44" height="44"/>
-        <image name="down" width="20" height="28"/>
+        <image name="down-arrow" width="25" height="13"/>
         <image name="download" width="30" height="30"/>
         <image name="folder" width="30" height="26"/>
         <image name="folder_nor" width="25" height="23"/>
@@ -1103,7 +1103,7 @@
         <image name="onedrive_sel" width="30" height="20"/>
         <image name="pdf_checked" width="44" height="44"/>
         <image name="pdf_cloud_storage" width="44" height="44"/>
-        <image name="up" width="20" height="28"/>
+        <image name="up-arrow" width="26" height="14"/>
         <image name="user_nor" width="25" height="25"/>
         <image name="user_sel" width="25" height="25"/>
     </resources>

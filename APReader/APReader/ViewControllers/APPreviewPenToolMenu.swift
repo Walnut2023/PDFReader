@@ -48,8 +48,8 @@ class APPreviewPenToolMenu: UIView {
         penControl?.disableButtonArray()
     }
     
-    public func disableOtherButtons() {
-        penControl?.disableOtherButtons()
+    public func disableOtherButtons(_ sender: UIButton) {
+        penControl?.disableOtherButtons(sender)
     }
     
     @IBAction func textBtnClicked(_ sender: UIButton) {

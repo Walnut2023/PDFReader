@@ -99,7 +99,7 @@ class APPDFDrawer {
     private var lastPoint: CGPoint!
     
     private var shape: ShapeType = ShapeType.circle
-    private var endLineStyle: ArrowEndLineType = ArrowEndLineType.closed
+    private var endLineStyle: ArrowEndLineType = ArrowEndLineType.open
     
     public func undoAction() {
         changesManager.undo {
@@ -283,6 +283,8 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
     private func removeAnnotationAtPoint(point: CGPoint, page: PDFPage) {
         if let selectedAnnotation = page.annotationWithHitTest(at: point) {
             selectedAnnotation.page?.removeAnnotation(selectedAnnotation)
+            changesManager.addInkPDFAnnotation(withPaths: path, selectedAnnotation, forPage: page)
+            delegate?.pdfDrawerDidFinishDrawing()
         }
     }
     
@@ -291,4 +293,3 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
         onPage.addAnnotation(annotation)
     }
 }
-

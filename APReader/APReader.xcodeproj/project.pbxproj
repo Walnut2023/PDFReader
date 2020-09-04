@@ -36,7 +36,6 @@
 		C49C88CC24F817F4002253E0 /* APTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88CB24F817F4002253E0 /* APTabBarController.swift */; };
 		C49C88D024FC907C002253E0 /* DevelopGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C49C88CF24FC907C002253E0 /* DevelopGuide.pdf */; };
 		C49C88D224FC93DD002253E0 /* APAddFolderAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D124FC93DD002253E0 /* APAddFolderAlertViewController.swift */; };
-		C49C88D824FCD115002253E0 /* YPDrawSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D724FCD115002253E0 /* YPDrawSignatureView.swift */; };
 		C49C88DA24FCFBFF002253E0 /* APPreviewBottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */; };
 		C49C88DC24FCFC1F002253E0 /* APPreviewBottomMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */; };
 		C49CC8032500906800B19511 /* APArrowBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49CC8022500906800B19511 /* APArrowBezierPath.swift */; };
@@ -112,7 +111,6 @@
 		C49C88CB24F817F4002253E0 /* APTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APTabBarController.swift; sourceTree = "<group>"; };
 		C49C88CF24FC907C002253E0 /* DevelopGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DevelopGuide.pdf; sourceTree = "<group>"; };
 		C49C88D124FC93DD002253E0 /* APAddFolderAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APAddFolderAlertViewController.swift; sourceTree = "<group>"; };
-		C49C88D724FCD115002253E0 /* YPDrawSignatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDrawSignatureView.swift; sourceTree = "<group>"; };
 		C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewBottomMenu.swift; sourceTree = "<group>"; };
 		C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPreviewBottomMenu.xib; sourceTree = "<group>"; };
 		C49CC8022500906800B19511 /* APArrowBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APArrowBezierPath.swift; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 				C4E9FDB024FD0D9D008BC15F /* APPreviewEditorMenu.xib */,
 				C4E9FDB224FD56C5008BC15F /* APPreviewPenToolMenu.swift */,
 				C4E9FDB424FD5723008BC15F /* APPreviewPenToolMenu.xib */,
-				C49C88D724FCD115002253E0 /* YPDrawSignatureView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -550,7 +547,6 @@
 				C43D8E5E24D1709400558110 /* APOutlineTableViewController.swift in Sources */,
 				C4F1DBDE24E2F96900476494 /* APFileItemTableViewCell.swift in Sources */,
 				C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */,
-				C49C88D824FCD115002253E0 /* YPDrawSignatureView.swift in Sources */,
 				C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */,
 				C49C88CC24F817F4002253E0 /* APTabBarController.swift in Sources */,
 				C4F1DBD724E2D3E500476494 /* APGraphManager.swift in Sources */,

@@ -45,7 +45,7 @@ class APChangesManager: NSObject {
         handler()
     }
 
-    func addInkPDFAnnotation(withPaths path: UIBezierPath, _ annotation: PDFAnnotation, forPage page: PDFPage) {
+    func addInkPDFAnnotation(withPaths path: UIBezierPath?, _ annotation: PDFAnnotation, forPage page: PDFPage) {
         let change = APInkAnnotation(annotation, path: path, forPDFPage: page)
         undoCommands.append(change)
     }

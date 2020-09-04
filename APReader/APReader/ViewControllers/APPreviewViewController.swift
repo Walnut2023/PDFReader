@@ -324,7 +324,7 @@ class APPreviewViewController: UIViewController {
         }
     }
     
-    func commentAction() {
+    func commentAction(_ sender: UIButton) {
         print("commentAction tapped")
         commentButtonClicked = !commentButtonClicked
         if commentButtonClicked {
@@ -336,6 +336,7 @@ class APPreviewViewController: UIViewController {
             pdfView.addGestureRecognizer(pdfCommentDrawingGestureRecognizer)
             pdfCommentDrawingGestureRecognizer.drawingDelegate = pdfCommentDrawer
             addTimer()
+            edittorMenu.disableOtherButtons(sender)
             navigationItem.leftBarButtonItem?.isEnabled = false
         } else {
             editingMode = .pen
@@ -346,6 +347,7 @@ class APPreviewViewController: UIViewController {
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             stopTimer()
+            edittorMenu.enableOtherButtons()
             pdfCommentDrawer.changesManager.clear()
             pdfCommentDrawer.delegate?.pdfCommentDrawerDidFinishDrawing()
             navigationItem.leftBarButtonItem?.isEnabled = true
@@ -520,6 +522,7 @@ extension APPreviewViewController: APPreviewBottomMenuDelegate {
         print("didSelectComment")
         menuSelectLevel = .middle
         updateLeftNavigationBarButtons()
+        addTimer()
     }
     
     func didSelectInsertPage() {
@@ -550,7 +553,7 @@ extension APPreviewViewController: APPreviewEditorMenuDelegate {
     }
     
     func didSelectCommentAction(_ sender: UIButton) {
-        commentAction()
+        commentAction(sender)
     }
    
     func didSelectPenAction(_ sender: UIButton) {
@@ -581,7 +584,7 @@ extension APPreviewViewController: APPreviewPenToolMenuDelegate {
             pdfTextDrawer.color = editingColor!
             pdfTextDrawingGestureRecognizer.drawingDelegate = pdfTextDrawer
             sender.setImage(UIImage.init(named: "edit_done"), for: .normal)
-            penControlMenu.disableOtherButtons()
+            penControlMenu.disableOtherButtons(sender)
             count = 1
             addTimer()
             navigationItem.leftBarButtonItem?.isEnabled = false
@@ -595,7 +598,6 @@ extension APPreviewViewController: APPreviewPenToolMenuDelegate {
             sender.setImage(UIImage.init(named: "edit_begin"), for: .normal)
             penControlMenu.enableOtherButtons()
             count = 0
-            stopTimer()
             pdfTextDrawer.changesManager.clear()
             pdfTextDrawer.delegate?.pdfTextDrawerDidFinishDrawing()
             navigationItem.leftBarButtonItem?.isEnabled = true
@@ -633,12 +635,23 @@ extension APPreviewViewController {
     }
     
     func savePDFDocument() {
-        if !pdfDrawer.changesManager.undoEnable &&
-            !pdfTextDrawer.changesManager.undoEnable &&
-            !pdfCommentDrawer.changesManager.undoEnable {
-            print("no changes to save")
-            return
+        switch editingMode {
+        case .comment:
+            if !pdfCommentDrawer.changesManager.undoEnable {
+                return
+            }
+        case .text:
+            if !pdfTextDrawer.changesManager.undoEnable {
+                return
+            }
+        case .pen:
+            if !pdfDrawer.changesManager.undoEnable {
+                return
+            }
+        default:
+            print("saving the changes")
         }
+
         print("\(Date()) savePDFDocument")
         let copyPdfDoc = pdfDocument!.copy() as! PDFDocument
         DispatchQueue.global(qos: .background).sync { [weak self] in

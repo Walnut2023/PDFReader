@@ -16,18 +16,18 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cvv-XU-mjw">
                     <rect key="frame" x="17" y="12" width="380" height="30"/>
                     <subviews>
-                        <button opaque="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0u0-se-VDy">
+                        <button opaque="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0u0-se-VDy">
                             <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="Arrow"/>
+                            <state key="normal" image="diagonal-arrow-open"/>
+                            <state key="selected" image="diagonal-arrow-open-sel"/>
                             <connections>
                                 <action selector="pencilAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Mrh-dn-HI0"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ic-Tt-htW">
+                        <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ic-Tt-htW">
                             <rect key="frame" x="50" y="0.0" width="30" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="Shape"/>
+                            <state key="normal" image="ellipse"/>
+                            <state key="selected" image="ellipse-sel"/>
                             <connections>
                                 <action selector="pencilAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="N7u-XG-fKv"/>
                             </connections>
@@ -118,7 +118,11 @@
         </view>
     </objects>
     <resources>
+        <image name="diagonal-arrow-open" width="20" height="20"/>
+        <image name="diagonal-arrow-open-sel" width="20" height="20"/>
         <image name="edit_begin" width="24" height="24"/>
+        <image name="ellipse" width="25" height="19"/>
+        <image name="ellipse-sel" width="25" height="19"/>
         <image name="eraser" width="30" height="29"/>
         <image name="eraser_dis" width="30" height="29"/>
         <image name="eraser_sel" width="30" height="29"/>
