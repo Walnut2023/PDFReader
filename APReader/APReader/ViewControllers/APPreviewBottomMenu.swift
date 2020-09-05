@@ -11,7 +11,7 @@ import UIKit
 protocol APPreviewBottomMenuDelegate {
     func didSelectComment()
     func didSelectInsertPage()
-    func didSelectSignaure()
+    func didSelectSignature()
 }
 
 class APPreviewBottomMenu: UIView {
@@ -27,7 +27,7 @@ class APPreviewBottomMenu: UIView {
     }
     
     @IBAction func signatureAction(_ sender: Any) {
-        delegate?.didSelectSignaure()
+        delegate?.didSelectSignature()
     }
 }
 

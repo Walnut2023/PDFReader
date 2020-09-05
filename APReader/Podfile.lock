@@ -20,6 +20,7 @@ PODS:
     - MSGraphClientSDK/Authentication
   - SVProgressHUD (2.2.5)
   - Tiercel (3.2.0)
+  - TouchDraw (2.1.2)
 
 DEPENDENCIES:
   - AppCenter
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - MSGraphClientSDK (~> 1.0.0)
   - SVProgressHUD
   - Tiercel
+  - TouchDraw
 
 SPEC REPOS:
   trunk:
@@ -39,6 +41,7 @@ SPEC REPOS:
     - MSGraphClientSDK
     - SVProgressHUD
     - Tiercel
+    - TouchDraw
 
 SPEC CHECKSUMS:
   AppCenter: aba7de06e4c2184f90dc84f7866bd07f82427d69
@@ -48,7 +51,8 @@ SPEC CHECKSUMS:
   MSGraphClientSDK: ffc07a58a838e0702c7bf2a856367035d4a335d7
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   Tiercel: 37c00d3d309657951d00ae68dcb6ce8c7dccf584
+  TouchDraw: 80b52af0e29354473205ffb478c881683d770475
 
-PODFILE CHECKSUM: dce6ca9c4e7857a03fae384d57fb888f9c00fb30
+PODFILE CHECKSUM: 9ec0fd2a0939a0325e20417b9bda0b2578ebee4e
 
 COCOAPODS: 1.9.3

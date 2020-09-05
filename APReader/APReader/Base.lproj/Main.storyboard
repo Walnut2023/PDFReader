@@ -334,6 +334,88 @@
             </objects>
             <point key="canvasLocation" x="3637.68115942029" y="1607.608695652174"/>
         </scene>
+        <!--Add Digital Signature-->
+        <scene sceneID="DqC-JQ-ICo">
+            <objects>
+                <viewController storyboardIdentifier="SignatureVC" id="zNK-hN-AaQ" customClass="APSignatureViewController" customModule="APReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YBd-5b-1ol">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZWC-Fb-HHr">
+                                <rect key="frame" x="20" y="203" width="374" height="374"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSb-Le-oON">
+                                        <rect key="frame" x="112" y="331" width="150" height="27"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="hCy-wy-ZVJ"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="ppT-Y7-maC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="Attach Signature">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="attachSignatureButtonPressed:" destination="zNK-hN-AaQ" eventType="touchUpInside" id="GcP-bi-iqr"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQS-RX-5SP" customClass="TouchDrawView" customModule="TouchDraw">
+                                        <rect key="frame" x="8" y="8" width="358" height="311"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tCu-L8-vif" userLabel="Line">
+                                        <rect key="frame" x="12" y="314.66666666666663" width="350" height="0.33333333333331439"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="WBP-ix-aU6"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="tCu-L8-vif" firstAttribute="centerX" secondItem="ZWC-Fb-HHr" secondAttribute="centerX" id="0c6-ft-1nu"/>
+                                    <constraint firstItem="DSb-Le-oON" firstAttribute="centerX" secondItem="ZWC-Fb-HHr" secondAttribute="centerX" id="7WI-6u-tCY"/>
+                                    <constraint firstItem="tCu-L8-vif" firstAttribute="leading" secondItem="ZWC-Fb-HHr" secondAttribute="leading" constant="12" id="G5Q-MO-wbT"/>
+                                    <constraint firstItem="qQS-RX-5SP" firstAttribute="top" secondItem="ZWC-Fb-HHr" secondAttribute="top" constant="8" id="L9y-6Y-4f2"/>
+                                    <constraint firstAttribute="bottom" secondItem="DSb-Le-oON" secondAttribute="bottom" constant="16" id="R3s-NX-YWV"/>
+                                    <constraint firstItem="qQS-RX-5SP" firstAttribute="leading" secondItem="ZWC-Fb-HHr" secondAttribute="leading" constant="8" id="UiB-aZ-anQ"/>
+                                    <constraint firstAttribute="width" secondItem="ZWC-Fb-HHr" secondAttribute="height" id="fJJ-sk-KjT"/>
+                                    <constraint firstAttribute="trailing" secondItem="qQS-RX-5SP" secondAttribute="trailing" constant="8" id="gYB-9I-BOp"/>
+                                    <constraint firstItem="DSb-Le-oON" firstAttribute="top" secondItem="qQS-RX-5SP" secondAttribute="bottom" constant="12" id="hAV-Rd-N9L"/>
+                                    <constraint firstItem="DSb-Le-oON" firstAttribute="top" secondItem="tCu-L8-vif" secondAttribute="bottom" constant="16" id="iL7-9U-uHc"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZWC-Fb-HHr" firstAttribute="leading" secondItem="69o-7y-ebu" secondAttribute="leading" constant="20" id="5M5-ng-N6R"/>
+                            <constraint firstItem="69o-7y-ebu" firstAttribute="trailing" secondItem="ZWC-Fb-HHr" secondAttribute="trailing" constant="20" id="KJc-Qg-stN"/>
+                            <constraint firstItem="ZWC-Fb-HHr" firstAttribute="centerY" secondItem="69o-7y-ebu" secondAttribute="centerY" id="R99-HS-vPR"/>
+                            <constraint firstItem="ZWC-Fb-HHr" firstAttribute="centerX" secondItem="69o-7y-ebu" secondAttribute="centerX" id="RiO-bR-smR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="69o-7y-ebu"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Digital Signature" id="EjW-BS-wUw">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="Wh3-Cs-Rsq">
+                            <connections>
+                                <action selector="trashButtonPressed:" destination="zNK-hN-AaQ" id="M3b-rg-vzp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="touchDrawView" destination="qQS-RX-5SP" id="BTE-Cz-HsK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qWD-t4-bv3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5217.3913043478269" y="1607.608695652174"/>
+        </scene>
         <!--OneDrive-->
         <scene sceneID="ALJ-Hr-dlV">
             <objects>
@@ -577,14 +659,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="APBookmarkTableViewCell" id="z21-IL-l9d" customClass="APBookmarkTableViewCell" customModule="APReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="30.333333969116211"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="29.666666030883789"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z21-IL-l9d" id="xNq-QS-kko">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30.333333969116211"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="29.666666030883789"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2u-A0-fpJ">
-                                                    <rect key="frame" x="16" y="4" width="382" height="21"/>
+                                                    <rect key="frame" x="16" y="4" width="382" height="20.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -1086,6 +1168,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tim-cN-q3P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-110.14492753623189" y="2339.6739130434785"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Obh-gR-TCi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uYd-yl-jRH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="c0w-zJ-Ocm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zNK-hN-AaQ" kind="relationship" relationship="rootViewController" id="b7m-kD-3ua"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Eh-Wn-GvS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4311.594202898551" y="1607.608695652174"/>
         </scene>
     </scenes>
     <resources>

@@ -66,7 +66,7 @@ class APPreviewViewController: UIViewController {
     private lazy var pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
     private lazy var pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
     private lazy var pdfCommentDrawingGestureRecognizer = APCommentDrawingGestureRecognizer()
-
+    
     private lazy var bottomMenu: APPreviewBottomMenu = {
         let bottomMenu = APPreviewBottomMenu.initInstanceFromXib()
         bottomMenu.frame.size.height = 54
@@ -100,7 +100,10 @@ class APPreviewViewController: UIViewController {
     private let pdfDrawer = APPDFDrawer()
     private let pdfTextDrawer = APPDFTextDrawer()
     private let pdfCommentDrawer = APPDFCommentDrawer()
-
+    
+    var currentSelectedAnnotation: PDFAnnotation?
+    var signatureImage: UIImage?
+    
     private var count = 0
     
     private var timer: APRepeatingTimer?
@@ -131,6 +134,12 @@ class APPreviewViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         needUpload = false
+        
+        guard let signatureImage = signatureImage, let page = pdfView.currentPage else { return }
+        let pageBounds = page.bounds(for: .cropBox)
+        let imageBounds = CGRect(x: pageBounds.midX, y: pageBounds.midY, width: 200, height: 100)
+        let imageStamp = APImageStampAnnotation(with: signatureImage, forBounds: imageBounds, withProperties: nil)
+        page.addAnnotation(imageStamp)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -164,7 +173,7 @@ class APPreviewViewController: UIViewController {
         bottomMenu.frame.origin.x = bottomViewContainer.frame.origin.x
         bottomMenu.width = view.width
         bottomMenu.delegate = self
-
+        
         edittorMenu = APPreviewEditorMenu.initInstanceFromXib()
         edittorMenu.frame.size.height = 54
         edittorMenu.frame.origin.x = bottomViewContainer.frame.origin.x
@@ -237,6 +246,9 @@ class APPreviewViewController: UIViewController {
         
         undoBarButtonItem.isEnabled = pdfDrawer.changesManager.undoEnable
         redoBarButtonItem.isEnabled = pdfDrawer.changesManager.redoEnable
+        
+        let panAnnotationGesture = UIPanGestureRecognizer(target: self, action: #selector(didPanAnnotation(sender:)))
+        pdfView.addGestureRecognizer(panAnnotationGesture)
     }
     
     private func loadPdfFile() {
@@ -265,6 +277,47 @@ class APPreviewViewController: UIViewController {
             uploadPDFFileToOneDrive()
         }
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    func didPanAnnotation(sender: UIPanGestureRecognizer) {
+        let touchLocation = sender.location(in: pdfView)
+        
+        guard let page = pdfView.page(for: touchLocation, nearest: true)
+            else {
+                return
+        }
+        
+        let locationOnPage = pdfView.convert(touchLocation, to: page)
+        
+        switch sender.state {
+        case .began:
+            
+            guard let annotation = page.annotation(at: locationOnPage) else {
+                return
+            }
+            
+            if annotation.isKind(of: PDFAnnotation.self) {
+                currentSelectedAnnotation = annotation
+            }
+        case .changed:
+            
+            guard let annotation = currentSelectedAnnotation else {
+                return
+            }
+            
+            let initialBounds = annotation.bounds
+            
+            // Set the center of the annotation to the spot of our finger
+            annotation.bounds = CGRect(x: locationOnPage.x - (initialBounds.width / 2), y: locationOnPage.y - (initialBounds.height / 2), width: initialBounds.width, height: initialBounds.height)
+            
+            print("move to \(locationOnPage)")
+            
+        case .ended, .cancelled, .failed:
+            currentSelectedAnnotation = nil
+        default:
+            break
+        }
     }
     
     @objc
@@ -529,8 +582,13 @@ extension APPreviewViewController: APPreviewBottomMenuDelegate {
         print("didSelectInsertPage")
     }
     
-    func didSelectSignaure() {
-        print("didSelectSignaure")
+    func didSelectSignature() {
+        print("didSelectSignature")
+        // push to signature vc
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let signatureVC: APSignatureViewController = storyBoard.instantiateViewController(identifier: "SignatureVC")
+        signatureVC.previousViewController = self
+        navigationController?.pushViewController(signatureVC, animated: true)
     }
 }
 
@@ -555,7 +613,7 @@ extension APPreviewViewController: APPreviewEditorMenuDelegate {
     func didSelectCommentAction(_ sender: UIButton) {
         commentAction(sender)
     }
-   
+    
     func didSelectPenAction(_ sender: UIButton) {
         menuSelectLevel = .final
         editAction()
@@ -651,7 +709,7 @@ extension APPreviewViewController {
         default:
             print("saving the changes")
         }
-
+        
         print("\(Date()) savePDFDocument")
         let copyPdfDoc = pdfDocument!.copy() as! PDFDocument
         DispatchQueue.global(qos: .background).sync { [weak self] in
