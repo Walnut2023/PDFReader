@@ -35,13 +35,7 @@ class APPreviewViewController: UIViewController {
     public var pdfDocument: PDFDocument?
     public var driveItem: MSGraphDriveItem?
     public var fileSourceType: FileSourceType? = .CLOUD
-    var editingMode: EditingMode? = .pen
-    var editingColor: UIColor? = .red
-    var menuSelectLevel: MenuSelectLevel? = .root {
-        didSet {
-            updateBottomContainer()
-        }
-    }
+    public var signatureImage: UIImage?
     
     @IBOutlet weak var pageNumberContainer: UIView!
     @IBOutlet weak var tittleLabelContainer: UIView!
@@ -66,6 +60,27 @@ class APPreviewViewController: UIViewController {
     private lazy var pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
     private lazy var pdfTextDrawingGestureRecognizer = APTextDrawingGestureRecognizer()
     private lazy var pdfCommentDrawingGestureRecognizer = APCommentDrawingGestureRecognizer()
+    
+    private var toolbarActionControl: APPDFToolbarActionControl?
+    private var editButtonClicked: Bool = false
+    private var commentButtonClicked: Bool = false
+    private var needUpload: Bool = false
+    private var tappedOnComment: Bool = false
+    private var count = 0
+    private var timer: APRepeatingTimer?
+    private var currentSelectedAnnotation: PDFAnnotation?
+    
+    private let pdfDrawer = APPDFDrawer()
+    private let pdfTextDrawer = APPDFTextDrawer()
+    private let pdfCommentDrawer = APPDFCommentDrawer()
+    
+    private var editingMode: EditingMode? = .pen
+    private var editingColor: UIColor? = .red
+    private var menuSelectLevel: MenuSelectLevel? = .root {
+        didSet {
+            updateBottomContainer()
+        }
+    }
     
     private lazy var bottomMenu: APPreviewBottomMenu = {
         let bottomMenu = APPreviewBottomMenu.initInstanceFromXib()
@@ -92,31 +107,15 @@ class APPreviewViewController: UIViewController {
         return penControlMenu
     }()
     
-    private var toolbarActionControl: APPDFToolbarActionControl?
-    private var editButtonClicked: Bool = false
-    private var commentButtonClicked: Bool = false
-    private var needUpload: Bool = false
-    
-    private let pdfDrawer = APPDFDrawer()
-    private let pdfTextDrawer = APPDFTextDrawer()
-    private let pdfCommentDrawer = APPDFCommentDrawer()
-    
-    var currentSelectedAnnotation: PDFAnnotation?
-    var signatureImage: UIImage?
-    
-    private var count = 0
-    
-    private var timer: APRepeatingTimer?
-    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStates()
-        setupEvents()
         setupPDFView()
         loadPdfFile()
         setupUI()
+        registerNotification()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -140,11 +139,17 @@ class APPreviewViewController: UIViewController {
         let imageBounds = CGRect(x: pageBounds.midX, y: pageBounds.midY, width: 200, height: 100)
         let imageStamp = APImageStampAnnotation(with: signatureImage, forBounds: imageBounds, withProperties: nil)
         page.addAnnotation(imageStamp)
+        registerNotification()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopTimer()
+    }
+    
+    func registerNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(pdfViewPageChanged), name: .PDFViewPageChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(extractAnnotation(notification:)), name: .PDFViewAnnotationHit, object: nil)
     }
     
     private func setupUI() {
@@ -158,10 +163,10 @@ class APPreviewViewController: UIViewController {
         
         updatePageNumberLabel()
         
-        self.pageControl.isHidden = true
-        self.toolbarActionControl = APPDFToolbarActionControl(pdfPreviewController: self)
-        self.tapGestureRecognizer = UITapGestureRecognizer()
-        tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+        pageControl.isHidden = true
+        toolbarActionControl = APPDFToolbarActionControl(pdfPreviewController: self)
+        tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.addTarget(self, action: #selector(tappedAction(sender:)))
         pdfView.addGestureRecognizer(tapGestureRecognizer)
         setupBottomMenuContainer()
         menuSelectLevel = .root
@@ -199,6 +204,19 @@ class APPreviewViewController: UIViewController {
         bottomViewContainer.addSubview(bottomView)
     }
     
+    func updateLeftNavigationBarButtons() {
+        switch menuSelectLevel {
+        case .root:
+            navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
+            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem], animated: true)
+        case .middle, .final:
+            navigationItem.setLeftBarButtonItems([cancelBarButtonItem], animated: true)
+            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
+        default:
+            navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
+        }
+    }
+    
     func setupStates() {
         switch editingMode {
         case .pen:
@@ -208,17 +226,6 @@ class APPreviewViewController: UIViewController {
         default:
             editingColor = pdfDrawer.color
         }
-    }
-    
-    func setupEvents() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(pdfViewPageChanged),
-                                               name: .PDFViewPageChanged,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(orientationChanged),
-                                               name: UIDevice.orientationDidChangeNotification,
-                                               object:nil)
     }
     
     private func setupPDFView() {
@@ -259,9 +266,27 @@ class APPreviewViewController: UIViewController {
     
     // MARK: -  Action
     
+    @objc func extractAnnotation(notification: Notification) {
+        print("userInfo: \(notification.userInfo ?? [:])")
+        if let note = notification.userInfo?["PDFAnnotationHit"] as? PDFAnnotation {
+            print(note)
+            if note.isKind(of: APCommentImageStampAnnotation.self) {
+                print("click APCommentImageStampAnnotation")
+                tappedOnComment = true
+            } else if note.isKind(of: APImageStampAnnotation.self) {
+                print("click APImageStampAnnotation")
+            } else if note.isKind(of: APWidgetAnnotation.self) {
+                print("click APWidgetAnnotation")
+            } else {
+                print("click APDrawingAnnotation")
+            }
+        }
+    }
+    
     @objc
-    func tappedAction() {
+    func tappedAction(sender: UITapGestureRecognizer) {
         print("tapped")
+        if sender == pdfCommentDrawingGestureRecognizer { return }
         UIView.transition(with: self.bottomViewContainer, duration: 0.25, options: .transitionCrossDissolve, animations: {
             self.navigationController?.setNavigationBarHidden(!(self.navigationController?.isNavigationBarHidden ?? false) , animated: true)
             self.bottomViewContainer.isHidden = !self.bottomViewContainer.isHidden
@@ -282,35 +307,24 @@ class APPreviewViewController: UIViewController {
     @objc
     func didPanAnnotation(sender: UIPanGestureRecognizer) {
         let touchLocation = sender.location(in: pdfView)
-        
-        guard let page = pdfView.page(for: touchLocation, nearest: true)
-            else {
-                return
+        guard let page = pdfView.page(for: touchLocation, nearest: true) else {
+            return
         }
-        
         let locationOnPage = pdfView.convert(touchLocation, to: page)
-        
         switch sender.state {
         case .began:
-            
             guard let annotation = page.annotation(at: locationOnPage) else {
                 return
             }
-            
             if annotation.isKind(of: PDFAnnotation.self) {
                 currentSelectedAnnotation = annotation
             }
         case .changed:
-            
             guard let annotation = currentSelectedAnnotation else {
                 return
             }
-            
             let initialBounds = annotation.bounds
-            
-            // Set the center of the annotation to the spot of our finger
             annotation.bounds = CGRect(x: locationOnPage.x - (initialBounds.width / 2), y: locationOnPage.y - (initialBounds.height / 2), width: initialBounds.width, height: initialBounds.height)
-            
             print("move to \(locationOnPage)")
             
         case .ended, .cancelled, .failed:
@@ -330,7 +344,7 @@ class APPreviewViewController: UIViewController {
             pdfView.removeGestureRecognizer(pdfDrawingGestureRecognizer)
             pdfView.removeGestureRecognizer(pdfTextDrawingGestureRecognizer)
             tapGestureRecognizer = UITapGestureRecognizer()
-            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction(sender:)))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             stopTimer()
             pdfDrawer.changesManager.clear()
@@ -386,8 +400,8 @@ class APPreviewViewController: UIViewController {
             tittleLabelContainer.isHidden = true
             pdfView.removeGestureRecognizer(tapGestureRecognizer)
             pdfCommentDrawingGestureRecognizer = APCommentDrawingGestureRecognizer()
+            pdfCommentDrawingGestureRecognizer.addTarget(self, action: #selector(shouldShowCommentViewController(sender:)))
             pdfView.addGestureRecognizer(pdfCommentDrawingGestureRecognizer)
-            pdfCommentDrawingGestureRecognizer.drawingDelegate = pdfCommentDrawer
             addTimer()
             edittorMenu.disableOtherButtons(sender)
             navigationItem.leftBarButtonItem?.isEnabled = false
@@ -397,7 +411,7 @@ class APPreviewViewController: UIViewController {
             tittleLabelContainer.isHidden = false
             pdfView.removeGestureRecognizer(pdfCommentDrawingGestureRecognizer)
             tapGestureRecognizer = UITapGestureRecognizer()
-            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction(sender:)))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             stopTimer()
             edittorMenu.enableOtherButtons()
@@ -407,16 +421,27 @@ class APPreviewViewController: UIViewController {
         }
     }
     
-    func updateLeftNavigationBarButtons() {
-        switch menuSelectLevel {
-        case .root:
-            navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
-            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem], animated: true)
-        case .middle, .final:
-            navigationItem.setLeftBarButtonItems([cancelBarButtonItem], animated: true)
-            navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
-        default:
-            navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
+    func showCommentViewController(complementionHanlder: @escaping (Bool, String) -> Void) {
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let commentContentVC: APCommentContentViewController = storyBoard.instantiateViewController(identifier: "CommentContentVC")
+        commentContentVC.modalPresentationStyle = .fullScreen
+        commentContentVC.actionHanlder = complementionHanlder
+        present(commentContentVC, animated: true)
+    }
+    
+    @objc
+    func shouldShowCommentViewController(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: sender.view)
+        guard let page = pdfView.page(for: location, nearest: true) else { return }
+        let convertedPoint = pdfView.convert(location, to:page)
+        showCommentViewController { (shouldAddAnnotation, testString) in
+            if shouldAddAnnotation && !self.tappedOnComment {
+                let imageBounds = CGRect(x: convertedPoint.x, y: convertedPoint.y, width: 44, height: 44)
+                let imageStamp = APCommentImageStampAnnotation(forBounds: imageBounds, withProperties: nil)
+                page.addAnnotation(imageStamp)
+            } else {
+                print("tapped on comment")
+            }
         }
     }
     
@@ -508,22 +533,6 @@ class APPreviewViewController: UIViewController {
         updatePageNumberLabel()
     }
     
-    @objc func orientationChanged(_ notification: Notification) {
-        let device = UIDevice.current
-        switch device.orientation {
-        case .portrait:
-            print("portrait")
-        case .portraitUpsideDown:
-            print("portraitUpsideDown")
-        case .landscapeLeft:
-            print("landscapeLeft")
-        case.landscapeRight:
-            print("landscapeRight")
-        default:
-            print("unknown")
-        }
-    }
-    
     func getFileUrl() -> URL? {
         switch fileSourceType {
         case .LOCAL:
@@ -578,13 +587,8 @@ extension APPreviewViewController: APPreviewBottomMenuDelegate {
         addTimer()
     }
     
-    func didSelectInsertPage() {
-        print("didSelectInsertPage")
-    }
-    
     func didSelectSignature() {
         print("didSelectSignature")
-        // push to signature vc
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         let signatureVC: APSignatureViewController = storyBoard.instantiateViewController(identifier: "SignatureVC")
         signatureVC.previousViewController = self
@@ -597,13 +601,10 @@ extension APPreviewViewController: APPreviewEditorMenuDelegate {
         let tag = sender.tag
         switch tag {
         case 2:
-            print("HighLight")
             pdfDrawer.addAnnotation(.highlight, markUpType: .highlight)
         case 3:
-            print("UnderLine")
             pdfDrawer.addAnnotation(.underline, markUpType: .underline)
         case 4:
-            print("StrikeOut")
             pdfDrawer.addAnnotation(.strikeOut, markUpType: .strikeOut)
         default:
             print("HighLight")
@@ -651,7 +652,7 @@ extension APPreviewViewController: APPreviewPenToolMenuDelegate {
             editingMode = .pen
             pdfView.removeGestureRecognizer(pdfTextDrawingGestureRecognizer)
             tapGestureRecognizer = UITapGestureRecognizer()
-            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction))
+            tapGestureRecognizer.addTarget(self, action: #selector(tappedAction(sender:)))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             sender.setImage(UIImage.init(named: "edit_begin"), for: .normal)
             penControlMenu.enableOtherButtons()
