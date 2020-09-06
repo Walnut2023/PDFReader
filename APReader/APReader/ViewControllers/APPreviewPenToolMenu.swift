@@ -29,15 +29,10 @@ class APPreviewPenToolMenu: UIView {
 
     public func initPenControl() {
         penControl = APPencilControl(buttonsArray: [lineBtn, rectBtn, textBtn, pencilBtn, penBtn, markBtn, eraserBtn])
-        penControl?.defaultButton = pencilBtn
     }
     
     public func updateColorBtnColor(_ color: UIColor?) {
         colorBtn.backgroundColor = color
-    }
-    
-    public func enableOtherButtons() {
-        penControl?.enableOtherButtons()
     }
     
     public func enableButtonArray() {
@@ -46,10 +41,6 @@ class APPreviewPenToolMenu: UIView {
     
     public func disableButtonArray() {
         penControl?.disableButtonArray()
-    }
-    
-    public func disableOtherButtons(_ sender: UIButton) {
-        penControl?.disableOtherButtons(sender)
     }
     
     @IBAction func textBtnClicked(_ sender: UIButton) {

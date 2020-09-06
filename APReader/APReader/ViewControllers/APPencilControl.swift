@@ -16,11 +16,6 @@ class APPencilControl: NSObject {
             return (selectedButton?.tag).map { DrawingTool(rawValue: $0) }!!
         }
     }
-    var defaultButton: UIButton = UIButton() {
-        didSet {
-            buttonArrayUpdated(buttonSelected: self.defaultButton)
-        }
-    }
     
     init(buttonsArray: [UIButton]) {
         self.buttonsArray = buttonsArray
@@ -41,20 +36,22 @@ class APPencilControl: NSObject {
         for button in buttonsArray {
             button.isEnabled = true
         }
-        selectedButton?.isSelected = true
+        selectedButton?.isSelected = false
     }
     
     public func disableButtonArray() {
         for button in buttonsArray {
             button.isEnabled = false
         }
-        selectedButton?.isSelected = false
+        selectedButton?.isSelected = true
+        selectedButton?.isEnabled = true
     }
     
     public func enableOtherButtons() {
         for button in buttonsArray {
             button.isEnabled = true
         }
+        selectedButton?.isSelected = false
     }
     
     public func disableOtherButtons(_ sender: UIButton) {

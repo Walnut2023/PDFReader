@@ -8,23 +8,6 @@
 
 import UIKit
 
-protocol APTextDrawingGestureRecognizerDelegate: class {
-    func textGestureRecognizerTapped(_ location: CGPoint)
-}
-
 class APTextDrawingGestureRecognizer: UITapGestureRecognizer {
-    weak var drawingDelegate: APTextDrawingGestureRecognizerDelegate?
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first,
-            let numberOfTouches = event?.allTouches?.count,
-            numberOfTouches == 1 {
-            state = .began
-            
-            let location = touch.location(in: self.view)
-            drawingDelegate?.textGestureRecognizerTapped(location)
-        } else {
-            state = .failed
-        }
-    }
 }

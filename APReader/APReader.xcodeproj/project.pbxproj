@@ -37,7 +37,6 @@
 		C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */; };
 		C49BE40C24CC7EB1006E5D56 /* APDrawingAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */; };
 		C49C88CC24F817F4002253E0 /* APTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88CB24F817F4002253E0 /* APTabBarController.swift */; };
-		C49C88D024FC907C002253E0 /* DevelopGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C49C88CF24FC907C002253E0 /* DevelopGuide.pdf */; };
 		C49C88D224FC93DD002253E0 /* APAddFolderAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D124FC93DD002253E0 /* APAddFolderAlertViewController.swift */; };
 		C49C88DA24FCFBFF002253E0 /* APPreviewBottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */; };
 		C49C88DC24FCFC1F002253E0 /* APPreviewBottomMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */; };
@@ -57,6 +56,8 @@
 		C4D8F5C82504F07700C70985 /* APCommentImageStampAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8F5C72504F07700C70985 /* APCommentImageStampAnnotation.swift */; };
 		C4D8F5CD2504F18100C70985 /* APPDFCommentDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8F5CB2504F18000C70985 /* APPDFCommentDrawer.swift */; };
 		C4D8F5CF2504F45B00C70985 /* APCommentDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8F5CE2504F45B00C70985 /* APCommentDrawingGestureRecognizer.swift */; };
+		C4D8F5D125052C8500C70985 /* DevelopGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C4D8F5D025052C8500C70985 /* DevelopGuide.pdf */; };
+		C4D8F5D52505515100C70985 /* APCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D8F5D42505515100C70985 /* APCommentTableViewCell.swift */; };
 		C4E42A5624EE265C0049AB38 /* APMoreMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */; };
 		C4E42A5A24EE2DB50049AB38 /* APMoreMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */; };
 		C4E42A5C24EE6D760049AB38 /* APFolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E42A5B24EE6D760049AB38 /* APFolderTableViewCell.swift */; };
@@ -116,7 +117,6 @@
 		C49BE40924CC7E56006E5D56 /* APDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
 		C49BE40B24CC7EB1006E5D56 /* APDrawingAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APDrawingAnnotation.swift; sourceTree = "<group>"; };
 		C49C88CB24F817F4002253E0 /* APTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APTabBarController.swift; sourceTree = "<group>"; };
-		C49C88CF24FC907C002253E0 /* DevelopGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DevelopGuide.pdf; sourceTree = "<group>"; };
 		C49C88D124FC93DD002253E0 /* APAddFolderAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APAddFolderAlertViewController.swift; sourceTree = "<group>"; };
 		C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPreviewBottomMenu.swift; sourceTree = "<group>"; };
 		C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APPreviewBottomMenu.xib; sourceTree = "<group>"; };
@@ -138,6 +138,8 @@
 		C4D8F5C72504F07700C70985 /* APCommentImageStampAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCommentImageStampAnnotation.swift; sourceTree = "<group>"; };
 		C4D8F5CB2504F18000C70985 /* APPDFCommentDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPDFCommentDrawer.swift; sourceTree = "<group>"; };
 		C4D8F5CE2504F45B00C70985 /* APCommentDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCommentDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
+		C4D8F5D025052C8500C70985 /* DevelopGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DevelopGuide.pdf; sourceTree = "<group>"; };
+		C4D8F5D42505515100C70985 /* APCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APCommentTableViewCell.swift; sourceTree = "<group>"; };
 		C4E42A5524EE265C0049AB38 /* APMoreMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APMoreMenuCell.swift; sourceTree = "<group>"; };
 		C4E42A5924EE2DB50049AB38 /* APMoreMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APMoreMenuViewController.swift; sourceTree = "<group>"; };
 		C4E42A5B24EE6D760049AB38 /* APFolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APFolderTableViewCell.swift; sourceTree = "<group>"; };
@@ -209,7 +211,7 @@
 		C49BE3FB24CC7178006E5D56 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C49C88CF24FC907C002253E0 /* DevelopGuide.pdf */,
+				C4D8F5D025052C8500C70985 /* DevelopGuide.pdf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -280,6 +282,7 @@
 				C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */,
 				C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */,
 				C4E9FDAE24FD0D84008BC15F /* APPreviewEditorMenu.swift */,
+				C4D8F5D42505515100C70985 /* APCommentTableViewCell.swift */,
 				C4E9FDB024FD0D9D008BC15F /* APPreviewEditorMenu.xib */,
 				C4E9FDB224FD56C5008BC15F /* APPreviewPenToolMenu.swift */,
 				C4E9FDB424FD5723008BC15F /* APPreviewPenToolMenu.xib */,
@@ -482,8 +485,8 @@
 				C49C88DC24FCFC1F002253E0 /* APPreviewBottomMenu.xib in Resources */,
 				C4EF3B4724CC09EE002E6A6A /* LaunchScreen.storyboard in Resources */,
 				C4E9FDB524FD5723008BC15F /* APPreviewPenToolMenu.xib in Resources */,
+				C4D8F5D125052C8500C70985 /* DevelopGuide.pdf in Resources */,
 				C4EF3B4424CC09EE002E6A6A /* Assets.xcassets in Resources */,
-				C49C88D024FC907C002253E0 /* DevelopGuide.pdf in Resources */,
 				C4EF3B4224CC09E7002E6A6A /* Main.storyboard in Resources */,
 				C4256D0924EB742400F6621B /* APNavigationTittleView.xib in Resources */,
 				C4F1DBCB24E28E4000476494 /* AuthSettings.plist in Resources */,
@@ -558,6 +561,7 @@
 				C49BE40A24CC7E56006E5D56 /* APDrawingGestureRecognizer.swift in Sources */,
 				C49BE40524CC7ACE006E5D56 /* PDFKitExtensions.swift in Sources */,
 				C43D8E5E24D1709400558110 /* APOutlineTableViewController.swift in Sources */,
+				C4D8F5D52505515100C70985 /* APCommentTableViewCell.swift in Sources */,
 				C4F1DBDE24E2F96900476494 /* APFileItemTableViewCell.swift in Sources */,
 				C42CCCBC24CC655500D6F0E8 /* APPreviewViewController.swift in Sources */,
 				C4EF3B3B24CC09E7002E6A6A /* AppDelegate.swift in Sources */,

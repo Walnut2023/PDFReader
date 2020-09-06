@@ -11,11 +11,8 @@ import PDFKit
 
 class APCommentImageStampAnnotation: PDFAnnotation {
     
-    var image: UIImage!
-
     init(forBounds bounds: CGRect, withProperties properties: [AnyHashable : Any]?) {
         super.init(bounds: bounds, forType: PDFAnnotationSubtype.stamp, withProperties: properties)
-        self.image = #imageLiteral(resourceName: "comment")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,7 +20,7 @@ class APCommentImageStampAnnotation: PDFAnnotation {
     }
     
     override func draw(with box: PDFDisplayBox, in context: CGContext) {
-        guard let cgImage = self.image.cgImage else { return }
-        context.draw(cgImage, in: self.bounds)
+        context.setFillColor(UIColor.systemBlue.cgColor)
+        context.fill(bounds)
     }
 }

@@ -54,7 +54,7 @@ enum DrawingTool: Int {
         case .highlighter:
             return 10
         default:
-            return 0
+            return 5
         }
     }
     
@@ -185,6 +185,7 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
             // arrow
             let angle = APDrawUtilities.angleBetweenPoint(point, andOtherPoint: startPoint)
             path = APArrowBezierPath.endLine(atPoint: point, fromType: endLineStyle)
+            path?.lineWidth = 7
             APDrawUtilities.rotateBezierPath(path!, aroundPoint: point, withAngle: angle)
     
             path?.move(to: startPoint)
@@ -201,12 +202,11 @@ extension APPDFDrawer: APDrawingGestureRecognizerDelegate {
             } else if shape == ShapeType.circle {
                 path = UIBezierPath(ovalIn: shapeRect)
             }
+            path?.lineWidth = 7
         default:
             print("default")
         }
-
-        path?.lineWidth = drawingTool.width
-
+        
         createFinalAnnotation(path: path!, page: page)
         currentAnnotation = nil
         // notify

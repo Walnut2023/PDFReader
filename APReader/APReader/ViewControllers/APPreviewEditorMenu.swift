@@ -28,15 +28,7 @@ class APPreviewEditorMenu: UIView {
     
     private var penControl: APPencilControl?
     public func initPenControl() {
-        penControl = APPencilControl(buttonsArray: [commentBtn, paintBtn, highLightBtn, underLineBtn, strikeOutBtn, colorBtn])
-    }
-
-    public func enableOtherButtons() {
-        penControl?.enableOtherButtons()
-    }
-    
-    public func disableOtherButtons(_ sender: UIButton) {
-        penControl?.disableOtherButtons(sender)
+        penControl = APPencilControl(buttonsArray: [commentBtn, paintBtn, highLightBtn, underLineBtn, strikeOutBtn])
     }
     
     public func enableButtonArray() {
@@ -47,21 +39,22 @@ class APPreviewEditorMenu: UIView {
         penControl?.disableButtonArray()
     }
     
-
-    
     public func updateColorBtnColor(_ color: UIColor?) {
         colorBtn.backgroundColor = color
     }
     
     @IBAction func commentAction(_ sender: UIButton) {
+        penControl?.buttonArrayUpdated(buttonSelected: sender)
         delegate?.didSelectCommentAction(sender)
     }
     
     @IBAction func penAction(_ sender: UIButton) {
+        penControl?.buttonArrayUpdated(buttonSelected: sender)
         delegate?.didSelectPenAction(sender)
     }
     
     @IBAction func didSelectTextEdit(_ sender: UIButton) {
+        penControl?.buttonArrayUpdated(buttonSelected: sender)
         delegate?.didSelectTextEditAction(sender)
     }
     
