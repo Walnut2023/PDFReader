@@ -11,10 +11,15 @@ import UIKit
 class APCommentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var textFiled: UITextField!
+    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var modifiedTimeLabel: UILabel!
     
-    public var commentString: String? {
+    public var commentDict: [String : String]? {
         didSet {
-            self.textFiled.text = commentString
+            self.textFiled.text = commentDict?["comment"]
+            self.modifiedTimeLabel.text = Date.init().date2String()
+            self.userNameLabel.text = commentDict?["user"]
         }
     }
 

@@ -276,9 +276,13 @@ class APPreviewViewController: UIViewController {
             if note.isMember(of: APCommentImageStampAnnotation.self) || note.type == "Stamp" {
                 print("click APCommentImageStampAnnotation")
                 if editingMode != .comment {
-                    showCommentViewController(in: note.bounds.origin) { (shouldAddAnnotation, testString) in
-                        print("tapped on comment")
-                        // have a save operation
+                    guard let page = pdfView.currentPage, let index = pdfView.document?.index(for: page) else { return }
+                    showCommentViewController(in: note.bounds.origin, pageIndex: index) { (shouldAddAnnotation, shouldRemoveAnnotation) in
+                        print("tapped on comment in extractAnnotation")
+                        if shouldRemoveAnnotation {
+                            page.removeAnnotation(note)
+                        }
+                        self.addTimer()
                         self.tappedOnComment = false
                     }
                 }
@@ -426,10 +430,12 @@ class APPreviewViewController: UIViewController {
         }
     }
     
-    func showCommentViewController(in location: CGPoint, complementionHanlder: @escaping (Bool, String) -> Void) {
+    func showCommentViewController(in location: CGPoint, pageIndex: Int, complementionHanlder: @escaping (Bool, Bool) -> Void) {
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         let commentContentVC: APCommentContentViewController = storyBoard.instantiateViewController(identifier: "CommentContentVC")
         commentContentVC.modalPresentationStyle = .fullScreen
+        commentContentVC.fileName = driveItem?.name
+        commentContentVC.pageIndex = pageIndex
         commentContentVC.location = location
         commentContentVC.actionHanlder = complementionHanlder
         present(commentContentVC, animated: true)
@@ -438,9 +444,10 @@ class APPreviewViewController: UIViewController {
     @objc
     func shouldShowCommentViewController(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
-        guard let page = pdfView.page(for: location, nearest: true) else { return }
-        let convertedPoint = pdfView.convert(location, to:page)
-        showCommentViewController(in: convertedPoint) { (shouldAddAnnotation, testString) in
+        guard let page = pdfView.page(for: location, nearest: true), let index = pdfView.document?.index(for: page) else { return }
+        let convertPoint = pdfView.convert(location, to:page)
+        let convertedPoint = CGPoint(x: Double(String(format:"%.3f", convertPoint.x)) ?? 0, y: Double(String(format:"%.3f", convertPoint.y)) ?? 0)
+        showCommentViewController(in: convertedPoint, pageIndex: index) { (shouldAddAnnotation, shouldRemoveAnnotation) in
             if shouldAddAnnotation && !self.tappedOnComment {
                 let imageBounds = CGRect(x: convertedPoint.x, y: convertedPoint.y, width: 30, height: 30)
                 let imageStamp = APCommentImageStampAnnotation(forBounds: imageBounds, withProperties: nil)
@@ -448,7 +455,6 @@ class APPreviewViewController: UIViewController {
                 
                 self.pdfCommentDrawer.changesManager.addWidgetAnnotation(imageStamp, forPage: page)
                 self.pdfCommentDrawer.delegate?.pdfCommentDrawerDidFinishDrawing()
-                
             } else {
                 print("tapped on comment")
                 self.tappedOnComment = false
@@ -805,8 +811,6 @@ extension APPreviewViewController {
             if !pdfDrawer.changesManager.undoEnable {
                 return
             }
-        case .preview:
-            return
         default:
             print("saving the changes")
         }

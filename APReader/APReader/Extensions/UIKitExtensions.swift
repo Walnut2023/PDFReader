@@ -189,6 +189,16 @@ extension String {
     }
 }
 
+extension Date {
+    func date2String(dateFormat: String = "yyyy-MM-dd HH:mm") -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.init(identifier: "US")
+        formatter.dateFormat = dateFormat
+        let date = formatter.string(from: self)
+        return date
+    }
+}
+
 extension UIColor {
     static func hex(_ val: UInt) -> UIColor {
         var r: UInt = 0, g: UInt = 0, b: UInt = 0;
