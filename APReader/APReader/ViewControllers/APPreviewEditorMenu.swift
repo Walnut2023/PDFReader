@@ -9,7 +9,7 @@
 import UIKit
 
 protocol APPreviewEditorMenuDelegate {
-    func didSelectCommentAction(_ sender: UIButton)
+//    func didSelectCommentAction(_ sender: UIButton)
     func didSelectPenAction(_ sender: UIButton)
     func didSelectTextEditAction(_ sender: UIButton)
     func didSelectColorInEditorMenu(_ sender: UIButton)
@@ -17,7 +17,7 @@ protocol APPreviewEditorMenuDelegate {
 
 class APPreviewEditorMenu: UIView {
     
-    @IBOutlet weak var commentBtn: UIButton!
+//    @IBOutlet weak var commentBtn: UIButton!
     @IBOutlet weak var paintBtn: UIButton!
     @IBOutlet weak var highLightBtn: UIButton!
     @IBOutlet weak var underLineBtn: UIButton!
@@ -28,7 +28,7 @@ class APPreviewEditorMenu: UIView {
     
     private var penControl: APPencilControl?
     public func initPenControl() {
-        penControl = APPencilControl(buttonsArray: [commentBtn, paintBtn, highLightBtn, underLineBtn, strikeOutBtn])
+        penControl = APPencilControl(buttonsArray: [paintBtn, highLightBtn, underLineBtn, strikeOutBtn])
     }
     
     public func enableButtonArray() {
@@ -43,10 +43,10 @@ class APPreviewEditorMenu: UIView {
         colorBtn.backgroundColor = color
     }
     
-    @IBAction func commentAction(_ sender: UIButton) {
-        penControl?.buttonArrayUpdated(buttonSelected: sender)
-        delegate?.didSelectCommentAction(sender)
-    }
+//    @IBAction func commentAction(_ sender: UIButton) {
+//        penControl?.buttonArrayUpdated(buttonSelected: sender)
+//        delegate?.didSelectCommentAction(sender)
+//    }
     
     @IBAction func penAction(_ sender: UIButton) {
         penControl?.buttonArrayUpdated(buttonSelected: sender)

@@ -282,10 +282,10 @@
 				C49C88D924FCFBFF002253E0 /* APPreviewBottomMenu.swift */,
 				C49C88DB24FCFC1F002253E0 /* APPreviewBottomMenu.xib */,
 				C4E9FDAE24FD0D84008BC15F /* APPreviewEditorMenu.swift */,
-				C4D8F5D42505515100C70985 /* APCommentTableViewCell.swift */,
 				C4E9FDB024FD0D9D008BC15F /* APPreviewEditorMenu.xib */,
 				C4E9FDB224FD56C5008BC15F /* APPreviewPenToolMenu.swift */,
 				C4E9FDB424FD5723008BC15F /* APPreviewPenToolMenu.xib */,
+				C4D8F5D42505515100C70985 /* APCommentTableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -695,7 +695,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -834,7 +834,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -859,7 +859,7 @@
 				CODE_SIGN_ENTITLEMENTS = APReader/APReader.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhenzhi Tang (UKXWZ3FS84)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = UKXWZ3FS84;
 				INFOPLIST_FILE = APReader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -410,8 +410,8 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="    Enter comment here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Htv-PA-IAN">
-                                <rect key="frame" x="0.0" y="52" width="414" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter comment here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Htv-PA-IAN">
+                                <rect key="frame" x="16" y="52" width="398" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="NUj-Lj-CXI"/>
                                 </constraints>
@@ -519,7 +519,7 @@
                             <constraint firstItem="Zdl-G3-AJu" firstAttribute="trailing" secondItem="rMC-hY-C7r" secondAttribute="trailing" id="j1p-Hj-0nq"/>
                             <constraint firstItem="Zdl-G3-AJu" firstAttribute="bottom" secondItem="rMC-hY-C7r" secondAttribute="bottom" id="nPg-RQ-kVc"/>
                             <constraint firstItem="Htv-PA-IAN" firstAttribute="trailing" secondItem="rMC-hY-C7r" secondAttribute="trailing" id="sau-5q-3Jp"/>
-                            <constraint firstItem="Htv-PA-IAN" firstAttribute="leading" secondItem="rMC-hY-C7r" secondAttribute="leading" id="t4y-Fh-rSu"/>
+                            <constraint firstItem="Htv-PA-IAN" firstAttribute="leading" secondItem="rMC-hY-C7r" secondAttribute="leading" constant="16" id="t4y-Fh-rSu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rMC-hY-C7r"/>
                     </view>
@@ -789,14 +789,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="APBookmarkTableViewCell" id="z21-IL-l9d" customClass="APBookmarkTableViewCell" customModule="APReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="30.333333969116211"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="29.666666030883789"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z21-IL-l9d" id="xNq-QS-kko">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30.333333969116211"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="29.666666030883789"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2u-A0-fpJ">
-                                                    <rect key="frame" x="16" y="4" width="382" height="21"/>
+                                                    <rect key="frame" x="16" y="4" width="382" height="20.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>

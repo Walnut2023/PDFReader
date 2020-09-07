@@ -9,25 +9,49 @@
 import UIKit
 
 protocol APPreviewBottomMenuDelegate {
-    func didSelectComment()
-    func didSelectSignature()
+    func didSelectMark()
+    func didSelectComment(_ sender: UIButton)
 }
 
 class APPreviewBottomMenu: UIView {
 
+    private var penControl: APPencilControl?
+    @IBOutlet weak var commentBtn: UIButton!
+    @IBOutlet weak var markBtn: UIButton!
+    
     public var delegate: APPreviewBottomMenuDelegate?
 
-    @IBAction func commentAction(_ sender: Any) {
-        delegate?.didSelectComment()
+    public func initPenControl() {
+        penControl = APPencilControl(buttonsArray: [commentBtn, markBtn])
     }
     
-    @IBAction func signatureAction(_ sender: Any) {
-        delegate?.didSelectSignature()
+    public func enableButtonArray() {
+        penControl?.enableButtonArray()
     }
+    
+    public func disableButtonArray() {
+        penControl?.disableButtonArray()
+    }
+    
+    @IBAction func markAction(_ sender: UIButton) {
+        penControl?.buttonArrayUpdated(buttonSelected: sender)
+        delegate?.didSelectMark()
+    }
+    
+    @IBAction func commentAction(_ sender: UIButton) {
+        penControl?.buttonArrayUpdated(buttonSelected: sender)
+        delegate?.didSelectComment(sender)
+    }
+    
+//    @IBAction func signatureAction(_ sender: Any) {
+//        delegate?.didSelectSignature()
+//    }
 }
 
 extension APPreviewBottomMenu {
     public class func initInstanceFromXib()-> APPreviewBottomMenu {
-        return Bundle.main.loadNibNamed("\(self)", owner: self, options: nil)?.last as! APPreviewBottomMenu
+        let menu = Bundle.main.loadNibNamed("\(self)", owner: self, options: nil)?.last as! APPreviewBottomMenu
+        menu.initPenControl()
+        return menu
     }
 }

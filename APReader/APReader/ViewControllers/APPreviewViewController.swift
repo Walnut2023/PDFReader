@@ -210,8 +210,18 @@ class APPreviewViewController: UIViewController {
         case .root:
             navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem], animated: true)
+            if editingMode == .comment {
+                navigationItem.setLeftBarButtonItems([cancelBarButtonItem], animated: true)
+                navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
+            } else if editingMode == .preview {
+                navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
+                navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem], animated: true)
+            }
         case .middle, .final:
             navigationItem.setLeftBarButtonItems([cancelBarButtonItem], animated: true)
+            if editingMode == .preview {
+                navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
+            }
             navigationItem.setRightBarButtonItems([bookmarkBarButtonItem, searchBarButtonItem, redoBarButtonItem, undoBarButtonItem], animated: true)
         default:
             navigationItem.setLeftBarButtonItems([backBarButtonItem, outlineBarButtonItem, thumbnailBarButtonItem], animated: true)
@@ -273,7 +283,7 @@ class APPreviewViewController: UIViewController {
         print("userInfo: \(notification.userInfo ?? [:])")
         if let note = notification.userInfo?["PDFAnnotationHit"] as? PDFAnnotation {
             print(note)
-            if note.isMember(of: APCommentImageStampAnnotation.self) || note.type == "Stamp" {
+            if note.isKind(of: APCommentImageStampAnnotation.self) || (note.type == "Stamp" && note.contents == "Comment") {
                 print("click APCommentImageStampAnnotation")
                 if editingMode != .comment {
                     guard let page = pdfView.currentPage, let index = pdfView.document?.index(for: page) else { return }
@@ -300,6 +310,7 @@ class APPreviewViewController: UIViewController {
     @objc
     func tappedAction(sender: UITapGestureRecognizer) {
         print("tapped")
+        if commentButtonClicked { return }
         if sender == pdfCommentDrawingGestureRecognizer { return }
         UIView.transition(with: self.bottomViewContainer, duration: 0.25, options: .transitionCrossDissolve, animations: {
             self.navigationController?.setNavigationBarHidden(!(self.navigationController?.isNavigationBarHidden ?? false) , animated: true)
@@ -406,6 +417,7 @@ class APPreviewViewController: UIViewController {
         commentButtonClicked = !commentButtonClicked
         if commentButtonClicked {
             editingMode = .comment
+            updateLeftNavigationBarButtons()
             tittleLabelContainer.isHidden = true
             pdfView.removeGestureRecognizer(tapGestureRecognizer)
             pdfCommentDrawingGestureRecognizer = APCommentDrawingGestureRecognizer()
@@ -413,17 +425,18 @@ class APPreviewViewController: UIViewController {
             pdfView.addGestureRecognizer(pdfCommentDrawingGestureRecognizer)
             sender.setImage(UIImage.init(named: "comment-sel"), for: .normal)
             addTimer()
-            edittorMenu.disableButtonArray()
+            bottomMenu.disableButtonArray()
             navigationItem.leftBarButtonItem?.isEnabled = false
         } else {
             editingMode = .preview
+            updateLeftNavigationBarButtons()
             tittleLabelContainer.isHidden = false
             pdfView.removeGestureRecognizer(pdfCommentDrawingGestureRecognizer)
             tapGestureRecognizer = UITapGestureRecognizer()
             tapGestureRecognizer.addTarget(self, action: #selector(tappedAction(sender:)))
             pdfView.addGestureRecognizer(tapGestureRecognizer)
             sender.setImage(UIImage.init(named: "comment"), for: .normal)
-            edittorMenu.enableButtonArray()
+            bottomMenu.enableButtonArray()
             pdfCommentDrawer.changesManager.clear()
             pdfCommentDrawer.delegate?.pdfCommentDrawerDidFinishDrawing()
             navigationItem.leftBarButtonItem?.isEnabled = true
@@ -451,8 +464,8 @@ class APPreviewViewController: UIViewController {
             if shouldAddAnnotation && !self.tappedOnComment {
                 let imageBounds = CGRect(x: convertedPoint.x, y: convertedPoint.y, width: 30, height: 30)
                 let imageStamp = APCommentImageStampAnnotation(forBounds: imageBounds, withProperties: nil)
+                imageStamp.contents = "Comment"
                 page.addAnnotation(imageStamp)
-                
                 self.pdfCommentDrawer.changesManager.addWidgetAnnotation(imageStamp, forPage: page)
                 self.pdfCommentDrawer.delegate?.pdfCommentDrawerDidFinishDrawing()
             } else {
@@ -588,15 +601,15 @@ class APPreviewViewController: UIViewController {
         }
     }
     
-    @IBAction func pageUpAction(_ sender: Any) {
-        print("page up action")
-        pdfView.goToPreviousPage(sender)
-    }
-    
-    @IBAction func pageDownAction(_ sender: Any) {
-        print("page down action")
-        pdfView.goToNextPage(sender)
-    }
+//    @IBAction func pageUpAction(_ sender: Any) {
+//        print("page up action")
+//        pdfView.goToPreviousPage(sender)
+//    }
+//
+//    @IBAction func pageDownAction(_ sender: Any) {
+//        print("page down action")
+//        pdfView.goToNextPage(sender)
+//    }
     
     func didSelectPdfOutline(_ pdfOutline: PDFOutline?) {
         if let pdfOutline = pdfOutline {
@@ -692,30 +705,36 @@ extension APPreviewViewController: APPDFCommentDrawerDelegate {
 }
 
 extension APPreviewViewController: APPreviewBottomMenuDelegate {
-    func didSelectComment() {
+    func didSelectMark() {
         print("didSelectComment")
         menuSelectLevel = .middle
+        editingMode = .preview
         updateLeftNavigationBarButtons()
         addTimer()
     }
     
-    func didSelectSignature() {
-        print("didSelectSignature")
-        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-        let signatureVC: APSignatureViewController = storyBoard.instantiateViewController(identifier: "SignatureVC")
-        signatureVC.previousViewController = self
-        editingMode = .signature
-        navigationController?.pushViewController(signatureVC, animated: true)
-    }
-}
-
-extension APPreviewViewController: APPreviewEditorMenuDelegate {
-    func didSelectCommentAction(_ sender: UIButton) {
+    func didSelectComment(_ sender: UIButton) {
         commentInBottomMenuAction(sender)
     }
     
+//    func didSelectSignature() {
+//        print("didSelectSignature")
+//        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+//        let signatureVC: APSignatureViewController = storyBoard.instantiateViewController(identifier: "SignatureVC")
+//        signatureVC.previousViewController = self
+//        editingMode = .signature
+//        navigationController?.pushViewController(signatureVC, animated: true)
+//    }
+}
+
+extension APPreviewViewController: APPreviewEditorMenuDelegate {
+//    func didSelectCommentAction(_ sender: UIButton) {
+//        commentInBottomMenuAction(sender)
+//    }
+    
     func didSelectPenAction(_ sender: UIButton) {
         menuSelectLevel = .final
+        
         editAction()
     }
     
@@ -742,6 +761,7 @@ extension APPreviewViewController: APPreviewEditorMenuDelegate {
 extension APPreviewViewController: APPreviewPenToolMenuDelegate {
     func didSelectPenControl(_ selectedValue: DrawingTool) {
         if editButtonClicked {
+            editingMode = .pen
             pdfView.removeGestureRecognizer(tapGestureRecognizer)
             pdfDrawingGestureRecognizer = APDrawingGestureRecognizer()
             pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
@@ -760,6 +780,7 @@ extension APPreviewViewController: APPreviewPenToolMenuDelegate {
     }
     
     func didSelectTextInputMode(_ sender: UIButton) {
+        editingMode = .text
         textInputInBottomMenuAction(sender)
     }
     
